@@ -1,6 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 
-namespace CodeName.Engine.BaseClasses
+namespace Teamwork_OOP.Engine.BaseClasses
 {
 	public abstract class GameObject
 	{

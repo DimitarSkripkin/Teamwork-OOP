@@ -1,6 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 
-namespace CodeName.Engine.Interfaces
+namespace Teamwork_OOP.Engine.Interfaces
 {
 	interface IMoveable
 	{

@@ -42,12 +42,14 @@
     <Compile Include="Engine\BaseClasses\Entity.cs" />
     <Compile Include="Engine\BaseClasses\GameObject.cs" />
     <Compile Include="Engine\BaseClasses\Item.cs" />
+    <Compile Include="Engine\BaseClasses\Skill.cs" />
     <Compile Include="Engine\Interfaces\IBaseStats.cs" />
     <Compile Include="Engine\Interfaces\IMoveable.cs" />
     <Compile Include="Engine\Interfaces\ISecondaryStats.cs" />
+    <Compile Include="Engine\Interfaces\ISkill.cs" />
     <Compile Include="Engine\Map\Map.cs" />
     <Compile Include="Game1.cs" />
-    <Compile Include="Program.cs" />
+    <Compile Include="MainEntry.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace CodeName
+namespace Teamwork_OOP
 {
 #if WINDOWS || LINUX
     /// <summary>

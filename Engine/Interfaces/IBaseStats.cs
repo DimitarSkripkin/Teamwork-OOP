@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace CodeName.Engine.Interfaces
+namespace Teamwork_OOP.Engine.Interfaces
 {
 	interface IBaseStats
 	{

@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace CodeName.Engine.BaseClasses
+namespace Teamwork_OOP.Engine.BaseClasses
 {
 	using Interfaces;
 
 	public abstract class Item// : GameObject, IBaseStats, ISecondaryStats
-	{		
+	{
 	}
 }
