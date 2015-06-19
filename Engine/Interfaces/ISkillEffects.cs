@@ -5,7 +5,8 @@ using System.Text;
 
 namespace Teamwork_OOP.Engine.Interfaces
 {
-	interface ISkill
+	interface ISkillEffects
 	{
+		float SpellDamage { get; }
 	}
 }

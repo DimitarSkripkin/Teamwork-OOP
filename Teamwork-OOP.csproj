@@ -39,15 +39,33 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Engine\AnimationSprite.cs" />
+    <Compile Include="Engine\BaseClasses\CollidableObject.cs" />
     <Compile Include="Engine\BaseClasses\Entity.cs" />
     <Compile Include="Engine\BaseClasses\GameObject.cs" />
-    <Compile Include="Engine\BaseClasses\Item.cs" />
-    <Compile Include="Engine\BaseClasses\Skill.cs" />
+    <Compile Include="Engine\Items\Item.cs" />
+    <Compile Include="Engine\Items\MeleeWeapon.cs" />
+    <Compile Include="Engine\Items\RangeWeapon.cs" />
+    <Compile Include="Engine\Skills\ProjectileSkill.cs" />
+    <Compile Include="Engine\Skills\Skill.cs" />
+    <Compile Include="Engine\BaseClasses\Projectile.cs" />
+    <Compile Include="Engine\Skills\TargetSkill.cs" />
     <Compile Include="Engine\Interfaces\IBaseStats.cs" />
     <Compile Include="Engine\Interfaces\IMoveable.cs" />
     <Compile Include="Engine\Interfaces\ISecondaryStats.cs" />
-    <Compile Include="Engine\Interfaces\ISkill.cs" />
+    <Compile Include="Engine\Interfaces\ISkillEffects.cs" />
     <Compile Include="Engine\Map\Map.cs" />
+    <Compile Include="Engine\Map\MapBlock.cs" />
+    <Compile Include="Engine\Map\MapPlatform.cs" />
+    <Compile Include="Engine\Physics\AABB.cs" />
+    <Compile Include="Engine\Physics\Circle.cs" />
+    <Compile Include="Engine\Physics\CollisionChecker.cs" />
+    <Compile Include="Engine\Physics\PhysicsEngine.cs" />
+    <Compile Include="Engine\Physics\CollisionEvent.cs" />
+    <Compile Include="Engine\Physics\CollisionShape.cs" />
+    <Compile Include="Engine\Physics\DistanceChecker.cs" />
+    <Compile Include="Engine\Skills\Fireball.cs" />
+    <Compile Include="Engine\UI\UIItem.cs" />
+    <Compile Include="Engine\UI\UIManager.cs" />
     <Compile Include="Game1.cs" />
     <Compile Include="MainEntry.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -70,6 +88,11 @@
   </ItemGroup>
   <ItemGroup>
     <MonoGameContentReference Include="Content\Content.mgcb" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Engine\AI\" />
+    <Folder Include="Engine\Exseptions\" />
+    <Folder Include="Engine\Factories\" />
   </ItemGroup>
   <!-- Specify the search path explicitly so the ResolveAssemblyReferences task picks the right ones -->
   <Target Name="BeforeResolveReferences">

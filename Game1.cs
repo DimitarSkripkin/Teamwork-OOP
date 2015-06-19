@@ -6,6 +6,7 @@ using System;
 namespace Teamwork_OOP
 {
 	using Engine;
+	using Engine.Physics;
 
 	/// <summary>
 	/// This is the main type for your game.
@@ -18,6 +19,11 @@ namespace Teamwork_OOP
 		private Texture2D logo;
 		private Texture2D runAnimation;
 		private AnimationSprite animation;
+
+		// vvvv remove vvvv
+		private Texture2D box, circle;
+		CollisionShape shapeA, shapeB;
+		// ^^^^^^^^^^^^^^^^
 
 		public Game1()
 		{
@@ -36,6 +42,11 @@ namespace Teamwork_OOP
 			// TODO: Add your initialization logic here
 			animation = new AnimationSprite(10, 1);
 
+			// WINDOW SETTINGS
+			graphics.PreferredBackBufferWidth = 640;
+			graphics.PreferredBackBufferHeight = 480;
+			//graphics.ToggleFullScreen();
+
 			base.Initialize();
 		}
 
@@ -51,6 +62,14 @@ namespace Teamwork_OOP
 			// TODO: use this.Content to load your game content here
 			logo = this.Content.Load<Texture2D>("Textures/logo");
 			runAnimation = this.Content.Load<Texture2D>("Textures/Run");
+
+			// vvvv remove vvvv
+			box = this.Content.Load<Texture2D>("CollisionTestShapes/box");
+			circle = this.Content.Load<Texture2D>("CollisionTestShapes/circle");
+			shapeA = new AABB(new Vector2(100, 100), new Vector2(64, 64), CollisionObjectFlags.Kinematic);
+			//shapeB = new AABB(new Vector2(100, 100), new Vector2(-32), new Vector2(32), CollisionObjectFlags.Kinematic);
+			shapeB = new Circle(32, new Vector2(30, 30), CollisionObjectFlags.Kinematic);
+			// ^^^^^^^^^^^^^^^^
 		}
 
 		/// <summary>
@@ -63,6 +82,11 @@ namespace Teamwork_OOP
 			//this.Content.Unload();
 			logo.Dispose();
 			runAnimation.Dispose();
+
+			// vvvv remove vvvv
+			box.Dispose();
+			circle.Dispose();
+			// ^^^^^^^^^^^^^^^^
 		}
 
 		/// <summary>
@@ -77,13 +101,14 @@ namespace Teamwork_OOP
 				Exit();
 			}
 
+			// check for input and dispatch as event
 			MouseState mouse = Mouse.GetState();
 			if (mouse.LeftButton == ButtonState.Pressed)
 			{
-				Exit();
+				//Exit();
 			}
 
-			// TODO: Add your update logic here
+			// TODO: add update logic here
 			TimeSpan timeSpan = gameTime.ElapsedGameTime;
 			float deltaTime = (float)(timeSpan.TotalMilliseconds / 1000.0f);
 
@@ -101,23 +126,37 @@ namespace Teamwork_OOP
 			GraphicsDevice.Clear(Color.CornflowerBlue);
 
 			// TODO: Add your drawing code here
+
+			// vvvv remove vvvv
 			Matrix matrix = Matrix.Identity;
 			//matrix = Matrix.CreateRotationZ((float)(-45.0f * (Math.PI / 180.0)));
 
 			//spriteBatch.Begin(SpriteSortMode.BackToFront, BlendState.AlphaBlend);
 			//spriteBatch.Draw(logo, new Vector2(10, 10), Color.White);
 			//spriteBatch.End();
+			// ^^^^^^^^^^^^^^^^
 
 			spriteBatch.Begin(SpriteSortMode.BackToFront, BlendState.AlphaBlend, null,null,null,null, matrix);
 			//spriteBatch.Draw(logo, new Vector2(10, 10), Color.White);
 
+			// TODO: ???
 			//animation.DrawSprite();
 
-			spriteBatch.Draw(runAnimation, new Vector2(Mouse.GetState().X, Mouse.GetState().Y),// Vector2.Zero,
-				new Rectangle(animation.GetCurrentFrame() * 64, 0, 64, 64),
-				Color.White, 0, Vector2.Zero, 1, SpriteEffects.None, 0);
+			// vvvv remove vvvv
+			shapeB.Position = new Vector2(Mouse.GetState().X, Mouse.GetState().Y);
+			Color color = Color.White;
+			if (CollisionChecker.CheckForCollision(shapeA, shapeB))
+			{
+				color = Color.Blue;
+			}
+			spriteBatch.Draw(box, shapeA.Position, null, color, 0.0f, Vector2.Zero, 0.5f, SpriteEffects.None, 0);
+			spriteBatch.Draw(circle, shapeB.Position, null, color, 0.0f, new Vector2(circle.Width/2), 0.5f, SpriteEffects.None, 0);
+			// ^^^^^^^^^^^^^^^^
 
-			spriteBatch.Draw(logo, new Vector2(10, 10), Color.White);
+			// draw animated test sprite
+			//spriteBatch.Draw(runAnimation, new Vector2(Mouse.GetState().X, Mouse.GetState().Y),// Vector2.Zero,
+			//	new Rectangle(animation.GetCurrentFrame() * 64, 0, 64, 64),
+			//	Color.White, 0, Vector2.Zero, 1, SpriteEffects.None, 0);
 
 			spriteBatch.End();
 

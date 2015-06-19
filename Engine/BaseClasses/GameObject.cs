@@ -2,22 +2,16 @@
 
 namespace Teamwork_OOP.Engine.BaseClasses
 {
+	// DO WE NEED THIS ?????
+	// maybe add Draw interface and remove id ???
 	public abstract class GameObject
 	{
-		private Vector2 position;
 		private int id;
 
-		public GameObject( Vector2 position, int id )
+		protected GameObject(int id)
 		{
-			this.Position = position;
 			this.ID = id;
-		}
-		
-		public Vector2 Position
-		{
-			get { return position; }
-			set { position = value; }
-		}
+		}		
 
 		public int ID
 		{
