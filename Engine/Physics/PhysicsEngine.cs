@@ -8,8 +8,15 @@ namespace Teamwork_OOP.Engine.Physics
 {
 	public class PhysicsEngine
 	{
+		private static readonly Vector2 DefaultGravity = new Vector2(0.0f, -9.8f);
+
 		private Vector2 gravity;
 		private List<CollisionShape> collisionItems;
+
+		public PhysicsEngine()
+			: this(DefaultGravity)
+		{
+		}
 
 		public PhysicsEngine(Vector2 gravity)
 		{
@@ -35,34 +42,22 @@ namespace Teamwork_OOP.Engine.Physics
 
 		public virtual void Update(float deltaTime)
 		{
-			foreach (var item in collisionItems)
-			{
-				switch (item.ObjectFlags)
-				{
-					case CollisionObjectFlags.Static:
-						break;
-					case CollisionObjectFlags.Dynamic:
-						item.Velocity += this.Gravity;
-						item.Position += item.Velocity * deltaTime;
-						break;
-					case CollisionObjectFlags.Kinematic:
-						item.Position += item.Velocity * deltaTime;
-						break;
-					default:
-						throw new NotImplementedException();
-				}
-			}
-
-			ProcessCollisions();
-		}
-
-		public virtual void ProcessCollisions()
-		{
 			for (int i = 0; i < this.collisionItems.Count; ++i)
 			{
 				var currentItem = this.collisionItems[i];
-				for (int j = i; j < this.collisionItems.Count; ++j)
+				if (currentItem.ObjectFlags == CollisionObjectFlags.Static)
 				{
+					continue;
+				}
+
+				bool inCollision = false;
+
+				for (int j = 0; j < this.collisionItems.Count; ++j)
+				{
+					if (i == j)
+					{
+						continue;
+					}
 					var checkWith = this.collisionItems[j];
 
 					if ((currentItem.CollisionMask & checkWith.CollisionMask) > 0
@@ -74,9 +69,28 @@ namespace Teamwork_OOP.Engine.Physics
 
 						// TODO: FIX
 						currentItem.Velocity = Vector2.Zero;
-						checkWith.Velocity = Vector2.Zero;
+						inCollision = true;
 					}
 				}
+
+				switch (currentItem.ObjectFlags)
+				{
+					case CollisionObjectFlags.Static:
+						break;
+					case CollisionObjectFlags.Dynamic:
+						if (!inCollision)
+						{
+							currentItem.Velocity += this.Gravity;
+							currentItem.Position += currentItem.Velocity * deltaTime;
+						}
+						break;
+					case CollisionObjectFlags.Kinematic:
+						currentItem.Position += currentItem.Velocity * deltaTime;
+						break;
+					default:
+						throw new NotImplementedException();
+				}
+
 			}
 		}
 	}

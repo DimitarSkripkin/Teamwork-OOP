@@ -38,10 +38,16 @@
     <ApplicationIcon>Icon.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="Engine\AnimationSprite.cs" />
+    <Compile Include="Engine\Drawing\AnimationSprite.cs" />
     <Compile Include="Engine\BaseClasses\CollidableObject.cs" />
     <Compile Include="Engine\BaseClasses\Entity.cs" />
     <Compile Include="Engine\BaseClasses\GameObject.cs" />
+    <Compile Include="Engine\Drawing\DrawManager.cs" />
+    <Compile Include="Engine\Drawing\TextureManager.cs" />
+    <Compile Include="Engine\Drawing\TextureNode.cs" />
+    <Compile Include="Engine\Items\BigAxe.cs" />
+    <Compile Include="Engine\Items\SmallAxe.cs" />
+    <Compile Include="Engine\SceneManager.cs" />
     <Compile Include="Engine\Items\Item.cs" />
     <Compile Include="Engine\Items\MeleeWeapon.cs" />
     <Compile Include="Engine\Items\RangeWeapon.cs" />
@@ -53,7 +59,7 @@
     <Compile Include="Engine\Interfaces\IMoveable.cs" />
     <Compile Include="Engine\Interfaces\ISecondaryStats.cs" />
     <Compile Include="Engine\Interfaces\ISkillEffects.cs" />
-    <Compile Include="Engine\Map\Map.cs" />
+    <Compile Include="Engine\Map\MapManager.cs" />
     <Compile Include="Engine\Map\MapBlock.cs" />
     <Compile Include="Engine\Map\MapPlatform.cs" />
     <Compile Include="Engine\Physics\AABB.cs" />

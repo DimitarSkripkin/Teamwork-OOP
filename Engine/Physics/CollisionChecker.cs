@@ -30,8 +30,8 @@ namespace Teamwork_OOP.Engine.Physics
 
 		public static bool CheckForAABBCollision(AABB boxA, AABB boxB)
 		{
-			return boxA.Max.X >= boxB.Min.X && boxA.Min.X <= boxB.Max.X
-				&& boxA.Max.Y >= boxB.Min.Y && boxA.Min.Y <= boxB.Max.Y;
+			return boxA.Max.X > boxB.Min.X && boxA.Min.X < boxB.Max.X
+				&& boxA.Max.Y > boxB.Min.Y && boxA.Min.Y < boxB.Max.Y;
 		}
 
 		public static bool CheckForCircleWithAABB(Circle circle, AABB box)
@@ -57,8 +57,8 @@ namespace Teamwork_OOP.Engine.Physics
 
 		public static bool IsPointInsideAABB(Vector2 point, AABB box)
 		{
-			return point.X >= box.Min.X && point.X <= box.Max.X
-				&& point.Y >= box.Min.Y && point.Y <= box.Max.Y;
+			return point.X > box.Min.X && point.X < box.Max.X
+				&& point.Y > box.Min.Y && point.Y < box.Max.Y;
 		}
 
 		public static bool IsPointInsideCircle(Vector2 point, Circle circle)

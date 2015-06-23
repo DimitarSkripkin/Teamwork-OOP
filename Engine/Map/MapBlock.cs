@@ -3,19 +3,22 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 
 namespace Teamwork_OOP.Engine.Map
 {
 	using BaseClasses;
 	using Physics;
+	using Drawing;
 
 	public class MapBlock : CollidableObject
 	{
-		private static readonly Vector2 BlockSize = new Vector2( 1.0f, 1.0f );
+		public static readonly Vector2 DefaultBlockSize = new Vector2( 32.0f );
 
-		public MapBlock(Vector2 position, CollisionObjectFlags objectFlags, int id)
-			: base(new AABB(position, BlockSize, objectFlags), id)
+		public MapBlock(Vector2 position, TextureNode textureNode, CollisionObjectFlags objectFlags, int id)
+			: base(new AABB(position, DefaultBlockSize, objectFlags), id)
 		{
+			this.TextureNode = textureNode;
 		}
 
 		public Vector2 Position
@@ -26,8 +29,6 @@ namespace Teamwork_OOP.Engine.Map
 			}
 		}
 
-		public virtual void Draw()
-		{
-		}
+		public TextureNode TextureNode { get; set; }
 	}
 }
