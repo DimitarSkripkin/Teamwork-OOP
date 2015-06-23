@@ -97,7 +97,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Engine\AI\" />
-    <Folder Include="Engine\Exseptions\" />
+    <Folder Include="Engine\Exceptions\" />
     <Folder Include="Engine\Factories\" />
   </ItemGroup>
   <!-- Specify the search path explicitly so the ResolveAssemblyReferences task picks the right ones -->
