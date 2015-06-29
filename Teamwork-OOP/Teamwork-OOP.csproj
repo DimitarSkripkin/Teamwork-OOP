@@ -38,6 +38,7 @@
     <ApplicationIcon>Icon.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Engine\AI\AIpattern.cs" />
     <Compile Include="Engine\Characters\HeroClasses\Thief.cs" />
     <Compile Include="Engine\Characters\HeroClasses\Warrior.cs" />
     <Compile Include="Engine\Characters\HeroClasses\Wizard.cs" />
@@ -111,7 +112,6 @@
     <MonoGameContentReference Include="Content\Content.mgcb" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Engine\AI\" />
     <Folder Include="Engine\Exceptions\" />
   </ItemGroup>
   <ItemGroup>
