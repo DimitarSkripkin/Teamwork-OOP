@@ -1,35 +1,26 @@
-﻿namespace Teamwork_OOP.Engine.BaseClasses
+﻿using FarseerPhysics.Dynamics;
+using FarseerPhysics.Dynamics.Contacts;
+
+namespace Teamwork_OOP.Engine.BaseClasses
 {
 	using Physics;
 
-	public abstract class CollidableObject : GameObject
+	public abstract class CollidableObject
 	{
-		private CollisionShape collisionHull;
+		//private Body collisionHull;
 
-		protected CollidableObject(CollisionShape collisionHull, int id)
-			: base(id)
+		public CollidableObject()
 		{
-
-			this.CollisionHull = collisionHull;
-			this.CollisionHull.CollisionHandler += CollisionCallBack;
 		}
 
-		public CollisionShape CollisionHull
-		{
-			get
-			{
-				return collisionHull;
-			}
-			protected set
-			{
-				collisionHull = value;
-			}
-		}
+		public abstract void AddToWorld(World physicsWorld);
+
+		public Body CollisionHull { get; set; }
 
 		// TODO: check if with overide event handler will call the new CallBack function
-		public virtual void CollisionCallBack(CollisionEventArgs eventArgs)
+		public virtual bool OnCollision(Fixture fixtureA, Fixture fixtureB, Contact contact)
 		{
-			//eventArgs.CollidesWith
+			return true;
 		}
 
 	}

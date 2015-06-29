@@ -1,16 +1,26 @@
-﻿//using Microsoft.Xna.Framework;
-
+﻿using System;
 using System.Collections.Generic;
-using Teamwork_OOP.Engine.Interfaces;
-using Teamwork_OOP.Engine.Items;
+
+using Microsoft.Xna.Framework;
+
+using FarseerPhysics.Dynamics;
+using FarseerPhysics.Common;
+using FarseerPhysics.Factories;
+using FarseerPhysics.Dynamics.Contacts;
 
 namespace Teamwork_OOP.Engine.BaseClasses
 {
-	using Physics;
 	using Skills;
+	using Interfaces;
+	using Items;
+	using Map;
+	using Drawing;
 
 	public abstract class Entity : CollidableObject, IBaseStats, ISecondaryStats//IMoveable
 	{
+		private const int MaxJumps = 2;
+		private int jump;
+
 		//Base Stats
 		private int strength;
 		private int dexterity;
@@ -30,15 +40,20 @@ namespace Teamwork_OOP.Engine.BaseClasses
 		//private float attackRange;
 		private float criticalHitChance;
 		private float criticalDamage;
-		
- 
+
+		private AnimationSprite currentAnimation;
+		private Frame lastFrame;
 
 		//private bool isAlive;
 
 		protected Entity(int strength, int dexterity, int intelligence, int vitality,
-			int attackDamage, int spellDamage, int armor, int magicResistance, float attackSpeed, float spellCastingSpeed, float movementSpeed, int healthPoints, int manaPoints, float attackRange, float criticalHitChance, float criticalDamage,
-			CollisionShape collisionHull, int id)
-			: base(collisionHull, id)
+			int attackDamage, int spellDamage,
+			int armor, int magicResistance,
+			float attackSpeed, float spellCastingSpeed, float movementSpeed,
+			int healthPoints, int manaPoints,
+			float attackRange,
+			float criticalHitChance, float criticalDamage)
+			: base()
 		{
 			this.Strength = strength;
 			this.Dexterity = dexterity;
@@ -58,12 +73,30 @@ namespace Teamwork_OOP.Engine.BaseClasses
 			this.CriticalHitChance = criticalHitChance;
 			this.CriticalDamage = criticalDamage;
 
+			this.currentAnimation = new AnimationSprite();
 			//this.CollisionHull.CollisionHandler += CollisionCallBack;
 		}
 
-		// TODO: check if with overide event handler will call the new CallBack function
-		public override void CollisionCallBack(CollisionEventArgs eventArgs)
+		public override void AddToWorld(World physicsWorld)
 		{
+			this.CollisionHull = BodyFactory.CreateCapsule(physicsWorld, 2.0f, 1.0f, 10.0f, this);
+			this.CollisionHull.OnCollision += OnCollision;
+		}
+
+		// TODO: check if with overide event handler will call the new CallBack function
+		public override bool OnCollision(Fixture fixtureA, Fixture fixtureB, Contact contact)
+		{
+			throw new NotImplementedException();
+			//return true;
+
+			//if (fixtureA is MapBlock ||
+			if (fixtureB.UserData is MapBlock)
+			{
+				if (contact.Manifold.LocalNormal.Y > 0.0f)
+				{
+					this.jump = 0;
+				}
+			}
 		}
 
 		public int Strength
@@ -210,6 +243,8 @@ namespace Teamwork_OOP.Engine.BaseClasses
 			}
 		}
 
+		//public bool Jumped { get; set; }
+
 		public bool IsAlive { get { return false; } }
 
 		public bool IsControlledByHuman { get; set; }
@@ -231,6 +266,32 @@ namespace Teamwork_OOP.Engine.BaseClasses
 		public virtual void Update()
 		{
 			//todo
+			if (this.lastFrame != this.currentAnimation.CurrentFrame)
+			{
+				this.lastFrame = this.currentAnimation.CurrentFrame;
+				//var hull = this.CollisionHull;
+
+				//foreach (var fixture in hull.FixtureList)
+				//{
+				//	hull.DestroyFixture(fixture);
+				//}
+				//hull.FixtureList = new 
+				
+			}
+		}
+
+		public void Move(Vector2 impulse)
+		{
+			this.CollisionHull.ApplyLinearImpulse(impulse);
+		}
+
+		public void Jump(Vector2 impulse)
+		{
+			if (jump < MaxJumps)
+			{
+				this.CollisionHull.ApplyLinearImpulse(impulse);
+				++this.jump;
+			}
 		}
 	}
 }

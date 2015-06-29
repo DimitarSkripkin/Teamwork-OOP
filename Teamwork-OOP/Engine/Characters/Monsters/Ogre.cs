@@ -16,14 +16,14 @@ namespace Teamwork_OOP.Engine.Characters.Enemies
 		private const float SpellCastingSpeedBase = 1.0f;
 		private const float MovementSpeedBase = 1.0f;
 
-		public Ogre(CollisionShape collisionHull, int id,
+		public Ogre(
 			int strength = StrengthBase,
 			int dexterity = DexterityBase,
 			int intelligence = IntelligenceBase,
 			int vitality = VitalityBase)
 			: base(strength, dexterity, intelligence, vitality, 0, 0, 0, 0,
 			AttackSpeedBase,SpellCastingSpeedBase,MovementSpeedBase,0,0,
-			0, 0, 0, collisionHull, id)	
+			0, 0, 0)	
 		{
 		}
 	}

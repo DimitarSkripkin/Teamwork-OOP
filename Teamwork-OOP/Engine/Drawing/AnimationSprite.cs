@@ -22,6 +22,23 @@ namespace Teamwork_OOP.Engine.Drawing
 			this.TimePerFrame = timePerFrame;
 			this.DrawOffset = drawOffset;
 		}
+
+		public override bool Equals(object obj)
+		{
+			var otherFrame = (Frame)obj;
+			return this.DrawOffset == otherFrame.DrawOffset
+				&& this.TextureCoordinates == otherFrame.TextureCoordinates;
+		}
+
+		public static bool operator ==(Frame frameA, Frame frameB)
+		{
+			return frameA.Equals(frameB);
+		}
+
+		public static bool operator !=(Frame frameA, Frame frameB)
+		{
+			return !frameA.Equals(frameB);
+		}
 	}
 
 	public enum AnimationType

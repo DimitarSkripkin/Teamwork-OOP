@@ -5,6 +5,8 @@ using System.Text;
 using Teamwork_OOP.Engine.BaseClasses;
 using Teamwork_OOP.Engine.Physics;
 
+//using FarseerPhysics.Dynamics;
+
 namespace Teamwork_OOP.Engine.Characters
 {
 	public abstract class NonPlayerCharacter: Entity
@@ -12,10 +14,10 @@ namespace Teamwork_OOP.Engine.Characters
 		protected NonPlayerCharacter(int strength, int dexterity, int intelligence, int vitality,
 			int attackDamage, int spellDamage, int armor, int magicResistance,
 			float attackSpeed, float spellCastingSpeed, float movementSpeed, int healthPoints, int manaPoints, float attackRange,
-			float criticalHitChance, float criticalDamage, CollisionShape collisionHull, int id) 
+			float criticalHitChance, float criticalDamage) 
 			: base(strength, dexterity, intelligence, vitality, attackDamage, spellDamage, armor, magicResistance,
 			attackSpeed, spellCastingSpeed, movementSpeed, healthPoints, manaPoints,
-			attackRange, criticalHitChance, criticalDamage, collisionHull, id)
+			attackRange, criticalHitChance, criticalDamage)
 		{
 		}
 

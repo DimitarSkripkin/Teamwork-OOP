@@ -44,7 +44,7 @@ namespace Teamwork_OOP.Engine.Items
 			float baseStatRange, float secondaryStatRange,
 			int strength, int dexterity, int intelligance, int vitality,
 			float criticalDamage)
-			: base(new AABB(position, new Vector2(0.5f), CollisionObjectFlags.Dynamic), id)
+			: base()
 		{
 			int statID = 0;
 			int addStatCount = 0;
@@ -74,6 +74,12 @@ namespace Teamwork_OOP.Engine.Items
 
 
 		}
+
+		public override void AddToWorld(FarseerPhysics.Dynamics.World physicsWorld)
+		{
+			throw new NotImplementedException();
+		}
+
 		public int Strength
 		{
 			get { return this.strength; }
