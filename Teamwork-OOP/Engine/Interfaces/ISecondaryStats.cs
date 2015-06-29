@@ -25,7 +25,7 @@ namespace Teamwork_OOP.Engine.Interfaces
 
 		float AttackRange { get; set; }
 
-		float CriticalHit { get; set; }
+		float CriticalHitChance { get; set; }
 		float CriticalDamage { get; set; }
 	}
 }

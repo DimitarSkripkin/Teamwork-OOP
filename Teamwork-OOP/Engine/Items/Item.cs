@@ -235,5 +235,17 @@ namespace Teamwork_OOP.Engine.Items
 			get { return this.criticalDamage; }
 			set { this.criticalDamage = value; }
 		}
+
+		public float CriticalHitChance
+		{
+			get
+			{
+				throw new NotImplementedException();
+			}
+			set
+			{
+				throw new NotImplementedException();
+			}
+		}
 	}
 }

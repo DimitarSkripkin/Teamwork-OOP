@@ -38,6 +38,19 @@
     <ApplicationIcon>Icon.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Engine\Characters\HeroClasses\Thief.cs" />
+    <Compile Include="Engine\Characters\HeroClasses\Warrior.cs" />
+    <Compile Include="Engine\Characters\HeroClasses\Wizard.cs" />
+    <Compile Include="Engine\Characters\Monsters\Fishmen.cs" />
+    <Compile Include="Engine\Characters\Monsters\Gnoll.cs" />
+    <Compile Include="Engine\Characters\Monsters\Goblin.cs" />
+    <Compile Include="Engine\Characters\Monsters\Kobold.cs" />
+    <Compile Include="Engine\Characters\Monsters\Minotaur.cs" />
+    <Compile Include="Engine\Characters\Monsters\Ogre.cs" />
+    <Compile Include="Engine\Characters\Monsters\Owlbear.cs" />
+    <Compile Include="Engine\Characters\Monsters\Skeleton.cs" />
+    <Compile Include="Engine\Characters\NonPlayerCharacter.cs" />
+    <Compile Include="Engine\Characters\PlayerCharacter.cs" />
     <Compile Include="Engine\Drawing\AnimationSprite.cs" />
     <Compile Include="Engine\BaseClasses\CollidableObject.cs" />
     <Compile Include="Engine\BaseClasses\Entity.cs" />
@@ -45,6 +58,7 @@
     <Compile Include="Engine\Drawing\DrawManager.cs" />
     <Compile Include="Engine\Drawing\TextureManager.cs" />
     <Compile Include="Engine\Drawing\TextureNode.cs" />
+    <Compile Include="Engine\Factories\MapFactory.cs" />
     <Compile Include="Engine\Items\BigAxe.cs" />
     <Compile Include="Engine\Items\SmallAxe.cs" />
     <Compile Include="Engine\Map\MapTriggerBlock.cs" />
@@ -99,7 +113,6 @@
   <ItemGroup>
     <Folder Include="Engine\AI\" />
     <Folder Include="Engine\Exceptions\" />
-    <Folder Include="Engine\Factories\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Farseer Physics Engine 3.5\Farseer Physics MonoGame.csproj">

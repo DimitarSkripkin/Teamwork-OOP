@@ -11,7 +11,7 @@ namespace Teamwork_OOP.Engine.UI
 
 	public class UIManager
 	{
-		PhysicsEngine collision;
+		//PhysicsEngine collision;
 		// TODO: implement ui manager that uses physics engine to test if button is clicked
 
 		public void MouseMoved()
