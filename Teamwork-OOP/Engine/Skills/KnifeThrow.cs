@@ -13,11 +13,17 @@ namespace Teamwork_OOP.Engine.Skills
         {
         }
 
+        public float ThrowDamage
+        {
+            get
+            {
+                return 5 * UsedFrom.Dexterity;
+            }
+        }
+
         public override void ApplySkillEffect(Entity target)
         {
             // TODO:
         }
-
-        // TODO : DAMAGE
     }
 }

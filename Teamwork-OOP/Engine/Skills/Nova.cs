@@ -15,11 +15,17 @@ namespace Teamwork_OOP.Engine.Skills
         {
         }
 
+        public float SpellDamage
+        {
+            get
+            {
+                return 20.0f * UsedFrom.Intelligence;
+            }
+        }
+
         public override void ApplySkillEffect(Entity target)
         {
             // TODO:
         }
-
-        // TODO : DAMAGE
     }
 }
