@@ -56,6 +56,6 @@ namespace Teamwork_OOP.Engine.Map
 
 		public TextureNode TextureNode { get; set; }
 
-		public Body CollisionHull { get; private set; }
+		public Body CollisionHull { get; protected set; }
 	}
 }

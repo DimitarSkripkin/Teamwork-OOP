@@ -15,6 +15,7 @@ using System;
 
 using Teamwork_OOP.Engine.Drawing;
 using Teamwork_OOP.Engine.Map;
+using Teamwork_OOP.Engine.Factories;
 
 namespace MonogameTestProject.Editor
 {
@@ -72,8 +73,8 @@ namespace MonogameTestProject.Editor
 
 			this.mouseCursors = new List<TextureNode>();
 
-			this.Map = new MapManager();
 			this.textureManager = new TextureManager();
+			this.Map = new MapManager();
 
 			this.scaleMatrix = Matrix.Identity;
 			this.scaleValue = 1.0f;
@@ -157,6 +158,9 @@ namespace MonogameTestProject.Editor
 
 				backgroundNodes.Add(textureNode);
 			}
+
+			this.Map = MapFactory.MapLoad(this.textureManager, "map.txt");
+			this.Map.InitPhysics(this.PhysicsWorld);
 		}
 
 		public void Dispose()
@@ -308,6 +312,10 @@ namespace MonogameTestProject.Editor
 					throw new ArgumentException("WTF HOW ????");
 			}
 
+			if (keyState.IsKeyDown(Keys.F10))
+			{
+				MapFactory.MapSave(this.Map, this.textureManager);
+			}
 
 			// remove from here
 			this.Map.Update();

@@ -5,7 +5,7 @@ namespace Teamwork_OOP.Engine.Drawing
 {
 	public struct TextureNode
 	{
-		public static readonly TextureNode empty = new TextureNode();
+		private static readonly TextureNode empty = new TextureNode();
 
 		public static TextureNode Empty
 		{

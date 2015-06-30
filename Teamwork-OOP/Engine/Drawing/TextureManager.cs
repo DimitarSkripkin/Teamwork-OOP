@@ -24,6 +24,22 @@ namespace Teamwork_OOP.Engine.Drawing
 
 		public ContentManager ContentManager { get; set; }
 
+		public IDictionary<string, TextureNode> TextureNodes
+		{
+			get
+			{
+				return this.textureNodes;
+			}
+		}
+
+		public IDictionary<string, Texture2D> Textures
+		{
+			get
+			{
+				return this.textures;
+			}
+		}
+
 		public void Init(ContentManager contentMngr)
 		{
 			this.ContentManager = contentMngr;
@@ -35,6 +51,11 @@ namespace Teamwork_OOP.Engine.Drawing
 			{
 				texture.Value.Dispose();
 			}
+		}
+
+		public string GetTextureKey(Texture2D texture)
+		{
+			return this.textures.FirstOrDefault(t => t.Value == texture).Key;
 		}
 
 		public bool GetAnimation(out AnimationSprite animation, string name)
@@ -49,7 +70,7 @@ namespace Teamwork_OOP.Engine.Drawing
 			return false;
 		}
 
-		public bool GetTexture(out TextureNode textureNode, string name)
+		public bool GetTextureNode(out TextureNode textureNode, string name)
 		{
 			if (textureNodes.ContainsKey(name))
 			{
@@ -62,13 +83,38 @@ namespace Teamwork_OOP.Engine.Drawing
 			return false;
 		}
 
+		public Texture2D GetOrLoadTexture(string textureName)
+		{
+			return LoadTexture(textureName);
+		}
+
 		public Texture2D LoadTexture(string textureName)
 		{
-			Texture2D toAdd = this.ContentManager.Load<Texture2D>(textureName);
+			if (!this.textures.ContainsKey(textureName))
+			{
+				Texture2D toAdd = this.ContentManager.Load<Texture2D>(textureName);
+				this.textures[textureName] = toAdd;
+				return toAdd;
+			}
+			return this.textures[textureName];
+		}
 
-			this.textures[textureName] = toAdd;
-
-			return toAdd;
+		public Texture2D LoadTexture(string textureName, bool replaseIfLoaded)
+		{
+			if (!this.textures.ContainsKey(textureName))
+			{
+				Texture2D toAdd = this.ContentManager.Load<Texture2D>(textureName);
+				this.textures[textureName] = toAdd;
+				return toAdd;
+			}
+			if (replaseIfLoaded)
+			{
+				this.textures[textureName].Dispose();
+				Texture2D toAdd = this.ContentManager.Load<Texture2D>(textureName);
+				this.textures[textureName] = toAdd;
+				return toAdd;
+			}
+			return this.textures[textureName];
 		}
 
 		public void AddTextureNode(string textureName, string nodeName, Rectangle sourceRectangle)

@@ -2,52 +2,19 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Input;
+//using Microsoft.Xna.Framework.Input;
 
 namespace Teamwork_OOP.Engine.Drawing
 {
-	// TODO: move to separate file !!!!
-	public struct Frame
-	{
-		public Rectangle TextureCoordinates { get; set; }
-		public float TimePerFrame { get; set; }
-		public Vector2 DrawOffset { get; set; }
-
-		public Frame(Rectangle textureCoordinates, float timePerFrame, Vector2 drawOffset)
-			:this()
-		{
-			this.TextureCoordinates = textureCoordinates;
-			this.TimePerFrame = timePerFrame;
-			this.DrawOffset = drawOffset;
-		}
-
-		public override bool Equals(object obj)
-		{
-			var otherFrame = (Frame)obj;
-			return this.DrawOffset == otherFrame.DrawOffset
-				&& this.TextureCoordinates == otherFrame.TextureCoordinates;
-		}
-
-		public static bool operator ==(Frame frameA, Frame frameB)
-		{
-			return frameA.Equals(frameB);
-		}
-
-		public static bool operator !=(Frame frameA, Frame frameB)
-		{
-			return !frameA.Equals(frameB);
-		}
-	}
-
 	public enum AnimationType
 	{
 		Run,
 		Walk
 	}
 
-	// NOT FINISHED
 	public class AnimationSprite
 	{
 		private static readonly AnimationSprite empty = new AnimationSprite();//Point.Zero, Point.Zero, 0, 0, 0.0f);

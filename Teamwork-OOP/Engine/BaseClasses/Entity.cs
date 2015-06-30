@@ -3,6 +3,7 @@ using System.Collections.Generic;
 
 using Microsoft.Xna.Framework;
 
+using FarseerPhysics;
 using FarseerPhysics.Dynamics;
 using FarseerPhysics.Common;
 using FarseerPhysics.Factories;
@@ -18,7 +19,10 @@ namespace Teamwork_OOP.Engine.BaseClasses
 
 	public abstract class Entity : CollidableObject, IBaseStats, ISecondaryStats//IMoveable
 	{
+		private const int CollisionEdges = 8;
 		private const int MaxJumps = 2;
+		private const float BodyDensity = 10.0f;
+
 		private int jump;
 
 		//Base Stats
@@ -79,7 +83,7 @@ namespace Teamwork_OOP.Engine.BaseClasses
 
 		public override void AddToWorld(World physicsWorld)
 		{
-			this.CollisionHull = BodyFactory.CreateCapsule(physicsWorld, 2.0f, 1.0f, 10.0f, this);
+			this.CollisionHull = BodyFactory.CreateEllipse(physicsWorld, 2.0f, 1.0f, CollisionEdges, BodyDensity, this);
 			this.CollisionHull.OnCollision += OnCollision;
 		}
 
@@ -268,15 +272,21 @@ namespace Teamwork_OOP.Engine.BaseClasses
 			//todo
 			if (this.lastFrame != this.currentAnimation.CurrentFrame)
 			{
-				this.lastFrame = this.currentAnimation.CurrentFrame;
-				//var hull = this.CollisionHull;
+				if (this.lastFrame.SourceRectangle.Size != this.currentAnimation.CurrentFrame.SourceRectangle.Size)
+				{
+					var hull = this.CollisionHull;
 
-				//foreach (var fixture in hull.FixtureList)
-				//{
-				//	hull.DestroyFixture(fixture);
-				//}
-				//hull.FixtureList = new 
-				
+					hull.FixtureList.Clear();
+
+					float xRadius = ConvertUnits.ToSimUnits(this.currentAnimation.CurrentFrame.SourceRectangle.Width);
+					float yRadius = ConvertUnits.ToSimUnits(this.currentAnimation.CurrentFrame.SourceRectangle.Height);
+
+					FixtureFactory.AttachEllipse(xRadius, yRadius, CollisionEdges, BodyDensity, hull, this);
+
+					hull.OnCollision += OnCollision;
+				}
+
+				this.lastFrame = this.currentAnimation.CurrentFrame;
 			}
 		}
 

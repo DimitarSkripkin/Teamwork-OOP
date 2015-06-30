@@ -26,6 +26,7 @@ namespace Teamwork_OOP.Engine.Map
 			this.blocks = new List<MapBlock>();
 			this.triggers = new List<MapTriggerBlock>();
 			this.platforms = new List<MapPlatform>();
+			this.entities = new List<Entity>();
 		}
 
 		public Texture2D Background { get; set; }

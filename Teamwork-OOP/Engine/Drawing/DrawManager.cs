@@ -83,7 +83,7 @@ namespace Teamwork_OOP.Engine.Drawing
 			spriteBatch.Draw(
 				animation.Sprite,
 				position,
-				currentFrame.TextureCoordinates,
+				currentFrame.SourceRectangle,
 				Color.White,
 				rotation,
 				currentFrame.DrawOffset,
@@ -109,6 +109,7 @@ namespace Teamwork_OOP.Engine.Drawing
 		public static void Draw(SpriteBatch spriteBatch, MapTriggerBlock triggerBlock, Vector2 positionOffset)
 		{
 			var textureNode = triggerBlock.TextureNode;
+			
 			spriteBatch.Draw(textureNode.Texture,
 				ConvertUnits.ToDisplayUnits(triggerBlock.CollisionHull.Position) - positionOffset,
 				textureNode.SourceRectangle,
