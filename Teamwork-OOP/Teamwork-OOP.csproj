@@ -68,6 +68,12 @@
     <Compile Include="Engine\Items\Item.cs" />
     <Compile Include="Engine\Items\MeleeWeapon.cs" />
     <Compile Include="Engine\Items\RangeWeapon.cs" />
+    <Compile Include="Engine\Skills\Attack.cs" />
+    <Compile Include="Engine\Skills\Block.cs" />
+    <Compile Include="Engine\Skills\Dash.cs" />
+    <Compile Include="Engine\Skills\Kick.cs" />
+    <Compile Include="Engine\Skills\KnifeThrow.cs" />
+    <Compile Include="Engine\Skills\Nova.cs" />
     <Compile Include="Engine\Skills\ProjectileSkill.cs" />
     <Compile Include="Engine\Skills\Skill.cs" />
     <Compile Include="Engine\BaseClasses\Projectile.cs" />

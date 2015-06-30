@@ -9,8 +9,10 @@ namespace Teamwork_OOP.Engine.Skills
 
 	public class Fireball : ProjectileSkill, ISkillEffects
 	{
-		private const float FireballRadius = 5.0f;
+	    private const float FireballDamage = 6.0f;
 
+		private const float FireballRadius = 5.0f;
+        
 		private const float FireballCooldown = 3.0f;
 		private const float FireballMaxActiveTime = 10.0f;
 
