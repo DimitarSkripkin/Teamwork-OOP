@@ -26,5 +26,11 @@ namespace Teamwork_OOP.Engine.Skills
 				return 10.0f * UsedFrom.Intelligence;
 			}
 		}
+
+		public override void ApplySkillEffect(Entity target)
+		{
+			this.UsedFrom.HealthPoints -= target.Strength * 10;
+			target.CollisionHull.ApplyLinearImpulse(new Vector2(1.0f, 0));
+		}
 	}
 }

@@ -21,5 +21,9 @@ namespace Teamwork_OOP.Engine.Skills
 				// hit by projectile will be implemented in Entity class if it hits other Entity ?
 			}
 		}
+
+		public override void ApplySkillEffect(Entity target)
+		{
+		}
 	}
 }

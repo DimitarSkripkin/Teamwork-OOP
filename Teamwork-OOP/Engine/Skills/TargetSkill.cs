@@ -13,19 +13,8 @@ namespace Teamwork_OOP.Engine.Skills
 		{
 		}
 
-		/* have to be
-		 * 
-		 * public void ActivateOnTarget(Entity target, SpellEffects spellEffects)
-		 * 
-		 * but first we hate to decide what spell effects to implement
-		 * 
-		 */
-		public virtual void ActivateOnTarget(Entity target)
+		public override void ApplySkillEffect(Entity target)
 		{
-			if (base.Activate())
-			{
-				// apply all spell effects on target
-			}
 		}
 	}
 }

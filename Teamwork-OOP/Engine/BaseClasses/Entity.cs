@@ -45,6 +45,8 @@ namespace Teamwork_OOP.Engine.BaseClasses
 		private float criticalHitChance;
 		private float criticalDamage;
 
+		private List<AnimationSprite> animations;
+
 		private AnimationSprite currentAnimation;
 		private Frame lastFrame;
 
@@ -101,6 +103,8 @@ namespace Teamwork_OOP.Engine.BaseClasses
 					this.jump = 0;
 				}
 			}
+			// apply skill effects
+			return true;
 		}
 
 		public int Strength

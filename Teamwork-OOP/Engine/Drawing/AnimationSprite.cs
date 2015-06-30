@@ -11,8 +11,12 @@ namespace Teamwork_OOP.Engine.Drawing
 {
 	public enum AnimationType
 	{
+		Idle,
 		Run,
-		Walk
+		Jump,
+		Attack,
+		Death,
+		SpecialSkill
 	}
 
 	// NOT FINISHED

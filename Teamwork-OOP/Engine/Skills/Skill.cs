@@ -112,5 +112,7 @@ namespace Teamwork_OOP.Engine.Skills
 			}
 			return false;
 		}
+
+		public abstract void ApplySkillEffect(Entity target);
 	}
 }
