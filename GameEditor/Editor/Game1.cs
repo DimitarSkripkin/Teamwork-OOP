@@ -1,4 +1,7 @@
-﻿using Microsoft.Xna.Framework;
+﻿using System.Text;
+using System.Collections.Generic;
+
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 
@@ -6,10 +9,11 @@ using FarseerPhysics.Dynamics;
 using FarseerPhysics.Factories;
 using FarseerPhysics;
 using FarseerPhysics.Collision.Shapes;
-using System.Collections.Generic;
 using FarseerPhysics.Common;
 using FarseerPhysics.Dynamics.Contacts;
-using System.Text;
+
+using Teamwork_OOP.Engine;
+using Teamwork_OOP.Engine.Drawing;
 
 namespace MonogameTestProject.Editor
 {
@@ -18,22 +22,28 @@ namespace MonogameTestProject.Editor
 	/// </summary>
 	public class Game1 : Game
 	{
+		private const float DisplayUnitToSimUnitRatio = 32.0f;
+
 		GraphicsDeviceManager graphics;
 		SpriteBatch spriteBatch;
 
-		World world;
+		private Editor editor;
+		private SceneManager sceneManager;
 
-		Editor editor;
+		private TextureManager textureManager;
 
 		private SpriteFont spriteFont;
+
+		private bool editorMode, holdF5;
 
 		public Game1()
 		{
 			graphics = new GraphicsDeviceManager(this);
 			Content.RootDirectory = "Content";
 
-			this.world = new World(new Vector2(0f, 9.82f));
 			this.editor = new Editor();
+			this.sceneManager = new SceneManager();
+			this.textureManager = new TextureManager();
 		}
 
 		protected override void Initialize()
@@ -48,12 +58,18 @@ namespace MonogameTestProject.Editor
 			// Create a new SpriteBatch, which can be used to draw textures.
 			spriteBatch = new SpriteBatch(GraphicsDevice);
 
-			this.editor.Init(this.world, this.Content, this.spriteBatch);
+			this.textureManager.Init(this.Content);
+
+			this.sceneManager.Init(this.textureManager, this.spriteBatch);
+			this.sceneManager.LoadLevel("map.txt");
+
+			// init editor
+			this.editor.Init(this.sceneManager.PhysicsWorld, this.textureManager, this.spriteBatch);
+			this.editor.Map = this.sceneManager.MapManager;
 
 			this.spriteFont = Content.Load<SpriteFont>("Font/Font");
 
-			float scale = 32.0f;//block.Height;
-			ConvertUnits.SetDisplayUnitToSimUnitRatio(scale);
+			ConvertUnits.SetDisplayUnitToSimUnitRatio(DisplayUnitToSimUnitRatio);
 
 			this.editor.ResizeWindow(new Vector2(GraphicsDevice.Viewport.Width, GraphicsDevice.Viewport.Height));
 
@@ -64,7 +80,7 @@ namespace MonogameTestProject.Editor
 		{
 			// TODO: Unload any non ContentManager content here
 
-			this.editor.Dispose();
+			this.textureManager.Dispose();
 		}
 
 		protected override void Update(GameTime gameTime)
@@ -74,16 +90,28 @@ namespace MonogameTestProject.Editor
 				Exit();
 			}
 
-			// TODO: Add your update logic here
 			float deltaTime = (float)(gameTime.ElapsedGameTime.TotalMilliseconds / 1000.0);
+			
+			if (this.IsActive)
+			{
+				KeyboardState keyState = Keyboard.GetState();
+				MouseState mouseState = Mouse.GetState();
 
-			KeyboardState keyState = Keyboard.GetState();
-			MouseState mouseState = Mouse.GetState();
+				if (keyState.IsKeyDown(Keys.F5) && !this.holdF5)
+				{
+					this.editorMode = !this.editorMode;
+				}
+				this.holdF5 = keyState.IsKeyDown(Keys.F5);
 
-			this.editor.UpdateInput(keyState, mouseState, this.IsActive);
+				if (editorMode)
+				{
+					this.editor.UpdateInput(keyState, mouseState);
+				}
 
-			this.world.Step(deltaTime);
-			//this.world.Step(0.01f);
+			}
+
+			this.sceneManager.Update(deltaTime);
+
 			base.Update(gameTime);
 		}
 
@@ -91,7 +119,14 @@ namespace MonogameTestProject.Editor
 		{
 			GraphicsDevice.Clear(Color.CornflowerBlue);
 
-			this.editor.Draw();
+			if (this.editorMode)
+			{
+				this.editor.Draw();
+			}
+			else
+			{
+				this.sceneManager.Draw();
+			}
 
 			this.spriteBatch.Begin();
 			this.spriteBatch.DrawString(spriteFont, new StringBuilder(string.Format("Blocks: {0}", this.editor.PhysicsWorld.BodyList.Count)), Vector2.Zero, Color.WhiteSmoke, 0.0f, Vector2.Zero, 1.0f, SpriteEffects.None, 0.2f);

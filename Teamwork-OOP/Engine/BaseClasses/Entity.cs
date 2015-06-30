@@ -267,7 +267,7 @@ namespace Teamwork_OOP.Engine.BaseClasses
 			//todo
 		}
 
-		public virtual void Update()
+		public virtual void Update(float deltaTime)
 		{
 			//todo
 			if (this.lastFrame != this.currentAnimation.CurrentFrame)
@@ -287,6 +287,10 @@ namespace Teamwork_OOP.Engine.BaseClasses
 				}
 
 				this.lastFrame = this.currentAnimation.CurrentFrame;
+			}
+			else
+			{
+				this.currentAnimation.UpdateAnimation(deltaTime);
 			}
 		}
 

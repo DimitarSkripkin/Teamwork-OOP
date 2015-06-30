@@ -15,6 +15,7 @@ namespace Teamwork_OOP.Engine.Drawing
 		Walk
 	}
 
+	// NOT FINISHED
 	public class AnimationSprite
 	{
 		private static readonly AnimationSprite empty = new AnimationSprite();//Point.Zero, Point.Zero, 0, 0, 0.0f);
@@ -41,11 +42,6 @@ namespace Teamwork_OOP.Engine.Drawing
 			this.frameList = new List<Frame>(other.frameList);
 		}
 
-		public AnimationSprite Clone()
-		{
-			return new AnimationSprite(this);
-		}
-
 		public Texture2D Sprite { get; set; }
 
 		public Frame CurrentFrame
@@ -53,6 +49,14 @@ namespace Teamwork_OOP.Engine.Drawing
 			get
 			{
 				return this.frameList[this.currentFrame];
+			}
+		}
+
+		public IList<Frame> FrameList
+		{
+			get
+			{
+				return this.frameList;
 			}
 		}
 
@@ -72,33 +76,9 @@ namespace Teamwork_OOP.Engine.Drawing
 			}
 		}
 
-		public void GenerateWithFixedFrameSize(Point startPosition, Point frameSize, Point textureSize, int framesCount, float animationLenght)
+		public AnimationSprite Clone()
 		{
-			GenerateWithFixedFrameSize(startPosition, frameSize, textureSize, animationLenght / framesCount, framesCount);
-		}
-
-		public void GenerateWithFixedFrameSize(Point startPosition, Point frameSize, Point textureSize, float frameTime, int framesCount)
-		{
-			frameList.Clear();
-
-			var currentPosition = startPosition;
-			for (int i = 0; i < framesCount; ++i)
-			{
-				frameList.Add(new Frame(
-					new Rectangle(currentPosition, frameSize),
-					frameTime,
-					Vector2.Zero
-					)
-				);
-
-				currentPosition.X += frameSize.X;
-
-				if (currentPosition.X >= textureSize.X)
-				{
-					currentPosition.X = 0;
-					currentPosition.Y += frameSize.Y;
-				}
-			}
+			return new AnimationSprite(this);
 		}
 	}
 }

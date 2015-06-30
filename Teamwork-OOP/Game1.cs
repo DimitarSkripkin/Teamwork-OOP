@@ -3,6 +3,8 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using System;
 
+using FarseerPhysics;
+
 namespace Teamwork_OOP
 {
 	using Engine;
@@ -15,6 +17,8 @@ namespace Teamwork_OOP
 	/// </summary>
 	public class Game1 : Game
 	{
+		private const float DisplayUnitToSimUnitRatio = 32.0f;
+
 		private const int WindowWidth = 640;
 		private const int WindowHeight = 480;
 
@@ -44,6 +48,7 @@ namespace Teamwork_OOP
 			// WINDOW SETTINGS
 			this.graphics.PreferredBackBufferWidth = WindowWidth;
 			this.graphics.PreferredBackBufferHeight = WindowHeight;
+			this.IsMouseVisible = true;
 			//this.graphics.ToggleFullScreen();
 
 			base.Initialize();
@@ -56,12 +61,15 @@ namespace Teamwork_OOP
 		protected override void LoadContent()
 		{
 			// Create a new SpriteBatch, which can be used to draw textures.
-			this.spriteBatch = new SpriteBatch(GraphicsDevice);
+			spriteBatch = new SpriteBatch(GraphicsDevice);
 
 			this.textureManager.Init(this.Content);
 
 			this.sceneManager.Init(this.textureManager, this.spriteBatch);
-			this.sceneManager.LoadTestLevel();
+
+			this.sceneManager.LoadLevel("map.txt");
+
+			ConvertUnits.SetDisplayUnitToSimUnitRatio(DisplayUnitToSimUnitRatio);
 		}
 
 		/// <summary>

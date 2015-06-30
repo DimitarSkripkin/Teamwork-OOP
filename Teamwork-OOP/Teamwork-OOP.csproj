@@ -59,6 +59,7 @@
     <Compile Include="Engine\Drawing\Frame.cs" />
     <Compile Include="Engine\Drawing\TextureManager.cs" />
     <Compile Include="Engine\Drawing\TextureNode.cs" />
+    <Compile Include="Engine\Factories\AnimationFactory.cs" />
     <Compile Include="Engine\Factories\MapFactory.cs" />
     <Compile Include="Engine\Items\BigAxe.cs" />
     <Compile Include="Engine\Items\SmallAxe.cs" />

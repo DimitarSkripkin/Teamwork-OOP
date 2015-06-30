@@ -43,7 +43,7 @@ namespace MonogameTestProject.Editor
 		private Matrix scaleMatrix;
 		private float scaleValue;
 
-		TextureManager textureManager;
+		private TextureManager textureManager;
 
 		private List<TextureNode>[] resources;
 		private EditorModes editorMode;
@@ -73,25 +73,20 @@ namespace MonogameTestProject.Editor
 
 			this.mouseCursors = new List<TextureNode>();
 
-			this.textureManager = new TextureManager();
-			this.Map = new MapManager();
-
 			this.scaleMatrix = Matrix.Identity;
 			this.scaleValue = 1.0f;
 		}
 
 		public World PhysicsWorld { get; set; }
-		public ContentManager ContentManager { get; set; }
 		public SpriteBatch SpriteBatch { get; set; }
 
 		public MapManager Map { get; set; }
 
-		public void Init(World world, ContentManager contentManager, SpriteBatch spriteBatch)
+		public void Init(World world, TextureManager textureManager, SpriteBatch spriteBatch)
 		{
-			this.textureManager.Init(contentManager);
+			this.textureManager = textureManager;
 
 			this.PhysicsWorld = world;
-			this.ContentManager = contentManager;
 			this.SpriteBatch = spriteBatch;
 
 			var mouseCursorsTexture = this.textureManager.LoadTexture("Textures/MouseCursors/mouseCursors");
@@ -158,14 +153,6 @@ namespace MonogameTestProject.Editor
 
 				backgroundNodes.Add(textureNode);
 			}
-
-			this.Map = MapFactory.MapLoad(this.textureManager, "map.txt");
-			this.Map.InitPhysics(this.PhysicsWorld);
-		}
-
-		public void Dispose()
-		{
-			this.textureManager.Dispose();
 		}
 
 		public void ResizeWindow(Vector2 newSize)
@@ -229,13 +216,8 @@ namespace MonogameTestProject.Editor
 			}
 		}
 
-		public void UpdateInput(KeyboardState keyState, MouseState mouseState, bool isActive)
+		public void UpdateInput(KeyboardState keyState, MouseState mouseState)
 		{
-			if (!isActive)
-			{
-				return;
-			}
-
 			int deltaScrollWheel = this.lastScrollWheelValue - mouseState.ScrollWheelValue;
 			this.lastScrollWheelValue = mouseState.ScrollWheelValue;
 			
@@ -316,9 +298,6 @@ namespace MonogameTestProject.Editor
 			{
 				MapFactory.MapSave(this.Map, this.textureManager);
 			}
-
-			// remove from here
-			this.Map.Update();
 		}
 
 		private void AddBlockMode(ref MouseState mouseState, Vector2 blockPosition)

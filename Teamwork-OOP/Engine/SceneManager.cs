@@ -7,34 +7,37 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Content;
 
+using FarseerPhysics.Dynamics;
+
 namespace Teamwork_OOP.Engine
 {
-	using Physics;
 	using Drawing;
 	using Map;
 	using BaseClasses;
+	using Factories;
 
 	// TODO: RENAME WITH SOMETHING MORE PROPER !!!
 	public class SceneManager
 	{
 		private const float DrawRadius = 1000.0f;
-
+		private static readonly Vector2 DefaultGravityDirection = new Vector2(0.0f, 9.82f);
 		//private TextureManager textureManager;
 		//private DrawManager drawManager;
 		private MapManager mapManager;
-		private PhysicsEngine physicsEngine;
+		private World physicsWorld;
+
+		Vector2 cameraPosition;
 
 		// here or in MapManager class ????
 		//private List<Items> items;
-		//private List<Entity> entity;
-		//public IList<Entity> Entities { get; };
+
+		private IEnumerable<Body> inDrawRange;
 
 		public Entity CameraAttachedTo { get; set; }
 
 		public SceneManager()
 		{
-			// WILL BE REMOVED
-			this.physicsEngine = new PhysicsEngine();
+			this.physicsWorld = new World(DefaultGravityDirection);
 
 			this.MapManager = new MapManager();
 		}
@@ -56,10 +59,16 @@ namespace Teamwork_OOP.Engine
 			set
 			{
 				this.mapManager = value;
-				//this.physicsEngine = this.MapManager.PhysicsEngine;
 			}
 		}
 		public TextureManager TextureManager { get; set; }
+		public World PhysicsWorld
+		{
+			get
+			{
+				return this.physicsWorld;
+			}
+		}
 
 		public void Init(TextureManager textureManager, SpriteBatch spriteBatch)
 		{
@@ -67,62 +76,54 @@ namespace Teamwork_OOP.Engine
 			this.SpriteBatch = spriteBatch;
 		}
 
-		/*
-		 * TODO: NEEDS PROPER MAP LOADER
-		 */
-		public void LoadTestLevel()
+		public void LoadLevel(string filePath)
 		{
-			Texture2D mapTexture = this.TextureManager.LoadTexture("TestTextures/mapTestBlocks");
-
-			this.TextureManager.AddTextureNode("TestTextures/mapTestBlocks", "mapBlock1", new Rectangle(0, 0, 32, 32));
-
-			TextureNode platformTextureNode = new TextureNode();
-			platformTextureNode.Name = "mapBlock2";
-			platformTextureNode.Texture = mapTexture;
-			platformTextureNode.SourceRectangle = new Rectangle(32, 0, 32, 32);
-			this.TextureManager.AddTextureNode(platformTextureNode);
-
-			//MapPlatform platform = new MapPlatform(new Vector2(10), 4, platformTextureNode);
-			//this.MapManager.AddPlatform(platform);
-
-			//TextureNode block;
-			//this.TextureManager.GetTexture(out block, "mapBlock1");
-
-			//this.MapManager.AddBlock(new MapBlock(new Vector2(10, 150), block, CollisionObjectFlags.Dynamic, 0));
-			//this.MapManager.AddBlock(new MapBlock(new Vector2(10, 500), block, CollisionObjectFlags.Dynamic, 0));
-			//this.MapManager.AddBlock(new MapBlock(new Vector2(42, 500), block, CollisionObjectFlags.Dynamic, 0));
+			this.mapManager = MapFactory.MapLoad(this.TextureManager, filePath);
+			this.mapManager.InitPhysics(this.PhysicsWorld);
 		}
 
 		public void Update(float deltaTime)
 		{
-			this.physicsEngine.Update(deltaTime);
-			// update entities animation sprites
-		}
-
-		public void Draw()
-		{
-			// BEGIN DRAW
-			this.SpriteBatch.Begin(SpriteSortMode.BackToFront);
-
-			// draw only things that are in certain radius
-
-			Vector2 cameraPosition = Vector2.Zero;
+			// update and draw only things that are in certain radius
 			if (this.CameraAttachedTo != null)
 			{
 				cameraPosition = this.CameraAttachedTo.CollisionHull.Position;
 			}
 
-			foreach (var block in mapManager.Blocks)
+			inDrawRange = this.physicsWorld.BodyList.Where(b => (b.Position - this.cameraPosition).Length() < DrawRadius);
+
+			foreach (var body in inDrawRange)
 			{
-				DrawManager.Draw(this.SpriteBatch, block.TextureNode.Texture, block.Position - cameraPosition, block.TextureNode.SourceRectangle);
+				if (body.UserData is Entity)
+				{
+					((Entity)body.UserData).Update(deltaTime);
+				}
 			}
 
-			foreach (var platform in mapManager.Platforms)
+			this.MapManager.Update();
+
+			this.physicsWorld.Step(deltaTime);
+		}
+
+		public void Draw()
+		{
+			if (this.mapManager.Background != null)
 			{
-				//foreach (var block in platform.Blocks)
-				//{
-				//	this.DrawManager.Draw(block.TextureNode.Texture, block.Position - cameraPosition, block.TextureNode.SourceRectangle);
-				//}
+				this.SpriteBatch.Begin();
+
+				// TODO: move the background with the camera
+				// var mapSize = this.Map.GetMapSize();
+				this.SpriteBatch.Draw(this.mapManager.Background, Vector2.Zero, Color.White);
+
+				this.SpriteBatch.End();
+			}
+
+			// BEGIN DRAW
+			this.SpriteBatch.Begin(SpriteSortMode.BackToFront);
+
+			foreach (var body in inDrawRange)
+			{
+				DrawManager.Draw(this.SpriteBatch, body, cameraPosition);
 			}
 
 			// END DRAW
