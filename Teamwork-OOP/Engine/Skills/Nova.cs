@@ -1,12 +1,9 @@
 ﻿using Teamwork_OOP.Engine.BaseClasses;
-using Teamwork_OOP.Engine.Interfaces;
 
 namespace Teamwork_OOP.Engine.Skills
 {
-    public class Nova : ProjectileSkill, ISecondaryStats
+    public class Nova : ProjectileSkill
     {
-        private const float NovaDamage = 10.0f;
-
         private const float NovaRadius = 3.0f;
         private const float NovaCooldown = 10.0f;
 
@@ -23,17 +20,6 @@ namespace Teamwork_OOP.Engine.Skills
             // TODO:
         }
 
-        public int AttackDamage { get; set; }
-        public int SpellDamage { get; set; }
-        public int Armor { get; set; }
-        public int MagicResistance { get; set; }
-        public float AttackSpeed { get; set; }
-        public float SpellCastingSpeed { get; set; }
-        public float MovementSpeed { get; set; }
-        public int HealthPoints { get; set; }
-        public int ManaPoints { get; set; }
-        public float AttackRange { get; set; }
-        public float CriticalHitChance { get; set; }
-        public float CriticalDamage { get; set; }
+        // TODO : DAMAGE
     }
 }

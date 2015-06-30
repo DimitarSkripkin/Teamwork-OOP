@@ -1,16 +1,11 @@
-﻿using System;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 
 namespace Teamwork_OOP.Engine.Skills
 {
 	using BaseClasses;
-	using Interfaces;
-	using Physics;
 
-	public class Fireball : ProjectileSkill, ISkillEffects
+	public class Fireball : ProjectileSkill
 	{
-	    private const float FireballDamage = 6.0f;
-
 		private const float FireballRadius = 5.0f;
         
 		private const float FireballCooldown = 3.0f;
