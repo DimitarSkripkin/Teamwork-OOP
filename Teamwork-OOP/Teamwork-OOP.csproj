@@ -93,6 +93,7 @@
     <Compile Include="Engine\Physics\CollisionShape.cs" />
     <Compile Include="Engine\Physics\DistanceChecker.cs" />
     <Compile Include="Engine\Skills\Fireball.cs" />
+    <Compile Include="Engine\UI\Button.cs" />
     <Compile Include="Engine\UI\UIItem.cs" />
     <Compile Include="Engine\UI\UIManager.cs" />
     <Compile Include="Game1.cs" />
