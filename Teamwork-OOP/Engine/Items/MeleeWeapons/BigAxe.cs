@@ -19,7 +19,7 @@ namespace Teamwork_OOP.Engine.Items
 
 		public const float DefaultBaseStatRange = 0.5f;
 		public const float DefaultSecontaryStatRange = 0.1f;
-
+	    private const int DefaultAttackDamage = 8;
 		public const float DefaultCriticalDamage = 1.5f;
 
 		public BigAxe(Vector2 position, int id,
@@ -30,14 +30,15 @@ namespace Teamwork_OOP.Engine.Items
 			int dexteriry = DefaultDexterity,
 			int vitality = DefaultVitality,
 			//...
-			float criticalDamage = DefaultCriticalDamage)
+			float criticalDamage = DefaultCriticalDamage,
+            int attackDamage = 0)
 			: base(position, id,
 				baseStatRange, baseStatRange,
 
 				strenght,
 				dexteriry,
 				vitality,
-				criticalDamage)
+                criticalDamage, DefaultAttackDamage)
 		{
 		}
 	}

@@ -11,7 +11,7 @@ namespace Teamwork_OOP.Engine.Items
 	using Interfaces;
 	using Physics;
 
-	public class SmallAxe : MeleeWeapon
+	public class Axe : MeleeWeapon
 	{
 		public const int DefaultStrenght = 20;
 		public const int DefaultDexterity = 3;
@@ -21,23 +21,15 @@ namespace Teamwork_OOP.Engine.Items
 		public const float DefaultSecontaryStatRange = 0.1f;
 
 		public const float DefaultCriticalDamage = 1.4f;
-
-		public SmallAxe(Vector2 position, int id,
-			float baseStatRange = DefaultBaseStatRange,
-			float secondaryStatRange = DefaultSecontaryStatRange,
-
-			int strenght = DefaultStrenght,
-			int dexteriry = DefaultDexterity,
-			int vitality = DefaultVitality,
-			//...
-			float criticalDamage = DefaultCriticalDamage)
+        public const int DefaultAttackDamageAxe = 9;
+		public Axe(Vector2 position, int id, int level)
 			: base(position, id,
-				baseStatRange, baseStatRange,
+				DefaultBaseStatRange, DefaultSecontaryStatRange,
 
-				strenght,
-				dexteriry,
-				vitality,
-				criticalDamage)
+				level * DefaultStrenght,
+				level * DefaultDexterity,
+				level * DefaultVitality,
+                DefaultCriticalDamage, DefaultAttackDamageAxe)
 		{
 		}
 	}

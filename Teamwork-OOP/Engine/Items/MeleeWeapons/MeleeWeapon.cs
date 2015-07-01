@@ -10,16 +10,16 @@ namespace Teamwork_OOP.Engine.Items
 	public abstract class MeleeWeapon : Item
 	{
 		protected MeleeWeapon(Vector2 position, int id, float baseStatRange, float secondaryStatRange,
-			int strenght, int dexteriry, int vitality,
-			//...
-			float criticalDamage)
+			int strenght, int dexteriry, int vitality, float criticalDamage, int attackDamage
+			//
+			)
 			: base(position, id,
 				baseStatRange, baseStatRange,
 				strenght,
-				dexteriry,
-				0,// melee weapons won't give intelligance or somethin like that
-				vitality,
-				criticalDamage)
+				dexteriry,  0,// melee weapons won't give intelligance or somethin like that
+			    vitality,
+
+               criticalDamage, attackDamage, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
 		{
 		}
 	}
