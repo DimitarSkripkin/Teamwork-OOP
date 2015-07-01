@@ -7,12 +7,11 @@ using System.Threading;
 
 using Microsoft.Xna.Framework;
 
-using Teamwork_OOP.Engine.Drawing;
-using Teamwork_OOP.Engine.Items;
-
 namespace Teamwork_OOP.Engine.Factories
 {
 	using Map;
+	using Drawing;
+	//using Items;
 
 	public static class MapFactory
 	{

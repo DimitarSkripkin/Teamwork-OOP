@@ -39,11 +39,13 @@ namespace Teamwork_OOP.Engine.Drawing
 		public AnimationSprite()
 		{
 			this.frameList = new List<Frame>();
+			this.Effects = SpriteEffects.None;
 		}
 
 		public AnimationSprite(AnimationSprite other)
 		{
 			this.frameList = new List<Frame>(other.frameList);
+			this.Sprite = other.Sprite;
 		}
 
 		public Texture2D Sprite { get; set; }
@@ -64,6 +66,8 @@ namespace Teamwork_OOP.Engine.Drawing
 			}
 		}
 
+		public SpriteEffects Effects { get; set; }
+
 		public void UpdateAnimation(float deltaTime)
 		{
 			this.currentFrameTime += deltaTime;
@@ -78,6 +82,13 @@ namespace Teamwork_OOP.Engine.Drawing
 			{
 				this.currentFrame = 0;
 			}
+		}
+
+		public void Reset()
+		{
+			this.Effects = SpriteEffects.None;
+			this.currentFrameTime = 0.0f;
+			this.currentFrame = 0;
 		}
 
 		public AnimationSprite Clone()

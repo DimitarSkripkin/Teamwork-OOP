@@ -60,16 +60,16 @@ namespace Teamwork_OOP
 		/// </summary>
 		protected override void LoadContent()
 		{
+			ConvertUnits.SetDisplayUnitToSimUnitRatio(DisplayUnitToSimUnitRatio);
 			// Create a new SpriteBatch, which can be used to draw textures.
 			spriteBatch = new SpriteBatch(GraphicsDevice);
 
 			this.textureManager.Init(this.Content);
 
 			this.sceneManager.Init(this.textureManager, this.spriteBatch);
+			this.sceneManager.ResizeWindow(new Vector2(GraphicsDevice.Viewport.Width, GraphicsDevice.Viewport.Height));
 
 			this.sceneManager.LoadLevel("map.txt");
-
-			ConvertUnits.SetDisplayUnitToSimUnitRatio(DisplayUnitToSimUnitRatio);
 		}
 
 		/// <summary>
@@ -94,16 +94,17 @@ namespace Teamwork_OOP
 				Exit();
 			}
 
-			// check for input and dispatch as event
-			MouseState mouse = Mouse.GetState();
-			if (mouse.LeftButton == ButtonState.Pressed)
-			{
-				//Exit();
-			}
-
 			// TODO: add update logic here
 			TimeSpan timeSpan = gameTime.ElapsedGameTime;
 			float deltaTime = (float)(timeSpan.TotalMilliseconds / 1000.0f);
+
+			if (this.IsActive)
+			{
+				KeyboardState keyboardState = Keyboard.GetState();
+				MouseState mouseState = Mouse.GetState();
+
+				this.sceneManager.ProcessInput(keyboardState, mouseState);
+			}
 
 			this.sceneManager.Update(deltaTime);
 

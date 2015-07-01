@@ -23,26 +23,26 @@ namespace Teamwork_OOP.Engine.Drawing
 		}
 
 		// remove ????
-		public override bool Equals(object obj)
-		{
-			if (obj == null)
-			{
-				return false;
-			}
+		//public override bool Equals(object obj)
+		//{
+		//	if (obj == null)
+		//	{
+		//		return false;
+		//	}
 
-			var otherFrame = (Frame)obj;
-			return this.DrawOffset == otherFrame.DrawOffset
-				&& this.SourceRectangle == otherFrame.SourceRectangle;
-		}
+		//	var otherFrame = (Frame)obj;
+		//	return this.DrawOffset == otherFrame.DrawOffset
+		//		&& this.SourceRectangle == otherFrame.SourceRectangle;
+		//}
 
-		public static bool operator ==(Frame frameA, Frame frameB)
-		{
-			return frameA.Equals(frameB);
-		}
+		//public static bool operator ==(Frame frameA, Frame frameB)
+		//{
+		//	return frameA.Equals(frameB);
+		//}
 
-		public static bool operator !=(Frame frameA, Frame frameB)
-		{
-			return !frameA.Equals(frameB);
-		}
+		//public static bool operator !=(Frame frameA, Frame frameB)
+		//{
+		//	return !frameA.Equals(frameB);
+		//}
 	}
 }

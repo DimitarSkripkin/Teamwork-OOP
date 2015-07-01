@@ -57,8 +57,8 @@ namespace Teamwork_OOP.Engine.Factories
 						animation.FrameList.Add(new Frame(
 							new Rectangle(int.Parse(inputArray[0]), int.Parse(inputArray[1]), int.Parse(inputArray[2]), int.Parse(inputArray[3])),
 							timePerFrame,
-							Vector2.Zero
-							//new Vector2(int.Parse(inputArray[2]) / 2.0f, int.Parse(inputArray[3]) / 2.0f)
+							//Vector2.Zero
+							new Vector2(int.Parse(inputArray[2]) / 2.0f, int.Parse(inputArray[3]) / 2.0f)
 							)
 						);
 						input = sr.ReadLine();
