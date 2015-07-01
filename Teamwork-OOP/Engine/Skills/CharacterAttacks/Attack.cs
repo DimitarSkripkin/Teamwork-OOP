@@ -2,7 +2,7 @@
 
 namespace Teamwork_OOP.Engine.Skills
 {
-    public class Attack : TargetSkill
+     abstract public class Attack : TargetSkill
     {
         private const float AttackCooldown = 0.5f;
         private const float AtackMaxActiveTime = 1.0f;

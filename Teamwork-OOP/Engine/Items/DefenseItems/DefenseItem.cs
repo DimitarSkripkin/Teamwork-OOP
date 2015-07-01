@@ -11,8 +11,11 @@ namespace Teamwork_OOP.Engine.Items
     public abstract class DefenseItem : Item
     {
 
-        protected DefenseItem(Vector2 position, int id, float baseStatRange, float secondaryStatRange, int strength, int dexterity, int intelligance, int vitality, float criticalDamage, int manaPoints, int healthPoints, int magicResistance, int armor, float spellCastingSpeed = 0, float AttackSpeed = 0)
-            : base(position, id, baseStatRange, secondaryStatRange, strength, dexterity, intelligance, vitality, criticalDamage, manaPoints, healthPoints, magicResistance, armor, spellCastingSpeed, AttackSpeed, 0, 0, 0, 0, 0)
+        protected DefenseItem(Vector2 position, float baseStatRange, float secondaryStatRange,
+			int strength, int dexterity, int intelligance, int vitality, float criticalDamage,
+			int manaPoints, int healthPoints, int magicResistance, int armor, float spellCastingSpeed = 0, float attackSpeed = 0 )
+            : base(position, baseStatRange, secondaryStatRange, strength, dexterity, intelligance, vitality,
+			criticalDamage, 0,0 , armor, magicResistance, attackSpeed, spellCastingSpeed, 0f, 0, 0, 0,0)
        {
          
        }

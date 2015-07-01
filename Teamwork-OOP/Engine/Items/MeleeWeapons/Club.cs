@@ -15,8 +15,8 @@ namespace Teamwork_OOP.Engine.Items
 
         public const float DefaultBaseStatRange = 0.5f;
         public const float DefaultSecontaryStatRange = 0.1f;
-        public Club(Vector2 position, int id, float baseStatRange, float secondaryStatRange, float criticalDamage)
-            : base(position, id, baseStatRange, secondaryStatRange, DefaultStrenghtClub, DefaultDexterityClub, DefaultVitalityClub, criticalDamage, 0)
+        public Club(Vector2 position, float baseStatRange, float secondaryStatRange, float criticalDamage)
+            : base(position, baseStatRange, secondaryStatRange, DefaultStrenghtClub, DefaultDexterityClub, DefaultVitalityClub, criticalDamage, 0)
         {
         }
     }

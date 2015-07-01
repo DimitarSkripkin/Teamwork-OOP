@@ -23,7 +23,17 @@ namespace Teamwork_OOP.Engine.UI
 		{
 			get { return collisionBox; }
 		}
-		public bool isMouseOver { get; set; }
+		public Vector2 Position
+		{
+			get
+			{
+				return this.CollisionBox.Position;
+			}
+		}
+		public TextureNode TextureNode { get; set; }
+
+		public bool IsMouseOver { get; set; }
+
 		public event OnClickEventHandler OnClick;
 
 		public void RaiseClickEvent()

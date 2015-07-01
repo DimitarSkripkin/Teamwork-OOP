@@ -7,7 +7,7 @@ namespace Teamwork_OOP.Engine.Items
 {
     using Microsoft.Xna.Framework;
 
-    class Pants : DefenseItem
+    public class Pants : DefenseItem
     {
          
            //baseStats
@@ -21,8 +21,10 @@ namespace Teamwork_OOP.Engine.Items
         public const int DefaultMagicResistancePants = 12;
         public const int DefaultArmorPants = 18;
 
-        public Pants(Vector2 position, int id, float baseStatRange, float secondaryStatRange, float criticalDamage)
-            : base(position, id, baseStatRange, secondaryStatRange, DefaultStrenghtPants, DefaultDexterityPants, DefaultIntelligencePants, DefaultVitalityPants, criticalDamage, DefaultManaPointsPants, DefaultHealthPointsPants, DefaultMagicResistancePants, DefaultArmorPants)
+        public Pants(Vector2 position, float baseStatRange, float secondaryStatRange)
+            : base(position, baseStatRange, secondaryStatRange, DefaultStrenghtPants, DefaultDexterityPants, 
+			DefaultIntelligencePants, DefaultVitalityPants, 0, 
+			DefaultManaPointsPants, DefaultHealthPointsPants, DefaultMagicResistancePants, DefaultArmorPants)
         {
 
         }

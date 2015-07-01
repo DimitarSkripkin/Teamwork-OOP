@@ -7,7 +7,7 @@ namespace Teamwork_OOP.Engine.Items
 {
     using Microsoft.Xna.Framework;
 
-    class Chest : DefenseItem
+     public class Chest : DefenseItem
     {
          //baseStats
         public const int DefaultStrengthChest = 25;
@@ -20,8 +20,10 @@ namespace Teamwork_OOP.Engine.Items
         public const int DefaultMagicResistanceChest = 16;
         public const int DefaultArmorChest = 18;
 
-        public Chest(Vector2 position, int id, float baseStatRange, float secondaryStatRange, float criticalDamage)
-            : base(position, id, baseStatRange, secondaryStatRange, DefaultStrengthChest, DefaultDexterityChest, DefaultIntelligenceChest, DefaultVitalityChest, criticalDamage, DefaultManaPointsChest, DefaultHealthPointsChest, DefaultMagicResistanceChest, DefaultArmorChest)
+        public Chest(Vector2 position, float baseStatRange, float secondaryStatRange)
+            : base(position, baseStatRange, secondaryStatRange, DefaultStrengthChest, DefaultDexterityChest, 
+			DefaultIntelligenceChest, DefaultVitalityChest, 0, DefaultManaPointsChest,
+			DefaultHealthPointsChest, DefaultMagicResistanceChest, DefaultArmorChest)
         {
         }
     }

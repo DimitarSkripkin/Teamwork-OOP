@@ -7,7 +7,7 @@ namespace Teamwork_OOP.Engine.Items
 {
     using Microsoft.Xna.Framework;
 
-    class Gloves : DefenseItem
+    public class Gloves : DefenseItem
     {
         public const int DefaultStrengthGloves = 21;
         public const int DefaultDexterityGloves = 50;
@@ -23,8 +23,11 @@ namespace Teamwork_OOP.Engine.Items
         public const float DefaultAttackSpeedGloves = 0.1f;
 
         //increase Spell Casting Speed i Attack Speed
-        public Gloves(Vector2 position, int id, float baseStatRange, float secondaryStatRange, float criticalDamage)
-            : base(position, id, baseStatRange, secondaryStatRange, DefaultStrengthGloves, DefaultDexterityGloves, DefaultIntelligenceGloves, DefaultVitalityGloves, criticalDamage, DefaultManaPointsGloves, DefaultHealthPointsGloves, DefaultMagicResistanceGloves, DefaultArmorGloves, DefaultArmorGloves, DefaultMagicResistanceGloves)
+        public Gloves(Vector2 position, float baseStatRange, float secondaryStatRange)
+            : base(position, baseStatRange, secondaryStatRange, DefaultStrengthGloves, 
+			DefaultDexterityGloves, DefaultIntelligenceGloves, DefaultVitalityGloves, 
+			0 , DefaultManaPointsGloves, DefaultHealthPointsGloves, 
+			DefaultMagicResistanceGloves, DefaultArmorGloves, DefaultArmorGloves, DefaultMagicResistanceGloves)
         {
            
         }
