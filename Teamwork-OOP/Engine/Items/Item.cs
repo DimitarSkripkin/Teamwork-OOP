@@ -5,6 +5,7 @@ using Microsoft.Xna.Framework;
 namespace Teamwork_OOP.Engine.Items
 {
 	using BaseClasses;
+	using FarseerPhysics.Dynamics;
 	using Interfaces;
 	using Physics;
 
@@ -37,13 +38,15 @@ namespace Teamwork_OOP.Engine.Items
 		private int dexterity;
 		private int intelligence;
 		private int vitality;
-
+        
+        
+        
 		private float criticalDamage;
 		//
 		protected Item(Vector2 position, int id,
 			float baseStatRange, float secondaryStatRange,
 			int strength, int dexterity, int intelligance, int vitality,
-			float criticalDamage)
+            float criticalDamage, int attackDamage, int spellDamage, int armor, int magicResistance, float attackSpeed, float spellCastingSpeed, float movementSpeed, int healthPoints, int manaPoints, float attackRange, float criticalHitChance)
 			: base()
 		{
 			int statID = 0;
@@ -65,6 +68,39 @@ namespace Teamwork_OOP.Engine.Items
 					case 3:
 						this.Vitality += GetRandomNumber(vitality, (int)(baseStatRange * vitality));
 						break;
+                    case 4:
+				        this.AttackDamage += GetRandomNumber(AttackDamage, (int) (baseStatRange * attackDamage));
+				        break;
+                    case 5:
+                        this.SpellDamage += GetRandomNumber(SpellDamage, (int) (baseStatRange * spellDamage));
+				        break;
+                    case 6:
+				        this.Armor += GetRandomNumber(Armor, (int) (baseStatRange * armor));
+				        break;
+                    case 7:
+				        this.MagicResistance += GetRandomNumber(MagicResistance, (int) (baseStatRange * magicResistance));
+				        break;
+                    case 8:
+                          this.AttackSpeed += GetRandomNumber(AttackSpeed, (baseStatRange * attackSpeed));
+				        break;
+                    case 9:
+				        this.SpellCastingSpeed += GetRandomNumber(SpellCastingSpeed, (baseStatRange * spellCastingSpeed));
+				        break;
+                    case 10:
+                        this.MovementSpeed += GetRandomNumber(MovementSpeed, (baseStatRange * movementSpeed));
+				        break;
+                    case 11:
+                        this.HealthPoints += GetRandomNumber(HealthPoints, (int)(baseStatRange * healthPoints));
+                        break;
+                    case 12:
+                        this.ManaPoints += GetRandomNumber(ManaPoints, (int)(baseStatRange * manaPoints));
+                        break;
+                    case 13:
+                        this.AttackRange += GetRandomNumber(AttackRange, secondaryStatRange * attackRange);
+                        break;
+                    case 14:
+                        this.CriticalHitChance += GetRandomNumber(criticalHitChance, secondaryStatRange * criticalHitChance);
+                        break;
 					//todo : implement case 4 - case 14
 					case 15:
 						CriticalDamage += GetRandomNumber(criticalDamage, secondaryStatRange * criticalDamage);
@@ -103,138 +139,36 @@ namespace Teamwork_OOP.Engine.Items
 			get { return vitality; }
 			set { vitality = value; }
 		}
+ 
+		public int AttackDamage { get; set; }
+	
 
-		public int AttackDamage
-		{
-			get
-			{
-				throw new NotImplementedException();
-			}
-			set
-			{
-				throw new NotImplementedException();
-			}
-		}
+		public int SpellDamage { get; set; }
+		
+          
+		public int Armor { get; set; }
+		
+       
+		public int MagicResistance { get; set; }
 
-		public int SpellDamage
-		{
-			get
-			{
-				throw new NotImplementedException();
-			}
-			set
-			{
-				throw new NotImplementedException();
-			}
-		}
+	
+		public float AttackSpeed { get; set; }
 
-		public int Armor
-		{
-			get
-			{
-				throw new NotImplementedException();
-			}
-			set
-			{
-				throw new NotImplementedException();
-			}
-		}
+      
+		public float SpellCastingSpeed { get; set; }
+		
 
-		public int MagicResistance
-		{
-			get
-			{
-				throw new NotImplementedException();
-			}
-			set
-			{
-				throw new NotImplementedException();
-			}
-		}
+		public float MovementSpeed { get; set; }
+		
 
-		public float AttackSpeed
-		{
-			get
-			{
-				throw new NotImplementedException();
-			}
-			set
-			{
-				throw new NotImplementedException();
-			}
-		}
+		public int HealthPoints { get; set; }
+		
 
-		public float SpellCastingSpeed
-		{
-			get
-			{
-				throw new NotImplementedException();
-			}
-			set
-			{
-				throw new NotImplementedException();
-			}
-		}
+		public int ManaPoints { get; set; }
+	
 
-		public float MovementSpeed
-		{
-			get
-			{
-				throw new NotImplementedException();
-			}
-			set
-			{
-				throw new NotImplementedException();
-			}
-		}
-
-		public int HealthPoints
-		{
-			get
-			{
-				throw new NotImplementedException();
-			}
-			set
-			{
-				throw new NotImplementedException();
-			}
-		}
-
-		public int ManaPoints
-		{
-			get
-			{
-				throw new NotImplementedException();
-			}
-			set
-			{
-				throw new NotImplementedException();
-			}
-		}
-
-		public float AttackRange
-		{
-			get
-			{
-				throw new NotImplementedException();
-			}
-			set
-			{
-				throw new NotImplementedException();
-			}
-		}
-
-		public float CriticalHit
-		{
-			get
-			{
-				throw new NotImplementedException();
-			}
-			set
-			{
-				throw new NotImplementedException();
-			}
-		}
+		public float AttackRange { get; set; }
+	
 
 		public float CriticalDamage
 		{
@@ -242,16 +176,7 @@ namespace Teamwork_OOP.Engine.Items
 			set { this.criticalDamage = value; }
 		}
 
-		public float CriticalHitChance
-		{
-			get
-			{
-				throw new NotImplementedException();
-			}
-			set
-			{
-				throw new NotImplementedException();
-			}
-		}
+		public float CriticalHitChance { get; set; }
+		
 	}
 }
