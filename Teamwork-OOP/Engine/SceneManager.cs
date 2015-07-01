@@ -6,8 +6,11 @@ using System.Text;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Content;
+using Microsoft.Xna.Framework.Input;
 
+using FarseerPhysics;
 using FarseerPhysics.Dynamics;
+using FarseerPhysics.Controllers;
 
 namespace Teamwork_OOP.Engine
 {
@@ -21,19 +24,18 @@ namespace Teamwork_OOP.Engine
 	{
 		private const float DrawRadius = 1000.0f;
 		private static readonly Vector2 DefaultGravityDirection = new Vector2(0.0f, 9.82f);
-		//private TextureManager textureManager;
-		//private DrawManager drawManager;
+
+		private Vector2 windowHalfSize;
 		private MapManager mapManager;
 		private World physicsWorld;
 
-		Vector2 cameraPosition;
+		private Vector2 cameraPosition;
 
+		private bool jumped;
 		// here or in MapManager class ????
 		//private List<Items> items;
 
 		private IEnumerable<Body> inDrawRange;
-
-		public Entity CameraAttachedTo { get; set; }
 
 		public SceneManager()
 		{
@@ -47,6 +49,8 @@ namespace Teamwork_OOP.Engine
 		{
 			Init(textureManager, spriteBatch);
 		}
+
+		public Entity CameraAttachedTo { get; set; }
 
 		SpriteBatch SpriteBatch { get; set; }
 
@@ -82,12 +86,40 @@ namespace Teamwork_OOP.Engine
 			this.mapManager.InitPhysics(this.PhysicsWorld);
 		}
 
+		public void ResizeWindow(Vector2 newSize)
+		{
+			this.windowHalfSize = newSize / 2.0f;
+		}
+
+		public void ProcessInput(KeyboardState keyboardState, MouseState mouseState)
+		{
+			if (this.CameraAttachedTo != null)
+			{
+				var entity = this.CameraAttachedTo;
+
+				if (keyboardState.IsKeyDown(Keys.A))
+				{
+					entity.Move(new Vector2(-10.0f, 0.0f));
+				}
+				if (keyboardState.IsKeyDown(Keys.D))
+				{
+					entity.Move(new Vector2(10.0f, 0.0f));
+				}
+				if (keyboardState.IsKeyDown(Keys.Space) && !jumped)
+				{
+					entity.Jump(new Vector2(0.0f, -250.0f));
+				}
+				jumped = keyboardState.IsKeyDown(Keys.Space);
+			}
+
+		}
+
 		public void Update(float deltaTime)
 		{
 			// update and draw only things that are in certain radius
 			if (this.CameraAttachedTo != null)
 			{
-				cameraPosition = this.CameraAttachedTo.CollisionHull.Position;
+				this.cameraPosition = this.CameraAttachedTo.CollisionHull.Position;
 			}
 
 			inDrawRange = this.physicsWorld.BodyList.Where(b => (b.Position - this.cameraPosition).Length() < DrawRadius);
@@ -113,6 +145,7 @@ namespace Teamwork_OOP.Engine
 
 				// TODO: move the background with the camera
 				// var mapSize = this.Map.GetMapSize();
+				//var backgroundOffset = this.physicsWorld.
 				this.SpriteBatch.Draw(this.mapManager.Background, Vector2.Zero, Color.White);
 
 				this.SpriteBatch.End();
@@ -121,9 +154,11 @@ namespace Teamwork_OOP.Engine
 			// BEGIN DRAW
 			this.SpriteBatch.Begin(SpriteSortMode.BackToFront);
 
+			var cPos = ConvertUnits.ToDisplayUnits(this.cameraPosition) - windowHalfSize;
+
 			foreach (var body in inDrawRange)
 			{
-				DrawManager.Draw(this.SpriteBatch, body, cameraPosition);
+				DrawManager.Draw(this.SpriteBatch, body, cPos);
 			}
 
 			// END DRAW

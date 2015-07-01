@@ -62,6 +62,7 @@
     <Compile Include="Engine\Drawing\TextureNode.cs" />
     <Compile Include="Engine\Factories\AnimationFactory.cs" />
     <Compile Include="Engine\Factories\ItemFactory.cs" />
+    <Compile Include="Engine\Factories\EntityFactory.cs" />
     <Compile Include="Engine\Factories\MapFactory.cs" />
     <Compile Include="Engine\Items\DefenseItems\Boots.cs" />
     <Compile Include="Engine\Items\DefenseItems\Chest.cs" />

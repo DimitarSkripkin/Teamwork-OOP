@@ -1,4 +1,7 @@
-﻿using Microsoft.Xna.Framework;
+﻿using System;
+using System.Collections.Generic;
+
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Content;
@@ -9,9 +12,6 @@ using FarseerPhysics.Dynamics;
 using FarseerPhysics.Dynamics.Contacts;
 using FarseerPhysics.Factories;
 using FarseerPhysics.Collision.Shapes;
-
-using System.Collections.Generic;
-using System;
 
 using Teamwork_OOP.Engine.Drawing;
 using Teamwork_OOP.Engine.Map;
@@ -79,6 +79,14 @@ namespace MonogameTestProject.Editor
 
 		public World PhysicsWorld { get; set; }
 		public SpriteBatch SpriteBatch { get; set; }
+
+		public Vector2 CameraPosition
+		{
+			get
+			{
+				return this.cameraPosition;
+			}
+		}
 
 		public MapManager Map { get; set; }
 
@@ -216,14 +224,14 @@ namespace MonogameTestProject.Editor
 			}
 		}
 
-		public void UpdateInput(KeyboardState keyState, MouseState mouseState)
+		public void ProcessInput(KeyboardState keyboardState, MouseState mouseState)
 		{
 			int deltaScrollWheel = this.lastScrollWheelValue - mouseState.ScrollWheelValue;
 			this.lastScrollWheelValue = mouseState.ScrollWheelValue;
 			
-			MoveCamera(keyState, mouseState, deltaScrollWheel);
+			MoveCamera(keyboardState, mouseState, deltaScrollWheel);
 
-			if (!keyState.IsKeyDown(Keys.LeftControl))
+			if (!keyboardState.IsKeyDown(Keys.LeftControl))
 			{
 				if (deltaScrollWheel > 0)
 				{
@@ -235,23 +243,23 @@ namespace MonogameTestProject.Editor
 				}
 			}
 
-			if (keyState.IsKeyDown(Keys.D1))
+			if (keyboardState.IsKeyDown(Keys.D1))
 			{
 				this.editorMode = EditorModes.AddBlocks;
 			}
-			else if (keyState.IsKeyDown(Keys.D2))
+			else if (keyboardState.IsKeyDown(Keys.D2))
 			{
 				this.editorMode = EditorModes.AddTrigger;
 			}
-			else if (keyState.IsKeyDown(Keys.D3))
+			else if (keyboardState.IsKeyDown(Keys.D3))
 			{
 				this.editorMode = EditorModes.AddPlatforms;
 			}
-			else if (keyState.IsKeyDown(Keys.D4))
+			else if (keyboardState.IsKeyDown(Keys.D4))
 			{
 				this.editorMode = EditorModes.AddMonsters;
 			}
-			else if (keyState.IsKeyDown(Keys.D5))
+			else if (keyboardState.IsKeyDown(Keys.D5))
 			{
 				this.editorMode = EditorModes.AddBackground;
 			}
@@ -294,7 +302,7 @@ namespace MonogameTestProject.Editor
 					throw new ArgumentException("WTF HOW ????");
 			}
 
-			if (keyState.IsKeyDown(Keys.F10))
+			if (keyboardState.IsKeyDown(Keys.F10))
 			{
 				MapFactory.MapSave(this.Map, this.textureManager);
 			}
@@ -415,7 +423,7 @@ namespace MonogameTestProject.Editor
 				if (mouseState.LeftButton == ButtonState.Released)
 				{
 					var textureNode = platformNodes[this.currentResourceSelection];
-					var platform = new MapPlatform(this.startPosition, this.endPosition, textureNode.Texture.Bounds.Size, textureNode);
+					var platform = new MapPlatform(this.startPosition, this.endPosition, new Point(1, 1) /*textureNode.Texture.Bounds.Size*/, textureNode);
 
 					platform.AddToWorld(this.PhysicsWorld);
 					this.Map.AddPlatform(platform);

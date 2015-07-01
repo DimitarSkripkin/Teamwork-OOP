@@ -28,12 +28,18 @@ namespace Teamwork_OOP.Engine.Map
 
 		public virtual void AddToWorld(World physicsWorld)
 		{
+			var size = ConvertUnits.ToSimUnits(new Vector2(this.TextureNode.SourceRectangle.Width * this.Size.X, this.TextureNode.SourceRectangle.Height * this.Size.Y));
 			this.CollisionHull = BodyFactory.CreateRectangle(physicsWorld,
-						ConvertUnits.ToSimUnits(this.TextureNode.Texture.Width * this.Size.X),
-						ConvertUnits.ToSimUnits(this.TextureNode.Texture.Height * this.Size.Y),
+						size.X,
+						size.Y,
 						10.0f,
-						this.Position,
+						this.Position + size/2.0f,
 						this);
+
+			foreach (var fixture in this.CollisionHull.FixtureList)
+			{
+				fixture.UserData = this;
+			}
 		}
 
 		public Point Size

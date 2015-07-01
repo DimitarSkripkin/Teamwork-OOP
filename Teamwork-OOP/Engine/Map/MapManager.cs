@@ -83,7 +83,7 @@ namespace Teamwork_OOP.Engine.Map
 
 			foreach (var entity in this.entities)
 			{
-				//entity.AddToWorld(physicsWorld);
+				entity.AddToWorld(physicsWorld);
 			}
 		}
 
@@ -102,6 +102,11 @@ namespace Teamwork_OOP.Engine.Map
 			this.platforms.Add(platform);
 		}
 
+		public void AddEntity(Entity entity)
+		{
+			this.entities.Add(entity);
+		}
+
 		public void RemoveBlock(MapBlock block)
 		{
 			this.blocks.Remove(block);
@@ -110,11 +115,6 @@ namespace Teamwork_OOP.Engine.Map
 		public void RemoveTrigger(MapTriggerBlock triggerBlock)
 		{
 			this.triggers.Remove(triggerBlock);
-		}
-
-		public void AddEntity(Entity entity)
-		{
-			this.entities.Add(entity);
 		}
 
 		public void RemoveEntity(Entity entity)

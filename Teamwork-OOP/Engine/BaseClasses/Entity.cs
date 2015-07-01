@@ -2,12 +2,14 @@
 using System.Collections.Generic;
 
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 
 using FarseerPhysics;
 using FarseerPhysics.Dynamics;
 using FarseerPhysics.Common;
 using FarseerPhysics.Factories;
 using FarseerPhysics.Dynamics.Contacts;
+using FarseerPhysics.Collision;
 
 namespace Teamwork_OOP.Engine.BaseClasses
 {
@@ -69,7 +71,7 @@ namespace Teamwork_OOP.Engine.BaseClasses
 			this.AttackDamage = attackDamage;
 			this.SpellDamage = spellDamage;
 			this.Armor = armor;
- 			this.MagicResistance = magicResistance;
+			this.MagicResistance = magicResistance;
 			this.AttackSpeed = attackSpeed;
 			this.SpellCastingSpeed = spellCastingSpeed;
 			this.MovementSpeed = movementSpeed;
@@ -79,32 +81,9 @@ namespace Teamwork_OOP.Engine.BaseClasses
 			this.CriticalHitChance = criticalHitChance;
 			this.CriticalDamage = criticalDamage;
 
-			this.currentAnimation = new AnimationSprite();
+			this.animations = new List<AnimationSprite>();
+			//this.animations = new Dictionary<string, AnimationSprite>();
 			//this.CollisionHull.CollisionHandler += CollisionCallBack;
-		}
-
-		public override void AddToWorld(World physicsWorld)
-		{
-			this.CollisionHull = BodyFactory.CreateEllipse(physicsWorld, 2.0f, 1.0f, CollisionEdges, BodyDensity, this);
-			this.CollisionHull.OnCollision += OnCollision;
-		}
-
-		// TODO: check if with overide event handler will call the new CallBack function
-		public override bool OnCollision(Fixture fixtureA, Fixture fixtureB, Contact contact)
-		{
-			throw new NotImplementedException();
-			//return true;
-
-			//if (fixtureA is MapBlock ||
-			if (fixtureB.UserData is MapBlock)
-			{
-				if (contact.Manifold.LocalNormal.Y > 0.0f)
-				{
-					this.jump = 0;
-				}
-			}
-			// apply skill effects
-			return true;
 		}
 
 		public int Strength
@@ -162,7 +141,7 @@ namespace Teamwork_OOP.Engine.BaseClasses
 		{
 			get
 			{
-				return this.Strength + this.Vitality+ this.armor;
+				return this.Strength + this.Vitality + this.armor;
 			}
 			set
 			{
@@ -251,11 +230,69 @@ namespace Teamwork_OOP.Engine.BaseClasses
 			}
 		}
 
-		//public bool Jumped { get; set; }
-
-		public bool IsAlive { get { return false; } }
+		public bool IsAlive
+		{
+			get
+			{
+				return this.CurrentHealthPoints <= 0;
+			}
+		}
 
 		public bool IsControlledByHuman { get; set; }
+
+		public IList<AnimationSprite> Animations
+		{
+			get
+			{
+				return this.animations;
+			}
+		}
+
+		public AnimationSprite CurrentAnimation
+		{
+			get
+			{
+				return this.currentAnimation;
+			}
+		}
+
+		public override void AddToWorld(World physicsWorld)
+		{
+			//this.CollisionHull = BodyFactory.CreateEllipse(physicsWorld, 1.0f, 1.0f, CollisionEdges, BodyDensity, this);
+			//this.CollisionHull.UserData = this;
+
+			this.CollisionHull = BodyFactory.CreateCapsule(physicsWorld, 1.8f, 0.5f, BodyDensity, this);
+
+			//this.CollisionHull = BodyFactory.CreateRectangle(physicsWorld, 1.0f, 1.8f, BodyDensity, this);
+
+			this.CollisionHull.Friction = 4.0f;
+			this.CollisionHull.BodyType = BodyType.Dynamic;
+			this.CollisionHull.FixedRotation = true;
+
+			if ((int)AnimationType.Idle < this.animations.Count && this.currentAnimation != this.animations[(int)AnimationType.Idle])
+			{
+				this.currentAnimation = this.animations[(int)AnimationType.Idle];
+				this.currentAnimation.Reset();
+			}
+
+			this.CollisionHull.OnCollision += OnCollision;
+		}
+
+		// TODO: check if with overide event handler will call the new CallBack function
+		public override bool OnCollision(Fixture fixtureA, Fixture fixtureB, Contact contact)
+		{
+			if (fixtureB.UserData is MapBlock)
+			{
+				this.jump = 0;
+				this.inTheAir = false;
+			}
+			else if (fixtureB.UserData is MapTriggerBlock)
+			{
+				return false;
+			}
+			// apply skill effects
+			return true;
+		}
 
 		public bool TryToAttack(Entity attackTarget)
 		{
@@ -271,36 +308,84 @@ namespace Teamwork_OOP.Engine.BaseClasses
 			//todo
 		}
 
+		bool inTheAir;
+
 		public virtual void Update(float deltaTime)
 		{
-			//todo
-			if (this.lastFrame != this.currentAnimation.CurrentFrame)
+			this.currentAnimation.UpdateAnimation(deltaTime);
+
+			//if (this.CollisionHull.LinearVelocity.Length() < 0.1f)
+			//{
+			//	if ((int)AnimationType.Idle < this.animations.Count
+			//		&& this.currentAnimation != this.animations[(int)AnimationType.Idle])
+			//	{
+			//		this.currentAnimation = this.animations[(int)AnimationType.Idle];
+			//		this.currentAnimation.Reset();
+			//	}
+			//}
+			//else if (this.CollisionHull.LinearVelocity.X < 0)
+			//{
+			//	this.currentAnimation.Effects = SpriteEffects.FlipHorizontally;
+			//}
+			//else
+			//{
+			//	this.currentAnimation.Effects = SpriteEffects.None;
+			//}
+
+			if (this.inTheAir)
 			{
-				if (this.lastFrame.SourceRectangle.Size != this.currentAnimation.CurrentFrame.SourceRectangle.Size)
+				if ((int)AnimationType.Jump < this.animations.Count
+					&& this.currentAnimation != this.animations[(int)AnimationType.Jump])
 				{
-					var hull = this.CollisionHull;
-
-					hull.FixtureList.Clear();
-
-					float xRadius = ConvertUnits.ToSimUnits(this.currentAnimation.CurrentFrame.SourceRectangle.Width);
-					float yRadius = ConvertUnits.ToSimUnits(this.currentAnimation.CurrentFrame.SourceRectangle.Height);
-
-					FixtureFactory.AttachEllipse(xRadius, yRadius, CollisionEdges, BodyDensity, hull, this);
-
-					hull.OnCollision += OnCollision;
+					this.currentAnimation = this.animations[(int)AnimationType.Jump];
+					this.currentAnimation.Reset();
 				}
-
-				this.lastFrame = this.currentAnimation.CurrentFrame;
 			}
 			else
 			{
-				this.currentAnimation.UpdateAnimation(deltaTime);
+				if (this.CollisionHull.LinearVelocity.Length() > 0.1f)
+				{
+					if ((int)AnimationType.Run < this.animations.Count
+						&& this.currentAnimation != this.animations[(int)AnimationType.Run])
+					{
+						this.currentAnimation = this.animations[(int)AnimationType.Run];
+						this.currentAnimation.Reset();
+					}
+				}
+				else
+				{
+					if ((int)AnimationType.Idle < this.animations.Count
+						&& this.currentAnimation != this.animations[(int)AnimationType.Idle])
+					{
+						this.currentAnimation = this.animations[(int)AnimationType.Idle];
+						this.currentAnimation.Reset();
+					}
+				}
 			}
+
+			if (this.CollisionHull.LinearVelocity.X < 0)
+			{
+				this.currentAnimation.Effects = SpriteEffects.FlipHorizontally;
+			}
+			else
+			{
+				this.currentAnimation.Effects = SpriteEffects.None;
+			}
+
+			this.inTheAir = this.CollisionHull.ContactList == null;
 		}
 
 		public void Move(Vector2 impulse)
 		{
 			this.CollisionHull.ApplyLinearImpulse(impulse);
+
+			if (!this.inTheAir
+				&& (int)AnimationType.Run < this.animations.Count
+				&& this.currentAnimation != this.animations[(int)AnimationType.Run])
+			{
+				this.currentAnimation = this.animations[(int)AnimationType.Run];
+				this.currentAnimation.Reset();
+			}
 		}
 
 		public void Jump(Vector2 impulse)
@@ -308,7 +393,16 @@ namespace Teamwork_OOP.Engine.BaseClasses
 			if (jump < MaxJumps)
 			{
 				this.CollisionHull.ApplyLinearImpulse(impulse);
+
+				//if (this.jump == 0 && (int)AnimationType.Jump < this.animations.Count)
+				//{
+				//	this.currentAnimation = this.animations[(int)AnimationType.Jump];
+				//	this.currentAnimation.Reset();
+				//}
+
 				++this.jump;
+
+				this.inTheAir = true;
 			}
 		}
 	}
