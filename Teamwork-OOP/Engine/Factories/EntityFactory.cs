@@ -7,6 +7,8 @@ using Microsoft.Xna.Framework;
 
 using FarseerPhysics;
 using FarseerPhysics.Dynamics;
+using Microsoft.Xna.Framework.Graphics;
+using Teamwork_OOP.Engine.BaseClasses;
 
 namespace Teamwork_OOP.Engine.Factories
 {
@@ -15,26 +17,29 @@ namespace Teamwork_OOP.Engine.Factories
 
 	public static class EntityFactory
 	{
-		public static void LoadCharacterAnimations(Warrior character, TextureManager textureManager, string filePath)
+		public static void LoadEntity(Entity entity, TextureManager textureManager, string filePath, string entityName)
 		{
-			//character
-			var texture = textureManager.GetOrLoadTexture(filePath + "/warrior");
+			var texture = textureManager.GetOrLoadTexture(filePath + "/" + entityName);
 
-			var animationSprite = new AnimationSprite();
-			animationSprite.Sprite = texture;
+			GetAnimation(entity, filePath, texture, "IDLE");
 
-			AnimationFactory.LoadFromFile(ref animationSprite, 0.1f, "Content/" + filePath + "/IDLE.txt");
-			character.Animations["IDLE"] = animationSprite.Clone();
+			GetAnimation(entity, filePath, texture, "RUN");
 
-			var animationSprite1 = new AnimationSprite();
-			animationSprite1.Sprite = texture;
-			AnimationFactory.LoadFromFile(ref animationSprite1, 0.1f, "Content/" + filePath + "/RUN.txt");
-			character.Animations["RUN"] = animationSprite1.Clone();
+			GetAnimation(entity, filePath, texture, "JUMP");
 
-			var animationSprite2 = new AnimationSprite();
-			animationSprite2.Sprite = texture;
-			AnimationFactory.LoadFromFile(ref animationSprite2, 0.1f, "Content/" + filePath + "/JUMP.txt");
-			character.Animations["JUMP"] = animationSprite2.Clone();
+			GetAnimation(entity, filePath, texture, "ATTACK");
 		}
+		
+		private static void GetAnimation(Entity entity, string filePath, Texture2D texture , string animationName)
+		{
+				var animationSprite2 = new AnimationSprite();
+				animationSprite2.Sprite = texture;
+				AnimationFactory.LoadFromFile(ref animationSprite2, 0.1f, "Content/" + filePath + "/" + animationName + ".txt");
+				entity.Animations[animationName] = animationSprite2.Clone();
+		}
+
+
+
+		
 	}
 }

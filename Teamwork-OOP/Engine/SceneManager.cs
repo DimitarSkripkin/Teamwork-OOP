@@ -102,7 +102,7 @@ namespace Teamwork_OOP.Engine
 			if (this.mapManager.CheckPoints.Count > 0)
 			{
 				var hero = new Warrior();
-				EntityFactory.LoadCharacterAnimations(hero, this.TextureManager, "Characters");
+				EntityFactory.LoadEntity(hero, this.TextureManager, "Characters" , "warrior");
 				hero.AddToWorld(this.PhysicsWorld);
 				hero.CollisionHull.Position = this.mapManager.CheckPoints[0].Position;
 				this.CameraAttachedTo = hero;

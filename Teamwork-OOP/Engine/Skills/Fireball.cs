@@ -29,5 +29,6 @@ namespace Teamwork_OOP.Engine.Skills
 			this.UsedFrom.HealthPoints -= target.Strength * 10;
 			target.CollisionHull.ApplyLinearImpulse(new Vector2(1.0f, 0));
 		}
+
 	}
 }
