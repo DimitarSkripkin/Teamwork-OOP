@@ -1,6 +1,7 @@
 ﻿using System;
 using System.ComponentModel;
 using Microsoft.Xna.Framework;
+using Teamwork_OOP.Engine.Factories;
 
 namespace Teamwork_OOP.Engine.Items
 {
@@ -16,94 +17,67 @@ namespace Teamwork_OOP.Engine.Items
 	 */
 	public abstract class Item : CollidableObject, IBaseStats, ISecondaryStats
 	{
-		// both GetRandomNumber methods needs to be moved to static class
-		float GetRandomNumber(float baseValue, float epsilonRange)
-		{
-			double minValue = baseValue - epsilonRange;
-			Random random = new Random();
-			return (float)(random.NextDouble() * (epsilonRange * 2) + minValue);
-		}
-
-		int GetRandomNumber(int baseValue, int epsilonRange)
-		{
-			Random random = new Random();
-			return random.Next((baseValue - epsilonRange), (baseValue + epsilonRange));
-		}
-		
-		/* collisionHull shoud be Circle or AABB
-		 * and is the shape that will be visible
-		 * when the item drops on the ground
-		 */
-		private int strength;
-		private int dexterity;
-		private int intelligence;
-		private int vitality;
-        
-        
-        
-		private float criticalDamage;
-		//
-		protected Item(Vector2 position, int id,
+		protected Item(Vector2 position,
 			float baseStatRange, float secondaryStatRange,
 			int strength, int dexterity, int intelligance, int vitality,
-            float criticalDamage, int attackDamage, int spellDamage, int armor, int magicResistance, float attackSpeed, float spellCastingSpeed, float movementSpeed, int healthPoints, int manaPoints, float attackRange, float criticalHitChance)
-			: base()
+            float criticalDamage, int attackDamage, int spellDamage, int armor, int magicResistance, float attackSpeed,
+			float spellCastingSpeed, float movementSpeed, int healthPoints, int manaPoints, float attackRange, float criticalHitChance)
+			
 		{
 			int statID = 0;
-			int addStatCount = 0;
+			int addStatCount = 4;
 			for (int i = 0; i < addStatCount; i++)
 			{
-				statID = GetRandomNumber(8, 8);//The values are a placeholder
+				statID = ItemFactory.GetRandomNumber(8, 8);  
 				switch (statID)
 				{
 					case 0:
-						this.Strength += GetRandomNumber(strength, (int)(baseStatRange * strength));
+						this.Strength += ItemFactory.GetRandomNumber(strength, (int)(baseStatRange * strength));
 						break;
 					case 1:
-						this.Dexterity += GetRandomNumber(dexterity, (int)(baseStatRange * dexterity));
+						this.Dexterity += ItemFactory.GetRandomNumber(dexterity, (int)(baseStatRange * dexterity));
 						break;
 					case 2:
-						this.Intelligence += GetRandomNumber(intelligance, (int)(baseStatRange * intelligance));
+						this.Intelligence += ItemFactory.GetRandomNumber(intelligance, (int)(baseStatRange * intelligance));
 						break;
 					case 3:
-						this.Vitality += GetRandomNumber(vitality, (int)(baseStatRange * vitality));
+						this.Vitality += ItemFactory.GetRandomNumber(vitality, (int)(baseStatRange * vitality));
 						break;
                     case 4:
-				        this.AttackDamage += GetRandomNumber(AttackDamage, (int) (baseStatRange * attackDamage));
+						this.AttackDamage += ItemFactory.GetRandomNumber(attackDamage, (int)(baseStatRange * attackDamage));
 				        break;
                     case 5:
-                        this.SpellDamage += GetRandomNumber(SpellDamage, (int) (baseStatRange * spellDamage));
+						this.SpellDamage += ItemFactory.GetRandomNumber(spellDamage, (int)(baseStatRange * spellDamage));
 				        break;
                     case 6:
-				        this.Armor += GetRandomNumber(Armor, (int) (baseStatRange * armor));
+						this.Armor += ItemFactory.GetRandomNumber(armor, (int)(baseStatRange * armor));
 				        break;
                     case 7:
-				        this.MagicResistance += GetRandomNumber(MagicResistance, (int) (baseStatRange * magicResistance));
+						this.MagicResistance += ItemFactory.GetRandomNumber(magicResistance, (int)(baseStatRange * magicResistance));
 				        break;
                     case 8:
-                          this.AttackSpeed += GetRandomNumber(AttackSpeed, (baseStatRange * attackSpeed));
+						this.AttackSpeed += ItemFactory.GetRandomNumber(attackSpeed, (baseStatRange * attackSpeed));
 				        break;
                     case 9:
-				        this.SpellCastingSpeed += GetRandomNumber(SpellCastingSpeed, (baseStatRange * spellCastingSpeed));
+						this.SpellCastingSpeed += ItemFactory.GetRandomNumber(spellCastingSpeed, (baseStatRange * spellCastingSpeed));
 				        break;
                     case 10:
-                        this.MovementSpeed += GetRandomNumber(MovementSpeed, (baseStatRange * movementSpeed));
+						this.MovementSpeed += ItemFactory.GetRandomNumber(movementSpeed, (baseStatRange * movementSpeed));
 				        break;
                     case 11:
-                        this.HealthPoints += GetRandomNumber(HealthPoints, (int)(baseStatRange * healthPoints));
+						this.HealthPoints += ItemFactory.GetRandomNumber(healthPoints, (int)(baseStatRange * healthPoints));
                         break;
                     case 12:
-                        this.ManaPoints += GetRandomNumber(ManaPoints, (int)(baseStatRange * manaPoints));
+						this.ManaPoints += ItemFactory.GetRandomNumber(manaPoints, (int)(baseStatRange * manaPoints));
                         break;
                     case 13:
-                        this.AttackRange += GetRandomNumber(AttackRange, secondaryStatRange * attackRange);
+						this.AttackRange += ItemFactory.GetRandomNumber(attackRange, secondaryStatRange * attackRange);
                         break;
                     case 14:
-                        this.CriticalHitChance += GetRandomNumber(criticalHitChance, secondaryStatRange * criticalHitChance);
+						this.CriticalHitChance += ItemFactory.GetRandomNumber(criticalHitChance, secondaryStatRange * criticalHitChance);
                         break;
-					//todo : implement case 4 - case 14
 					case 15:
-						CriticalDamage += GetRandomNumber(criticalDamage, secondaryStatRange * criticalDamage);
+						CriticalDamage += ItemFactory.GetRandomNumber(criticalDamage, secondaryStatRange * criticalDamage);
 						break;
 				}
 			}
@@ -118,26 +92,26 @@ namespace Teamwork_OOP.Engine.Items
 
 		public int Strength
 		{
-			get { return this.strength; }
-			set { this.strength = value; }
+			get;
+			set;
 		}
 
 		public int Dexterity
 		{
-			get { return this.dexterity; }
-			set { this.dexterity = value; }
+			get;
+			set;
 		}
 
 		public int Intelligence
 		{
-			get { return intelligence; }
-			set { intelligence = value; }
+			get;
+			set;
 		}
 
 		public int Vitality
 		{
-			get { return vitality; }
-			set { vitality = value; }
+			get;
+			set;
 		}
  
 		public int AttackDamage { get; set; }
@@ -168,15 +142,17 @@ namespace Teamwork_OOP.Engine.Items
 	
 
 		public float AttackRange { get; set; }
-	
+
 
 		public float CriticalDamage
 		{
-			get { return this.criticalDamage; }
-			set { this.criticalDamage = value; }
+			get;
+			set;
 		}
 
 		public float CriticalHitChance { get; set; }
+
+		public bool ToDestroy { get; set; }
 		
 	}
 }

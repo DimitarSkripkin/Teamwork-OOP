@@ -7,7 +7,7 @@ namespace Teamwork_OOP.Engine.Items
 {
     using Microsoft.Xna.Framework;
 
-    class Helm : DefenseItem
+    public class Helm : DefenseItem
     {
          //baseStats
         public const int DefaultStrengthHelm = 19;
@@ -21,8 +21,8 @@ namespace Teamwork_OOP.Engine.Items
         public const int DefaultArmorHelm = 18;
        
          
-        public Helm(Vector2 position, int id, float baseStatRange, float secondaryStatRange, float criticalDamage)
-            : base(position, id, baseStatRange, secondaryStatRange, DefaultStrengthHelm, DefaultDexterityHelm, DefaultIntelligenceHelm, DefaultVitalityHelm, criticalDamage, DefaultManaPointsHelm, DefaultHealthPointsHelm, DefaultMagicResistanceHelm, DefaultArmorHelm)
+        public Helm(Vector2 position, float baseStatRange, float secondaryStatRange, float criticalDamage)
+            : base(position,  baseStatRange, secondaryStatRange, DefaultStrengthHelm, DefaultDexterityHelm, DefaultIntelligenceHelm, DefaultVitalityHelm, criticalDamage, DefaultManaPointsHelm, DefaultHealthPointsHelm, DefaultMagicResistanceHelm, DefaultArmorHelm)
         {
         }
     }

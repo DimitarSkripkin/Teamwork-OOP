@@ -22,13 +22,12 @@ namespace Teamwork_OOP.Engine.Items
 
 		public const float DefaultCriticalDamage = 1.4f;
         public const int DefaultAttackDamageAxe = 9;
-		public Axe(Vector2 position, int id, int level)
-			: base(position, id,
+		public Axe(Vector2 position)
+			: base(position,
 				DefaultBaseStatRange, DefaultSecontaryStatRange,
-
-				level * DefaultStrenght,
-				level * DefaultDexterity,
-				level * DefaultVitality,
+				DefaultStrenght,
+				DefaultDexterity,
+				DefaultVitality,
                 DefaultCriticalDamage, DefaultAttackDamageAxe)
 		{
 		}

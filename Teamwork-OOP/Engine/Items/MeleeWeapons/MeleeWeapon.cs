@@ -9,11 +9,11 @@ namespace Teamwork_OOP.Engine.Items
 
 	public abstract class MeleeWeapon : Item
 	{
-		protected MeleeWeapon(Vector2 position, int id, float baseStatRange, float secondaryStatRange,
+		protected MeleeWeapon(Vector2 position, float baseStatRange, float secondaryStatRange,
 			int strenght, int dexteriry, int vitality, float criticalDamage, int attackDamage
 			//
 			)
-			: base(position, id,
+			: base(position,
 				baseStatRange, baseStatRange,
 				strenght,
 				dexteriry,  0,// melee weapons won't give intelligance or somethin like that

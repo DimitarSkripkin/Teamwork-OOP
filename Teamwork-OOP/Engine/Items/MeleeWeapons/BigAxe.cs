@@ -22,7 +22,7 @@ namespace Teamwork_OOP.Engine.Items
 	    private const int DefaultAttackDamage = 8;
 		public const float DefaultCriticalDamage = 1.5f;
 
-		public BigAxe(Vector2 position, int id,
+		public BigAxe(Vector2 position,
 			float baseStatRange = DefaultBaseStatRange,
 			float secondaryStatRange = DefaultSecontaryStatRange,
 
@@ -32,7 +32,7 @@ namespace Teamwork_OOP.Engine.Items
 			//...
 			float criticalDamage = DefaultCriticalDamage,
             int attackDamage = 0)
-			: base(position, id,
+			: base(position,
 				baseStatRange, baseStatRange,
 
 				strenght,

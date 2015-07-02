@@ -39,6 +39,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Engine\AI\AIpattern.cs" />
+    <Compile Include="Engine\BaseClasses\Inventory.cs" />
     <Compile Include="Engine\Characters\HeroClasses\Thief.cs" />
     <Compile Include="Engine\Characters\HeroClasses\Warrior.cs" />
     <Compile Include="Engine\Characters\HeroClasses\Wizard.cs" />
@@ -60,6 +61,7 @@
     <Compile Include="Engine\Drawing\TextureManager.cs" />
     <Compile Include="Engine\Drawing\TextureNode.cs" />
     <Compile Include="Engine\Factories\AnimationFactory.cs" />
+    <Compile Include="Engine\Factories\ItemFactory.cs" />
     <Compile Include="Engine\Factories\EntityFactory.cs" />
     <Compile Include="Engine\Factories\MapFactory.cs" />
     <Compile Include="Engine\Items\DefenseItems\Boots.cs" />
@@ -82,8 +84,10 @@
     <Compile Include="Engine\Map\MapSpawnPoint.cs" />
     <Compile Include="Engine\SceneManager.cs" />
     <Compile Include="Engine\Items\Item.cs" />
-    <Compile Include="Engine\Skills\Attack.cs" />
+    <Compile Include="Engine\Skills\CharacterAttacks\Attack.cs" />
     <Compile Include="Engine\Skills\Block.cs" />
+    <Compile Include="Engine\Skills\CharacterAttacks\ThiefAttack.cs" />
+    <Compile Include="Engine\Skills\CharacterAttacks\WizardAttack.cs" />
     <Compile Include="Engine\Skills\Dash.cs" />
     <Compile Include="Engine\Skills\Kick.cs" />
     <Compile Include="Engine\Skills\KnifeThrow.cs" />
@@ -107,6 +111,7 @@
     <Compile Include="Engine\Physics\CollisionShape.cs" />
     <Compile Include="Engine\Physics\DistanceChecker.cs" />
     <Compile Include="Engine\Skills\Fireball.cs" />
+    <Compile Include="Engine\Skills\CharacterAttacks\WarriorAttack.cs" />
     <Compile Include="Engine\UI\Button.cs" />
     <Compile Include="Engine\UI\UIItem.cs" />
     <Compile Include="Engine\UI\UIManager.cs" />

@@ -15,11 +15,11 @@ namespace Teamwork_OOP.Engine.UI
 
 	public class UIManager
 	{
-		private List<UIItem> buttons;
+		private List<UIItem> items;
 
 		public UIManager()
 		{
-			this.buttons = new List<UIItem>();
+			this.items = new List<UIItem>();
 		}
 
 		public Texture2D MenuBackground
@@ -29,18 +29,18 @@ namespace Teamwork_OOP.Engine.UI
 
 		}
 
-		public List<UIItem> Buttons
+		public List<UIItem> Items
 		{
 			get
 			{
-				return this.buttons;
+				return this.items;
 
 			}
 		}
 
 		public void AddButton(string buttonName, TextureNode texture, Vector2 position)
 		{
-			this.Buttons.Add(new Button(texture, position, new Vector2(texture.SourceRectangle.Width, texture.SourceRectangle.Height), buttonName));
+			this.Items.Add(new Button(texture, position, new Vector2(texture.SourceRectangle.Width, texture.SourceRectangle.Height), buttonName));
 		}
 
 
@@ -49,11 +49,11 @@ namespace Teamwork_OOP.Engine.UI
 		public void ProcessInput(MouseState mouseState)
 		{
 			Vector2 mousePosition = new Vector2(mouseState.X, mouseState.Y);
-			foreach (var item in buttons)
+			foreach (var item in items)
 			{
 				if (CollisionChecker.IsPointInsideAABB(mousePosition, item.CollisionBox))
 				{
-					item.isMouseOver = true;
+					item.IsMouseOver = true;
 					if (mouseState.LeftButton == ButtonState.Pressed)
 					{
 						item.RaiseClickEvent();
@@ -61,27 +61,64 @@ namespace Teamwork_OOP.Engine.UI
 				}
 				else
 				{
-					item.isMouseOver = false;
+					item.IsMouseOver = false;
 				}
 			}
 		}
 
 		public void LoadMenu(string filePath, string backgroundPath, TextureManager texture)
 		{
+			texture.GetOrLoadTexture(filePath);
 			//Start Button
-			texture.AddTextureNode(filePath, "Button1", new Rectangle(0, 0, 128, 32));
+			texture.AddTextureNode(filePath, "Button1", new Rectangle(0, 0, 286, 100));
 			TextureNode button1;
 			texture.GetTextureNode(out button1, "Button1");
 			AddButton("New Game", button1, new Vector2(20, 20));
 
-			//Exit Button
-			texture.AddTextureNode(filePath, "Button2", new Rectangle(0, 32, 128, 32));
+			//Controls Button
+			texture.AddTextureNode(filePath, "Button2", new Rectangle(0, 101, 286, 100));
 			TextureNode button2;
 			texture.GetTextureNode(out button2, "Button2");
-			AddButton("Exit", button2, new Vector2(20, 200));
+			AddButton("Controls", button2, new Vector2(20, 140));
+
+			//Credits Button
+			texture.AddTextureNode(filePath, "Button3", new Rectangle(0, 202, 286, 100));
+			TextureNode button3;
+			texture.GetTextureNode(out button3, "Button3");
+			AddButton("Credits", button3, new Vector2(20, 260));
+
+			//Exit Button
+			texture.AddTextureNode(filePath, "Button4", new Rectangle(0, 303, 286, 100));
+			TextureNode button4;
+			texture.GetTextureNode(out button4, "Button4");
+			AddButton("Exit", button4, new Vector2(20, 380));
 
 			//Menu Background
 			this.MenuBackground = texture.GetOrLoadTexture(backgroundPath);
+		}
+		public void Draw(SpriteBatch spriteBatch)
+		{
+			if (this.MenuBackground != null)
+			{
+				spriteBatch.Begin();
+
+
+
+				spriteBatch.Draw(this.MenuBackground, Vector2.Zero, Color.White);
+
+				spriteBatch.End();
+			}
+
+			// BUTTONS
+			spriteBatch.Begin(SpriteSortMode.BackToFront);
+
+			foreach (var item in this.items)
+			{
+				spriteBatch.Draw(item.TextureNode.Texture, item.Position, item.TextureNode.SourceRectangle, Color.White);
+			}
+
+			// END DRAW
+			spriteBatch.End();
 		}
 	}
 }

@@ -18,13 +18,13 @@ namespace Teamwork_OOP.Engine.Items
         
         public const float DefaultCriticalDamageSword = 1.5f;
         private const int DefaultAttackDamageSword = 4;
-        public Sword(Vector2 position, int id, 
+        public Sword(Vector2 position,
             float baseStatRange = DefaultBaseStatRange,
             float secondaryStatRange = DefaultSecontaryStatRange, 
            
             //...
             float criticalDamage = DefaultCriticalDamageSword)
-            : base(position, id, 
+            : base(position,
             baseStatRange, 
             secondaryStatRange,
             DefaultStrenghtSword,

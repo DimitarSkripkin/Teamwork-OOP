@@ -18,8 +18,8 @@ namespace Teamwork_OOP.Engine.Items
 
 
         public const float DefaultCriticalDamageTigerClaws = 1.5f;
-        public TigerClaws(Vector2 position, int id, float baseStatRange, float secondaryStatRange, float criticalDamage)
-            : base(position, id, DefaultBaseStatRangeTigerClaws, DefaultSecontaryStatRangeTigerClaws, DefaultStrenghtTigerClaws, DefaultDexterityTigerClaws, DefaultVitalityTigerClaws, DefaultCriticalDamageTigerClaws, 0)
+        public TigerClaws(Vector2 position,float baseStatRange, float secondaryStatRange, float criticalDamage)
+            : base(position, DefaultBaseStatRangeTigerClaws, DefaultSecontaryStatRangeTigerClaws, DefaultStrenghtTigerClaws, DefaultDexterityTigerClaws, DefaultVitalityTigerClaws, DefaultCriticalDamageTigerClaws, 0)
         {
 
         }
