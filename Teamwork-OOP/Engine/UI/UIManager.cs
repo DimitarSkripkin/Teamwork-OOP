@@ -15,43 +15,32 @@ namespace Teamwork_OOP.Engine.UI
 
 	public class UIManager
 	{
-		private List<UIItem> items;
+		private List<UIMenu> menus;
 
 		public UIManager()
 		{
-			this.items = new List<UIItem>();
+			this.menus = new List<UIMenu>();
 		}
 
-		public Texture2D MenuBackground
+		public void AddMenu(UIMenu menu)
 		{
-			get;
-			set;
-
+			this.Menus.Add(menu);
 		}
 
-		public List<UIItem> Items
+		IList<UIMenu> Menus
 		{
 			get
 			{
-				return this.items;
-
+				return this.menus;
 			}
 		}
-
-		public void AddButton(string buttonName, TextureNode texture, Vector2 position)
-		{
-			this.Items.Add(new Button(texture, position, new Vector2(texture.SourceRectangle.Width, texture.SourceRectangle.Height), buttonName));
-		}
+		public UIMenu ActiveMenu { get; set; }
 
 		public void RegisterClickEvent(string itemName, OnClickEventHandler clickFunction)
 		{
-			for (int i = 0; i < this.items.Count; ++i)
+			for (int i = 0; i < this.menus.Count; ++i)
 			{
-				if (this.items[i].Name == itemName)
-				{
-					this.items[i].OnClick += clickFunction;
-					break;
-				}
+				this.menus[i].RegisterClickEvent(itemName, clickFunction);
 			}
 		}
 		// TODO: implement ui manager that uses physics engine to test if button is clicked
@@ -59,82 +48,35 @@ namespace Teamwork_OOP.Engine.UI
 		public void ProcessInput(MouseState mouseState)
 		{
 			Vector2 mousePosition = new Vector2(mouseState.X, mouseState.Y);
-			foreach (var item in items)
+			foreach (var item in ActiveMenu.Items)
 			{
-				if (CollisionChecker.IsPointInsideAABB(mousePosition, item.CollisionBox))
+				if (item.IsVisible)
 				{
-					item.IsMouseOver = true;
-					if (mouseState.LeftButton == ButtonState.Pressed)
+					if (CollisionChecker.IsPointInsideAABB(mousePosition, item.CollisionBox))
 					{
-						item.RaiseClickEvent();
+						item.IsMouseOver = true;
+						if (mouseState.LeftButton == ButtonState.Pressed)
+						{
+							item.RaiseClickEvent();
+						}
+					}
+					else
+					{
+						item.IsMouseOver = false;
 					}
 				}
-				else
-				{
-					item.IsMouseOver = false;
-				}
 			}
-		}
-
-		public void LoadMenu(string filePath, string backgroundPath, TextureManager texture)
-		{
-			texture.GetOrLoadTexture(filePath);
-			//Start Button
-			texture.AddTextureNode(filePath, "Button1", new Rectangle(0, 0, 286, 100));
-			TextureNode button1;
-			texture.GetTextureNode(out button1, "Button1");
-			AddButton("New Game", button1, new Vector2(20, 20));
-
-			//Controls Button
-			texture.AddTextureNode(filePath, "Button2", new Rectangle(0, 101, 286, 100));
-			TextureNode button2;
-			texture.GetTextureNode(out button2, "Button2");
-			AddButton("Controls", button2, new Vector2(20, 140));
-
-			//Credits Button
-			texture.AddTextureNode(filePath, "Button3", new Rectangle(0, 202, 286, 100));
-			TextureNode button3;
-			texture.GetTextureNode(out button3, "Button3");
-			AddButton("Credits", button3, new Vector2(20, 260));
-
-			//Exit Button
-			texture.AddTextureNode(filePath, "Button4", new Rectangle(0, 303, 286, 100));
-			TextureNode button4;
-			texture.GetTextureNode(out button4, "Button4");
-			AddButton("Exit", button4, new Vector2(20, 380));
-
-			//Menu Background
-			this.MenuBackground = texture.GetOrLoadTexture(backgroundPath);
 		}
 
 		public void Draw(SpriteBatch spriteBatch)
 		{
-			if (this.MenuBackground != null)
+			foreach (var menu in this.Menus)
 			{
-				spriteBatch.Begin();
-
-				spriteBatch.Draw(this.MenuBackground, Vector2.Zero, Color.White);
-
-				spriteBatch.End();
-			}
-
-			// BUTTONS
-			spriteBatch.Begin(SpriteSortMode.BackToFront);
-
-			foreach (var item in this.items)
-			{
-				if (item.IsMouseOver)
+				if (menu.IsVisible)
 				{
-					spriteBatch.Draw(item.TextureNode.Texture, item.Position, item.TextureNode.SourceRectangle, Color.White);
-				}
-				else
-				{
-					spriteBatch.Draw(item.TextureNode.Texture, item.Position, item.TextureNode.SourceRectangle, Color.LightGray);
+					menu.Draw(spriteBatch);
 				}
 			}
-
-			// END DRAW
-			spriteBatch.End();
 		}
 	}
 }

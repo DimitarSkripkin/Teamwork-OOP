@@ -12,8 +12,8 @@ namespace Teamwork_OOP.Engine.UI
 	{
 		//private string newGameButton;
 
-		public Button(TextureNode texture, Vector2 position, Vector2 size, string name)
-			: base(texture, position, size, name)
+		public Button(TextureNode texture, Vector2 position, Vector2 size, string name, bool isVisible = true)
+			: base(texture, position, size, name, isVisible)
 		{
 			this.ButtonName = name;
 		}

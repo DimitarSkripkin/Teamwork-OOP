@@ -29,6 +29,11 @@ namespace Teamwork_OOP
 		private TextureManager textureManager;
 		private SceneManager sceneManager;
 		private UIManager uiManager;
+
+		private UIMenu mainMenu;
+
+		bool isInGame;
+
 		public Game1()
 		{
 			graphics = new GraphicsDeviceManager(this);
@@ -37,6 +42,8 @@ namespace Teamwork_OOP
 			this.textureManager = new TextureManager();
 			this.sceneManager = new SceneManager();
 			this.uiManager = new UIManager();
+
+			this.mainMenu = new UIMenu();
 		}
 
 		/// <summary>
@@ -72,10 +79,30 @@ namespace Teamwork_OOP
 			this.sceneManager.Init(this.textureManager, this.spriteBatch);
 			this.sceneManager.ResizeWindow(new Vector2(GraphicsDevice.Viewport.Width, GraphicsDevice.Viewport.Height));
 
-			this.sceneManager.LoadLevel("map.txt");
-			this.uiManager.LoadMenu("Textures/MenuItems/Buttons1", "Textures/MenuItems/MenuBackground0" , this.textureManager);
+			this.mainMenu.LoadMenu("Textures/MenuItems/Buttons1", "Textures/MenuItems/MenuBackground0", this.textureManager);
 
+			this.uiManager.AddMenu(mainMenu);
+			this.uiManager.ActiveMenu = mainMenu;
+
+			this.uiManager.RegisterClickEvent("NewGame", StartNewGame);
 			this.uiManager.RegisterClickEvent("Exit", Exit);
+		}
+
+		public void StartNewGame()
+		{
+			this.sceneManager.LoadLevel("map.txt");
+			this.mainMenu.IsVisible = false;
+			this.isInGame = true;
+		}
+
+		public void VictoryMenu()
+		{
+			// when the game is over
+			this.isInGame = false;
+
+			// remove from here ?
+			this.mainMenu.IsVisible = true;
+			this.sceneManager.Clear();
 		}
 
 		/// <summary>
@@ -109,12 +136,24 @@ namespace Teamwork_OOP
 				KeyboardState keyboardState = Keyboard.GetState();
 				MouseState mouseState = Mouse.GetState();
 
-				this.sceneManager.ProcessInput(keyboardState, mouseState);
+				if (this.isInGame)
+				{
+					this.sceneManager.ProcessInput(keyboardState, mouseState);
+				}
 
 				this.uiManager.ProcessInput(mouseState);
 			}
 
-			this.sceneManager.Update(deltaTime);
+			if (this.isInGame)
+			{
+				this.sceneManager.Update(deltaTime);
+			}
+
+			// remove from here ?
+			if (this.sceneManager.LevelFinished)
+			{
+				VictoryMenu();
+			}
 
 			base.Update(gameTime);
 		}
@@ -127,7 +166,10 @@ namespace Teamwork_OOP
 		{
 			GraphicsDevice.Clear(Color.CornflowerBlue);
 
-			this.sceneManager.Draw();
+			if (this.isInGame)
+			{
+				this.sceneManager.Draw();
+			}
 			this.uiManager.Draw(this.spriteBatch);
 			base.Draw(gameTime);
 		}

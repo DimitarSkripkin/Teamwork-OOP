@@ -215,5 +215,14 @@ namespace Teamwork_OOP.Engine
 			// END DRAW
 			this.SpriteBatch.End();
 		}
+
+		public void Clear()
+		{
+			this.LevelFinished = false;
+			this.CameraAttachedTo = null;
+
+			this.PhysicsWorld.Clear();
+			this.MapManager.Clear();
+		}
 	}
 }

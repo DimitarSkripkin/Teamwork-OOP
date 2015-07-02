@@ -14,12 +14,13 @@ namespace Teamwork_OOP.Engine.UI
 	{
 		private AABB collisionBox;
 
-		public UIItem(TextureNode texture, Vector2 position, Vector2 size, string name)
+		public UIItem(TextureNode texture, Vector2 position, Vector2 size, string name, bool isVisible = true)
 		{
 			this.collisionBox = new AABB(position, size, CollisionObjectFlags.Kinematic);
 
 			this.TextureNode = texture;
 			this.Name = name;
+			this.IsVisible = isVisible;
 		}
 
 		public AABB CollisionBox
@@ -36,6 +37,8 @@ namespace Teamwork_OOP.Engine.UI
 		public TextureNode TextureNode { get; set; }
 
 		public bool IsMouseOver { get; set; }
+
+		public bool IsVisible { get; set; }
 
 		public string Name { get; set; }
 

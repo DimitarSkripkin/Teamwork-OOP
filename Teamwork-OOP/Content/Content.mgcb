@@ -145,3 +145,49 @@
 /processorParam:TextureFormat=Color
 /build:Textures/MenuItems/MenuBackground0.png
 
+#begin Characters/ATTACK.txt
+/copy:Characters/ATTACK.txt
+
+#begin Characters/BLOCK.txt
+/copy:Characters/BLOCK.txt
+
+#begin Characters/DEATH.txt
+/copy:Characters/DEATH.txt
+
+#begin Characters/IDLE.txt
+/copy:Characters/IDLE.txt
+
+#begin Characters/JUMP.txt
+/copy:Characters/JUMP.txt
+
+#begin Characters/RUN.txt
+/copy:Characters/RUN.txt
+
+#begin Characters/SPECIAL_SKILL_0.txt
+/copy:Characters/SPECIAL_SKILL_0.txt
+
+#begin Characters/SPECIAL_SKILL_1.txt
+/copy:Characters/SPECIAL_SKILL_1.txt
+
+#begin Characters/warrior.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:TextureFormat=Color
+/build:Characters/warrior.png
+
+#begin Textures/Blocks/ImportantPoints.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:TextureFormat=Color
+/build:Textures/Blocks/ImportantPoints.png
+
