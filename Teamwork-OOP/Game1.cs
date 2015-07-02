@@ -20,8 +20,8 @@ namespace Teamwork_OOP
 	{
 		private const float DisplayUnitToSimUnitRatio = 32.0f;
 
-		private const int WindowWidth = 640;
-		private const int WindowHeight = 480;
+		private const int WindowWidth = 800;
+		private const int WindowHeight = 600;
 
 		GraphicsDeviceManager graphics;
 		SpriteBatch spriteBatch;
@@ -62,6 +62,7 @@ namespace Teamwork_OOP
 		/// </summary>
 		protected override void LoadContent()
 		{
+			ConvertUnits.SetDisplayUnitToSimUnitRatio(DisplayUnitToSimUnitRatio);
 			
 			// Create a new SpriteBatch, which can be used to draw textures.
 			spriteBatch = new SpriteBatch(GraphicsDevice);
@@ -73,7 +74,8 @@ namespace Teamwork_OOP
 
 			this.sceneManager.LoadLevel("map.txt");
 			this.uiManager.LoadMenu("Textures/MenuItems/Buttons1", "Textures/MenuItems/MenuBackground0" , this.textureManager);
-			ConvertUnits.SetDisplayUnitToSimUnitRatio(DisplayUnitToSimUnitRatio);
+
+			this.uiManager.RegisterClickEvent("Exit", Exit);
 		}
 
 		/// <summary>
@@ -108,6 +110,8 @@ namespace Teamwork_OOP
 				MouseState mouseState = Mouse.GetState();
 
 				this.sceneManager.ProcessInput(keyboardState, mouseState);
+
+				this.uiManager.ProcessInput(mouseState);
 			}
 
 			this.sceneManager.Update(deltaTime);
@@ -124,7 +128,7 @@ namespace Teamwork_OOP
 			GraphicsDevice.Clear(Color.CornflowerBlue);
 
 			this.sceneManager.Draw();
-			//this.uiManager.Draw(this.spriteBatch);
+			this.uiManager.Draw(this.spriteBatch);
 			base.Draw(gameTime);
 		}
 	}
