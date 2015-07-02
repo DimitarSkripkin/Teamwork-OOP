@@ -258,6 +258,12 @@ namespace Teamwork_OOP.Engine.BaseClasses
 
 		public MapCheckPoint CheckPoint { get; set; }
 
+		public Skill Attack { get; set; }
+
+		public Skill SpecialSkill_0 { get; set; }
+
+		public Skill SpecialSkill_1 { get; set; }
+
 		public override void AddToWorld(World physicsWorld)
 		{
 			if (this.CollisionHull != null)
@@ -287,6 +293,9 @@ namespace Teamwork_OOP.Engine.BaseClasses
 			else if (fixtureB.UserData is MapSpawnPoint)
 			{
 				return false;
+			}
+			else if (fixtureB.UserData is Skill)
+			{
 			}
 
 			if (fixtureB.UserData is MapCheckPoint)
@@ -352,6 +361,10 @@ namespace Teamwork_OOP.Engine.BaseClasses
 			}
 
 			this.inTheAir = this.CollisionHull.ContactList == null;
+
+			this.Attack.Update(deltaTime);
+			this.SpecialSkill_0.Update(deltaTime);
+			this.SpecialSkill_1.Update(deltaTime);
 		}
 
 		public void Move(Vector2 impulse)

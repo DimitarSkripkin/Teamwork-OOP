@@ -12,6 +12,7 @@ using FarseerPhysics.Dynamics;
 namespace Teamwork_OOP.Engine.Characters.CharacterClasses
 {
 	using Drawing;
+	using Skills;
 
 	public class Warrior : PlayerCharacter
 	{
@@ -34,6 +35,9 @@ namespace Teamwork_OOP.Engine.Characters.CharacterClasses
 			AttackSpeedBase, SpellCastingSpeedBase, MovementSpeedBase, 0, 0,
 			0, 0, 0)
 		{
+			this.Attack = new WarriorAttack(this);
+			this.SpecialSkill_0 = new Fireball(this);
+			this.SpecialSkill_1 = new KnifeThrow(this);
 		}
 
 		public override void AddToWorld(World physicsWorld)

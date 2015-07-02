@@ -64,6 +64,7 @@
     <Compile Include="Engine\Factories\ItemFactory.cs" />
     <Compile Include="Engine\Factories\EntityFactory.cs" />
     <Compile Include="Engine\Factories\MapFactory.cs" />
+    <Compile Include="Engine\Interfaces\IDestructable.cs" />
     <Compile Include="Engine\Items\DefenseItems\Boots.cs" />
     <Compile Include="Engine\Items\DefenseItems\Chest.cs" />
     <Compile Include="Engine\Items\DefenseItems\DefenseItem.cs" />

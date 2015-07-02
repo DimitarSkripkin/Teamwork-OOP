@@ -59,6 +59,8 @@ namespace Teamwork_OOP.Engine.Skills
 
 		public bool IsActive { get; private set; }
 
+		public bool IsTimeFinished { get; private set; }
+
 		public Entity UsedFrom
 		{
 			get
@@ -75,7 +77,7 @@ namespace Teamwork_OOP.Engine.Skills
 			}
 		}
 
-		public void InternalUpdate(float deltaTime)
+		public virtual void Update(float deltaTime)
 		{
 			if (this.IsActive)
 			{
@@ -83,6 +85,7 @@ namespace Teamwork_OOP.Engine.Skills
 				{
 					this.CurrentActiveTime = 0.0f;
 					this.IsActive = false;
+					this.IsTimeFinished = true;
 				}
 				else
 				{

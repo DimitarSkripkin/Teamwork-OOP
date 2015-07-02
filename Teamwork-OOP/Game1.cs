@@ -150,7 +150,7 @@ namespace Teamwork_OOP
 			}
 
 			// remove from here ?
-			if (this.sceneManager.LevelFinished)
+			if (this.sceneManager.GameState == GameState.FinishedVictory)
 			{
 				VictoryMenu();
 			}

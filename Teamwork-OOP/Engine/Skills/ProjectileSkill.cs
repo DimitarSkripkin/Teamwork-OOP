@@ -6,7 +6,7 @@ namespace Teamwork_OOP.Engine.Skills
 	using BaseClasses;
 	using Interfaces;
 
-	public abstract class ProjectileSkill : Skill
+	public abstract class ProjectileSkill : Skill, IDestructable
 	{
 		protected ProjectileSkill(Entity usedFrom, float cooldownTime, float maxActiveTime)
 			: base(usedFrom, cooldownTime, maxActiveTime)
@@ -22,8 +22,19 @@ namespace Teamwork_OOP.Engine.Skills
 			}
 		}
 
+		public override void Update(float deltaTime)
+		{
+			base.Update(deltaTime);
+			if (this.IsTimeFinished)
+			{
+				this.Destroy = true;
+			}
+		}
+
 		public override void ApplySkillEffect(Entity target)
 		{
 		}
+
+		public bool Destroy { get; private set; }
 	}
 }

@@ -21,6 +21,14 @@ namespace Teamwork_OOP.Engine
 	using Characters;
 	using Characters.CharacterClasses;
 
+	public enum GameState
+	{
+		NotInGame,
+		FinishedDefeat,
+		FinishedVictory,
+		InGame
+	}
+
 	// TODO: RENAME WITH SOMETHING MORE PROPER !!!
 	public class SceneManager
 	{
@@ -37,13 +45,15 @@ namespace Teamwork_OOP.Engine
 		// here or in MapManager class ????
 		//private List<Items> items;
 
-		private IEnumerable<Body> inDrawRange;
+		private IList<Body> inDrawRange;
 
 		public SceneManager()
 		{
 			this.physicsWorld = new World(DefaultGravityDirection);
 
 			this.MapManager = new MapManager();
+
+			this.GameState = Engine.GameState.NotInGame;
 		}
 
 		public SceneManager(TextureManager textureManager, SpriteBatch spriteBatch)
@@ -52,7 +62,7 @@ namespace Teamwork_OOP.Engine
 			Init(textureManager, spriteBatch);
 		}
 
-		public bool LevelFinished { get; set; }
+		public GameState GameState { get; set; }
 
 		public Entity CameraAttachedTo { get; set; }
 
@@ -128,6 +138,12 @@ namespace Teamwork_OOP.Engine
 
 				if (mouseState.LeftButton == ButtonState.Pressed)
 				{
+					if (entity.Attack.Activate())
+					{
+						if (entity.Attack is Projectile)
+						{
+						}
+					}
 				}
 			}
 
@@ -138,11 +154,9 @@ namespace Teamwork_OOP.Engine
 		{
 			if (this.MapManager.EndOfLevel != null)
 			{
-				this.LevelFinished = this.MapManager.EndOfLevel.LevelFinished;
-
-				if (this.LevelFinished)
+				if (this.MapManager.EndOfLevel.LevelFinished)
 				{
-					// TODO: show victory screen or go to next level
+					this.GameState = Engine.GameState.FinishedVictory;
 				}
 			}
 			// update and draw only things that are in certain radius
@@ -151,10 +165,13 @@ namespace Teamwork_OOP.Engine
 				this.cameraPosition = this.CameraAttachedTo.CollisionHull.Position;
 			}
 
-			inDrawRange = this.physicsWorld.BodyList.Where(b => (b.Position - this.cameraPosition).Length() < DrawRadius);
+			inDrawRange = this.physicsWorld.BodyList.Where(b => (b.Position - this.cameraPosition).Length() < DrawRadius).ToList();
 
-			foreach (var body in inDrawRange)
+			//inDrawRange
+			for (int i = 0; i < inDrawRange.Count; ++i)// body in inDrawRange.ToList)
 			{
+				var body = inDrawRange[i];
+
 				if (body.UserData is Entity)
 				{
 					var entity = ((Entity)body.UserData);
@@ -181,9 +198,24 @@ namespace Teamwork_OOP.Engine
 						}
 					}
 				}
+				else if (body.UserData is Projectile && ((Projectile)body.UserData).ToDestroy)
+				{
+					this.PhysicsWorld.RemoveBody(body);
+				}
 			}
 
 			this.MapManager.Update();
+
+			foreach (var spawn in this.MapManager.SpawnPoints)
+			{
+				spawn.Update(deltaTime);
+
+				if (spawn.Spawn)
+				{
+					// spawn and add monster
+					//spawn.Monsters.Add();
+				}
+			}
 
 			this.physicsWorld.Step(deltaTime);
 		}
@@ -218,7 +250,7 @@ namespace Teamwork_OOP.Engine
 
 		public void Clear()
 		{
-			this.LevelFinished = false;
+			this.GameState = Engine.GameState.NotInGame;
 			this.CameraAttachedTo = null;
 
 			this.PhysicsWorld.Clear();

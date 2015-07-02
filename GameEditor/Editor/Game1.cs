@@ -190,7 +190,7 @@ namespace MonogameTestProject.Editor
 			{
 				this.spriteBatch.DrawString(this.spriteFont, string.Format("Blocks: {0}", this.editor.PhysicsWorld.BodyList.Count), Vector2.Zero, Color.WhiteSmoke, 0.0f, Vector2.Zero, 1.0f, SpriteEffects.None, 0.2f);
 			}
-			this.spriteBatch.DrawString(this.spriteFont, string.Format("Level ended: {0}", this.sceneManager.LevelFinished), new Vector2(0,50), Color.WhiteSmoke, 0.0f, Vector2.Zero, 1.0f, SpriteEffects.None, 0.2f);
+			this.spriteBatch.DrawString(this.spriteFont, string.Format("Level ended: {0}", this.sceneManager.GameState), new Vector2(0,50), Color.WhiteSmoke, 0.0f, Vector2.Zero, 1.0f, SpriteEffects.None, 0.2f);
 			this.spriteBatch.End();
 
 			base.Draw(gameTime);

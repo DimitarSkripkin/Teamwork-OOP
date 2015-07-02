@@ -191,7 +191,7 @@ namespace Teamwork_OOP.Engine.Map
 		//{
 		//}
 
-		internal void Clear()
+		public void Clear()
 		{
 			this.EndOfLevel = null;
 			this.Background = null;
