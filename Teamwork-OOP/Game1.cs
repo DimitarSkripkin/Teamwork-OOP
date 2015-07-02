@@ -28,7 +28,7 @@ namespace Teamwork_OOP
 
 		private TextureManager textureManager;
 		private SceneManager sceneManager;
-		
+		private UIManager uiManager;
 		public Game1()
 		{
 			graphics = new GraphicsDeviceManager(this);
@@ -36,6 +36,7 @@ namespace Teamwork_OOP
 
 			this.textureManager = new TextureManager();
 			this.sceneManager = new SceneManager();
+			this.uiManager = new UIManager();
 		}
 
 		/// <summary>
@@ -61,7 +62,7 @@ namespace Teamwork_OOP
 		/// </summary>
 		protected override void LoadContent()
 		{
-			ConvertUnits.SetDisplayUnitToSimUnitRatio(DisplayUnitToSimUnitRatio);
+			
 			// Create a new SpriteBatch, which can be used to draw textures.
 			spriteBatch = new SpriteBatch(GraphicsDevice);
 
@@ -71,6 +72,8 @@ namespace Teamwork_OOP
 			this.sceneManager.ResizeWindow(new Vector2(GraphicsDevice.Viewport.Width, GraphicsDevice.Viewport.Height));
 
 			this.sceneManager.LoadLevel("map.txt");
+			this.uiManager.LoadMenu("Textures/MenuItems/Buttons1", "Textures/MenuItems/MenuBackground0" , this.textureManager);
+			ConvertUnits.SetDisplayUnitToSimUnitRatio(DisplayUnitToSimUnitRatio);
 		}
 
 		/// <summary>
@@ -121,7 +124,7 @@ namespace Teamwork_OOP
 			GraphicsDevice.Clear(Color.CornflowerBlue);
 
 			this.sceneManager.Draw();
-
+			//this.uiManager.Draw(this.spriteBatch);
 			base.Draw(gameTime);
 		}
 	}

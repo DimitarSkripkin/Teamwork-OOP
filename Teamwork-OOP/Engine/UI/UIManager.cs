@@ -15,11 +15,11 @@ namespace Teamwork_OOP.Engine.UI
 
 	public class UIManager
 	{
-		private List<UIItem> buttons;
+		private List<UIItem> items;
 
 		public UIManager()
 		{
-			this.buttons = new List<UIItem>();
+			this.items = new List<UIItem>();
 		}
 
 		public Texture2D MenuBackground
@@ -29,18 +29,18 @@ namespace Teamwork_OOP.Engine.UI
 
 		}
 
-		public List<UIItem> Buttons
+		public List<UIItem> Items
 		{
 			get
 			{
-				return this.buttons;
+				return this.items;
 
 			}
 		}
 
 		public void AddButton(string buttonName, TextureNode texture, Vector2 position)
 		{
-			this.Buttons.Add(new Button(texture, position, new Vector2(texture.SourceRectangle.Width, texture.SourceRectangle.Height), buttonName));
+			this.Items.Add(new Button(texture, position, new Vector2(texture.SourceRectangle.Width, texture.SourceRectangle.Height), buttonName));
 		}
 
 
@@ -49,7 +49,7 @@ namespace Teamwork_OOP.Engine.UI
 		public void ProcessInput(MouseState mouseState)
 		{
 			Vector2 mousePosition = new Vector2(mouseState.X, mouseState.Y);
-			foreach (var item in buttons)
+			foreach (var item in items)
 			{
 				if (CollisionChecker.IsPointInsideAABB(mousePosition, item.CollisionBox))
 				{
@@ -95,6 +95,30 @@ namespace Teamwork_OOP.Engine.UI
 
 			//Menu Background
 			this.MenuBackground = texture.GetOrLoadTexture(backgroundPath);
+		}
+		public void Draw(SpriteBatch spriteBatch)
+		{
+			if (this.MenuBackground != null)
+			{
+				spriteBatch.Begin();
+
+
+
+				spriteBatch.Draw(this.MenuBackground, Vector2.Zero, Color.White);
+
+				spriteBatch.End();
+			}
+
+			// BUTTONS
+			spriteBatch.Begin(SpriteSortMode.BackToFront);
+
+			foreach (var item in this.items)
+			{
+				spriteBatch.Draw(item.TextureNode.Texture, item.Position, item.TextureNode.SourceRectangle, Color.White);
+			}
+
+			// END DRAW
+			spriteBatch.End();
 		}
 	}
 }
