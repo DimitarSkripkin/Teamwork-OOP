@@ -15,7 +15,7 @@ namespace Teamwork_OOP.Engine.Factories
 
 	public static class MapFactory
 	{
-		private static readonly string[] Keywords = new string[] { "[RESOURCES]", "[BLOCKS]", "[TRIGGERS]", "[PLATFORMS]", "[MONSTERS]" };
+		private static readonly string[] Keywords = new string[] { "[RESOURCES]", "[BLOCKS]", "[MAP_FLAGS]", "[PLATFORMS]", "[IMPORTANT_POINTS]", "[MONSTERS]" };
 		private static readonly char[] ReadSplitSeparators = new char[] { ',', ' ' };
 		private const string WriteSeparator = ",";
 		private const string CommentSymbol = ";";
@@ -53,9 +53,13 @@ namespace Teamwork_OOP.Engine.Factories
 								input = streamReader.ReadLine();
 								input = LoadBlocks(textureManager, map, streamReader, input);
 								break;
-							case "[TRIGGERS]":
+							case"[IMPORTANT_POINTS]":
 								input = streamReader.ReadLine();
-								input = LoadTriggers(textureManager, map, streamReader, input);
+								input = LoadImportantPoints(textureManager, map, streamReader, input);
+								break;
+							case "[MAP_FLAGS]":
+								input = streamReader.ReadLine();
+								input = LoadMapFlags(textureManager, map, streamReader, input);
 								break;
 							case "[PLATFORMS]":
 								input = streamReader.ReadLine();
@@ -76,6 +80,52 @@ namespace Teamwork_OOP.Engine.Factories
 			return map;
 		}
 
+		private static string LoadImportantPoints(TextureManager textureManager, MapManager map, StreamReader streamReader, string input)
+		{
+			while (!String.IsNullOrEmpty(input) && !Keywords.Contains(input))
+			{
+				if (input.StartsWith(CommentSymbol))
+				{
+					input = streamReader.ReadLine();
+					continue;
+				}
+
+				var tempLineArray = input.Split(ReadSplitSeparators, StringSplitOptions.RemoveEmptyEntries);
+
+				var blockPosition = new Vector2(float.Parse(tempLineArray[2]), float.Parse(tempLineArray[3]));
+				TextureNode textureNode;
+
+				switch (tempLineArray[0])
+				{
+					case "CP":
+						if (textureManager.GetTextureNode(out textureNode, tempLineArray[1]))
+						{
+							var mapCheckPoint = new MapCheckPoint(blockPosition, textureNode);
+							map.AddCheckPoint(mapCheckPoint);
+						}
+						break;
+					case "SP":
+						if (textureManager.GetTextureNode(out textureNode, tempLineArray[1]))
+						{
+							var mapSpawnPoint = new MapSpawnPoint(blockPosition, textureNode);
+							map.AddSpawnPoint(mapSpawnPoint);
+						}
+						break;
+					case "EOL":
+						if (textureManager.GetTextureNode(out textureNode, tempLineArray[1]))
+						{
+							var mapEndOfLevel = new MapEndOfLevel(blockPosition, textureNode);
+							map.EndOfLevel = mapEndOfLevel;
+						}
+						break;
+				}
+
+
+				input = streamReader.ReadLine();
+			}
+			return input;
+		}
+
 		private static string LoadPlatforms(TextureManager textureManager, MapManager map, StreamReader streamReader, string input)
 		{
 			while (!String.IsNullOrEmpty(input) && !Keywords.Contains(input))
@@ -88,14 +138,13 @@ namespace Teamwork_OOP.Engine.Factories
 
 				var tempLineArray = input.Split(ReadSplitSeparators, StringSplitOptions.RemoveEmptyEntries);
 
-				var platformSize = new Point(int.Parse(tempLineArray[1]), int.Parse(tempLineArray[2]));
-				var platformStartPosition = new Vector2(float.Parse(tempLineArray[3]), float.Parse(tempLineArray[4]));
-				var platformEndPosition = new Vector2(float.Parse(tempLineArray[5]), float.Parse(tempLineArray[6]));
+				var platformStartPosition = new Vector2(float.Parse(tempLineArray[1]), float.Parse(tempLineArray[2]));
+				var platformEndPosition = new Vector2(float.Parse(tempLineArray[3]), float.Parse(tempLineArray[4]));
 
 				TextureNode textureNode;
 				if (textureManager.GetTextureNode(out textureNode, tempLineArray[0]))
 				{
-					var mapPlatform = new MapPlatform(platformStartPosition, platformEndPosition, platformSize, textureNode);
+					var mapPlatform = new MapPlatform(platformStartPosition, platformEndPosition, textureNode);
 					map.AddPlatform(mapPlatform);
 				}
 
@@ -104,7 +153,7 @@ namespace Teamwork_OOP.Engine.Factories
 			return input;
 		}
 
-		private static string LoadTriggers(TextureManager textureManager, MapManager map, StreamReader streamReader, string input)
+		private static string LoadMapFlags(TextureManager textureManager, MapManager map, StreamReader streamReader, string input)
 		{
 			while (!String.IsNullOrEmpty(input) && !Keywords.Contains(input))
 			{
@@ -122,8 +171,8 @@ namespace Teamwork_OOP.Engine.Factories
 				TextureNode textureNode;
 				if (textureManager.GetTextureNode(out textureNode, tempLineArray[0]))
 				{
-					var mapTriggerBlock = new MapTriggerBlock(blockPosition, blockSize, textureNode);
-					map.AddTrigger(mapTriggerBlock);
+					var mapTriggerBlock = new MapFlagBlock(blockPosition, blockSize, textureNode);
+					map.AddMapFlag(mapTriggerBlock);
 				}
 
 				input = streamReader.ReadLine();
@@ -174,6 +223,9 @@ namespace Teamwork_OOP.Engine.Factories
 				{
 					map.Background = textureManager.GetOrLoadTexture(tempLineArray[1]);
 				}
+				else if (tempLineArray.Length < 2)
+				{
+				}
 				else
 				{
 					var nodeName = tempLineArray[1];
@@ -203,23 +255,37 @@ namespace Teamwork_OOP.Engine.Factories
 				var resourceBlockList = map.Blocks.Select(s => s.TextureNode).Distinct();
 				foreach (var item in resourceBlockList)
 				{
-					var sourceRectangle = item.SourceRectangle;
-					sw.WriteLine(string.Join(WriteSeparator, textureManager.GetTextureKey(item.Texture), item.Name, sourceRectangle.X, sourceRectangle.Y, sourceRectangle.Width, sourceRectangle.Height));
+					WriteResource(sw, item, textureManager);
 				}
 
 				var resourcePlatformList = map.Platforms.Select(s => s.TextureNode).Distinct();
 				foreach (var item in resourcePlatformList)
 				{
-					var sourceRectangle = item.SourceRectangle;
-					sw.WriteLine(string.Join(WriteSeparator, textureManager.GetTextureKey(item.Texture), item.Name, sourceRectangle.X, sourceRectangle.Y, sourceRectangle.Width, sourceRectangle.Height));
+					WriteResource(sw, item, textureManager);
 				}
 
 				// remove ????
-				var resourceTriggerList = map.Triggers.Select(s => s.TextureNode).Distinct();
-				foreach (var item in resourceTriggerList)
+				var resourceFlagsList = map.Flags.Select(s => s.TextureNode).Distinct();
+				foreach (var item in resourceFlagsList)
 				{
-					var sourceRectangle = item.SourceRectangle;
-					sw.WriteLine(string.Join(WriteSeparator, textureManager.GetTextureKey(item.Texture), item.Name, sourceRectangle.X, sourceRectangle.Y, sourceRectangle.Width, sourceRectangle.Height));
+					WriteResource(sw, item, textureManager);
+				}
+
+				var resourceSpawnPointsList = map.SpawnPoints.Select(s => s.TextureNode).Distinct();
+				foreach (var item in resourceSpawnPointsList)
+				{
+					WriteResource(sw, item, textureManager);
+				}
+
+				var resourceCheckPointsList = map.CheckPoints.Select(s => s.TextureNode).Distinct();
+				foreach (var item in resourceCheckPointsList)
+				{
+					WriteResource(sw, item, textureManager);
+				}
+
+				if (map.EndOfLevel != null)
+				{
+					WriteResource(sw, map.EndOfLevel.TextureNode, textureManager);
 				}
 
 				sw.WriteLine("[BLOCKS]");
@@ -228,8 +294,23 @@ namespace Teamwork_OOP.Engine.Factories
 					sw.WriteLine(string.Join(WriteSeparator, block.TextureNode.Name, block.Position.X, block.Position.Y, block.Size.X, block.Size.Y));
 				}
 
-				sw.WriteLine("[TRIGGERS]");
-				foreach (var trigger in map.Triggers)
+				sw.WriteLine("[IMPORTANT_POINTS]");
+				foreach (var checkPoint in map.CheckPoints)
+				{
+					sw.WriteLine(string.Join(WriteSeparator, "CP", checkPoint.TextureNode.Name, checkPoint.Position.X, checkPoint.Position.Y));
+				}
+				foreach (var spawnPoint in map.SpawnPoints)
+				{
+					sw.WriteLine(string.Join(WriteSeparator, "SP", spawnPoint.TextureNode.Name, spawnPoint.Position.X, spawnPoint.Position.Y));
+				}
+
+				if (map.EndOfLevel != null)
+				{
+					sw.WriteLine(string.Join(WriteSeparator, "EOL", map.EndOfLevel.TextureNode.Name, map.EndOfLevel.Position.X, map.EndOfLevel.Position.Y));
+				}
+
+				sw.WriteLine("[MAP_FLAGS]");
+				foreach (var trigger in map.Flags)
 				{
 					//TRIGGER TYPE NOT TRIGGER NAME
 					sw.WriteLine(string.Join(WriteSeparator, trigger.TextureNode.Name, trigger.Position.X, trigger.Position.Y, trigger.Size.X, trigger.Size.Y));
@@ -238,11 +319,17 @@ namespace Teamwork_OOP.Engine.Factories
 				sw.WriteLine("[PLATFORMS]");
 				foreach (var platform in map.Platforms)
 				{
-					sw.WriteLine(string.Join(WriteSeparator, platform.TextureNode.Name, platform.Size.X, platform.Size.Y, platform.Position.X, platform.Position.Y, platform.EndPoint.X, platform.EndPoint.Y));
+					sw.WriteLine(string.Join(WriteSeparator, platform.TextureNode.Name, platform.Position.X, platform.Position.Y, platform.EndPoint.X, platform.EndPoint.Y));
 				}
 
 				// add for monsters
 			}
+		}
+
+		private static void WriteResource(StreamWriter sw, TextureNode textureNode, TextureManager textureManager)
+		{
+			var sourceRectangle = textureNode.SourceRectangle;
+			sw.WriteLine(string.Join(WriteSeparator, textureManager.GetTextureKey(textureNode.Texture), textureNode.Name, sourceRectangle.X, sourceRectangle.Y, sourceRectangle.Width, sourceRectangle.Height));
 		}
 	}
 }

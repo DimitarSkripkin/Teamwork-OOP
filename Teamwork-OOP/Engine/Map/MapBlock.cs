@@ -14,15 +14,14 @@ namespace Teamwork_OOP.Engine.Map
 {
 	using Drawing;
 
-	public class MapBlock
+	public class MapBlock : MapItem
 	{
 		private Point size;
 
 		// Point poneje e int razmera
 		public MapBlock(Vector2 position, Point size, TextureNode textureNode)
+			: base(position, textureNode)
 		{
-			this.TextureNode = textureNode;
-			this.Position = position;
 			this.Size = size;
 		}
 
@@ -57,11 +56,5 @@ namespace Teamwork_OOP.Engine.Map
 				this.size = value;
 			}
 		}
-
-		public Vector2 Position { get; set; }
-
-		public TextureNode TextureNode { get; set; }
-
-		public Body CollisionHull { get; protected set; }
 	}
 }

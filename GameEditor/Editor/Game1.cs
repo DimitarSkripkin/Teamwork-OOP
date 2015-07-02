@@ -39,9 +39,7 @@ namespace MonogameTestProject.Editor
 		private TextureManager textureManager;
 		private SpriteFont spriteFont;
 
-		private bool editorMode, holdF5;
-
-		Entity temp = new Warrior();
+		private bool inEditorMode, usingDebugDraw, holdF1, holdF5;
 
 		public Game1()
 		{
@@ -83,22 +81,19 @@ namespace MonogameTestProject.Editor
 			this.sceneManager.ResizeWindow(new Vector2(GraphicsDevice.Viewport.Width, GraphicsDevice.Viewport.Height));
 			// TODO: use this.Content to load your game content here
 
-			EntityFactory.LoadCharacterAnimations((Warrior)temp, this.textureManager, "Characters");
-			this.temp.AddToWorld(this.sceneManager.PhysicsWorld);
-
-			this.temp.CollisionHull.Position = this.sceneManager.MapManager.Triggers[0].Position;
-			this.sceneManager.CameraAttachedTo = temp;
+			this.usingDebugDraw = true;
+			//this.inEditorMode = true;
 
 			//Debug View
-			debugDraw = new DebugViewXNA(this.sceneManager.PhysicsWorld);
+			this.debugDraw = new DebugViewXNA(this.sceneManager.PhysicsWorld);
 
-			debugDraw.AppendFlags(DebugViewFlags.Shape);
-			debugDraw.AppendFlags(DebugViewFlags.DebugPanel);
+			this.debugDraw.AppendFlags(DebugViewFlags.Shape);
+			this.debugDraw.AppendFlags(DebugViewFlags.DebugPanel);
 
-			debugDraw.DefaultShapeColor = Color.White;
-			debugDraw.SleepingShapeColor = Color.LightGray;
+			this.debugDraw.DefaultShapeColor = Color.White;
+			this.debugDraw.SleepingShapeColor = Color.LightGray;
 
-			debugDraw.LoadContent(GraphicsDevice, this.Content);
+			this.debugDraw.LoadContent(GraphicsDevice, this.Content);
 		}
 
 		protected override void UnloadContent()
@@ -125,17 +120,26 @@ namespace MonogameTestProject.Editor
 
 				if (keyboardState.IsKeyDown(Keys.F5) && !this.holdF5)
 				{
-					this.editorMode = !this.editorMode;
+					this.inEditorMode = !this.inEditorMode;
 				}
 				this.holdF5 = keyboardState.IsKeyDown(Keys.F5);
 
-				if (keyboardState.IsKeyDown(Keys.F6) && this.sceneManager.MapManager.Triggers.Count > 0)
+				if (keyboardState.IsKeyDown(Keys.F1) && !this.holdF1)
 				{
-					temp.CollisionHull.Position = this.sceneManager.MapManager.Triggers[0].Position;
-					temp.CollisionHull.LinearVelocity = Vector2.Zero;
+					this.usingDebugDraw = !this.usingDebugDraw;
+				}
+				this.holdF1 = keyboardState.IsKeyDown(Keys.F1);
+
+				if (keyboardState.IsKeyDown(Keys.F6) && this.sceneManager.MapManager.Flags.Count > 0)
+				{
+					if (this.sceneManager.CameraAttachedTo != null)
+					{
+						this.sceneManager.CameraAttachedTo.CollisionHull.Position = this.sceneManager.MapManager.Flags[0].Position;
+						this.sceneManager.CameraAttachedTo.CollisionHull.LinearVelocity = Vector2.Zero;
+					}
 				}
 
-				if (editorMode)
+				if (inEditorMode)
 				{
 					this.editor.ProcessInput(keyboardState, mouseState);
 				}
@@ -154,10 +158,10 @@ namespace MonogameTestProject.Editor
 		{
 			GraphicsDevice.Clear(Color.CornflowerBlue);
 
-			Vector2 cameraPosistion;
+			Vector2 cameraPosistion = Vector2.Zero;
 			var screenCenter = new Vector2(GraphicsDevice.Viewport.Width, GraphicsDevice.Viewport.Height) / 2.0f;
 
-			if (this.editorMode)
+			if (this.inEditorMode)
 			{
 				screenCenter = Vector2.Zero;
 				this.editor.Draw();
@@ -166,13 +170,27 @@ namespace MonogameTestProject.Editor
 			else
 			{
 				this.sceneManager.Draw();
-				cameraPosistion = -this.sceneManager.CameraAttachedTo.CollisionHull.Position;
+				if (this.sceneManager.CameraAttachedTo != null)
+				{
+					cameraPosistion = -this.sceneManager.CameraAttachedTo.CollisionHull.Position;
+				}
 			}
 
-			PhysicsDebugDraw(ref cameraPosistion, ref screenCenter);
+			if (usingDebugDraw)
+			{
+				PhysicsDebugDraw(ref cameraPosistion, ref screenCenter);
+			}
 
 			this.spriteBatch.Begin();
-			this.spriteBatch.DrawString(spriteFont, new StringBuilder(string.Format("Blocks: {0}\nCharacter position: {1}", this.editor.PhysicsWorld.BodyList.Count, temp.CollisionHull.Position)), Vector2.Zero, Color.WhiteSmoke, 0.0f, Vector2.Zero, 1.0f, SpriteEffects.None, 0.2f);
+			if (this.sceneManager.CameraAttachedTo != null)
+			{
+				this.spriteBatch.DrawString(this.spriteFont, string.Format("Blocks: {0}\nCharacter position: {1}", this.editor.PhysicsWorld.BodyList.Count, this.sceneManager.CameraAttachedTo.CollisionHull.Position), Vector2.Zero, Color.WhiteSmoke, 0.0f, Vector2.Zero, 1.0f, SpriteEffects.None, 0.2f);
+			}
+			else
+			{
+				this.spriteBatch.DrawString(this.spriteFont, string.Format("Blocks: {0}", this.editor.PhysicsWorld.BodyList.Count), Vector2.Zero, Color.WhiteSmoke, 0.0f, Vector2.Zero, 1.0f, SpriteEffects.None, 0.2f);
+			}
+			this.spriteBatch.DrawString(this.spriteFont, string.Format("Level ended: {0}", this.sceneManager.LevelFinished), new Vector2(0,50), Color.WhiteSmoke, 0.0f, Vector2.Zero, 1.0f, SpriteEffects.None, 0.2f);
 			this.spriteBatch.End();
 
 			base.Draw(gameTime);
@@ -186,7 +204,16 @@ namespace MonogameTestProject.Editor
 
 			Matrix view = Matrix.CreateTranslation(new Vector3(cameraPosistion, 0.0f)) * Matrix.CreateTranslation(new Vector3((screenCenter / DisplayUnitToSimUnitRatio), 0.0f));
 
-			debugDraw.BeginCustomDraw(projection, view);
+			if (this.inEditorMode)
+			{
+				Matrix scale = Matrix.Identity;
+				scale.M11 = this.editor.Scale;
+				scale.M22 = this.editor.Scale;
+
+				view *= scale;
+			}
+
+			debugDraw.BeginCustomDraw(ref projection, ref view);
 
 			foreach (var body in this.sceneManager.PhysicsWorld.BodyList)
 			{

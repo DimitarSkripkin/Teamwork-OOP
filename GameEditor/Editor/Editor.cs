@@ -22,9 +22,9 @@ namespace MonogameTestProject.Editor
 	public enum EditorModes
 	{
 		AddBlocks,
-		AddTrigger,
+		AddFlags,
 		AddPlatforms,
-		AddMonsters,
+		AddImportanPoints,
 		AddBackground
 	}
 
@@ -32,9 +32,9 @@ namespace MonogameTestProject.Editor
 	{
 		private const int ResourceCount = 5;
 		private const int BlocksCount = 13;
-		private const int TriggerCount = 4;
+		private const int FlagCount = 1;
 		private const int PlatformCount = 3;
-		private const int MonsterCount = 0;
+		private const int ImportantPointsCount = 3;
 		private const int BackgroundCount = 6;
 
 		private Vector2 mousePosition, cameraPosition;
@@ -60,7 +60,8 @@ namespace MonogameTestProject.Editor
 
 		private List<TextureNode> mouseCursors;
 
-		private MapBlock tempBlock, mouseOverBlock;
+		private MapBlock tempBlock;
+		private MapItem mouseOverBlock;
 		//private MapPlatform tempPlatform;
 
 		public Editor()
@@ -85,6 +86,14 @@ namespace MonogameTestProject.Editor
 			get
 			{
 				return this.cameraPosition;
+			}
+		}
+
+		public float Scale
+		{
+			get
+			{
+				return this.scaleValue;
 			}
 		}
 
@@ -123,12 +132,12 @@ namespace MonogameTestProject.Editor
 			}
 
 			var triggerTexture = this.textureManager.LoadTexture("Textures/Blocks/Triggers");
-			var triggersNodes = this.resources[(int)EditorModes.AddTrigger];
-			for (int i = 0; i < TriggerCount; ++i)
+			var triggersNodes = this.resources[(int)EditorModes.AddFlags];
+			for (int i = 0; i < FlagCount; ++i)
 			{
 				var toAdd = new TextureNode();
 
-				toAdd.Name = string.Format("trigger{0}", i);
+				toAdd.Name = string.Format("flag{0}", i);
 				toAdd.Texture = triggerTexture;
 				toAdd.SourceRectangle = new Rectangle(0, i * 32, triggerTexture.Width, 32);
 
@@ -148,7 +157,27 @@ namespace MonogameTestProject.Editor
 				platformNodes.Add(toAdd);
 			}
 
-			/////// ADD MONSTERS
+			/////// ADD IMPORTANT POINTS
+			var importantPointsTexture = this.textureManager.LoadTexture("Textures/Blocks/ImportantPoints");
+			var importantPointsNodes = this.resources[(int)EditorModes.AddImportanPoints];
+
+			var toAddImportantPoint = new TextureNode();
+			toAddImportantPoint.Name = string.Format("EndOfLevel");
+			toAddImportantPoint.Texture = importantPointsTexture;
+			toAddImportantPoint.SourceRectangle = new Rectangle(0, 0, 163, 163);
+			importantPointsNodes.Add(toAddImportantPoint);
+
+			toAddImportantPoint = new TextureNode();
+			toAddImportantPoint.Name = string.Format("CheckPoint");
+			toAddImportantPoint.Texture = importantPointsTexture;
+			toAddImportantPoint.SourceRectangle = new Rectangle(164, 0, 147, 36);
+			importantPointsNodes.Add(toAddImportantPoint);
+
+			toAddImportantPoint = new TextureNode();
+			toAddImportantPoint.Name = string.Format("SpawnPoint");
+			toAddImportantPoint.Texture = importantPointsTexture;
+			toAddImportantPoint.SourceRectangle = new Rectangle(330, 0, 32, 32);
+			importantPointsNodes.Add(toAddImportantPoint);
 			/////////
 
 			var backgroundNodes = this.resources[(int)EditorModes.AddBackground];
@@ -249,7 +278,7 @@ namespace MonogameTestProject.Editor
 			}
 			else if (keyboardState.IsKeyDown(Keys.D2))
 			{
-				this.editorMode = EditorModes.AddTrigger;
+				this.editorMode = EditorModes.AddFlags;
 			}
 			else if (keyboardState.IsKeyDown(Keys.D3))
 			{
@@ -257,7 +286,7 @@ namespace MonogameTestProject.Editor
 			}
 			else if (keyboardState.IsKeyDown(Keys.D4))
 			{
-				this.editorMode = EditorModes.AddMonsters;
+				this.editorMode = EditorModes.AddImportanPoints;
 			}
 			else if (keyboardState.IsKeyDown(Keys.D5))
 			{
@@ -286,14 +315,14 @@ namespace MonogameTestProject.Editor
 				case EditorModes.AddBlocks:
 					AddBlockMode(ref mouseState, blockPosition);
 					break;
-				case EditorModes.AddTrigger:
-					AddTriggerMode(ref mouseState, ConvertUnits.ToSimUnits(cameraPosition + this.mousePosition));
+				case EditorModes.AddFlags:
+					AddFlagMode(ref mouseState, ConvertUnits.ToSimUnits(cameraPosition + this.mousePosition));
 					break;
 				case EditorModes.AddPlatforms:
 					AddPlatform(ref mouseState, blockPosition);//ConvertUnits.ToSimUnits(cameraPosition + this.mousePosition));
 					break;
-				case EditorModes.AddMonsters:
-					AddMonster(ref mouseState, ConvertUnits.ToSimUnits(cameraPosition + this.mousePosition));
+				case EditorModes.AddImportanPoints:
+					AddImportantPoints(ref mouseState, ConvertUnits.ToSimUnits(cameraPosition + this.mousePosition));
 					break;
 				case EditorModes.AddBackground:
 					ChangeBackgroundMode(ref mouseState);
@@ -369,15 +398,15 @@ namespace MonogameTestProject.Editor
 				if (this.mouseOverBlock != null)
 				{
 					this.PhysicsWorld.RemoveBody(this.mouseOverBlock.CollisionHull);
-					this.Map.RemoveBlock(this.mouseOverBlock);
+					this.Map.RemoveBlock((MapBlock)this.mouseOverBlock);
 				}
 			}
 			this.pressedMRB = mouseState.RightButton == ButtonState.Pressed;
 		}
 
-		private void AddTriggerMode(ref MouseState mouseState, Vector2 cursorPosition)
+		private void AddFlagMode(ref MouseState mouseState, Vector2 cursorPosition)
 		{
-			this.mouseOverBlock = this.Map.Triggers.Find(p =>
+			this.mouseOverBlock = this.Map.Flags.Find(p =>
 			{
 				return p.Position.X < cursorPosition.X
 					&& p.Position.X + p.Size.X > cursorPosition.X
@@ -385,22 +414,22 @@ namespace MonogameTestProject.Editor
 					&& p.Position.Y + p.Size.Y > cursorPosition.Y;
 			});
 
-			var triggerNodes = this.resources[(int)this.editorMode];
+			var flagNodes = this.resources[(int)this.editorMode];
 
 			if (mouseState.LeftButton == ButtonState.Pressed && !pressedMLB)
 			{
-				var textureNode = triggerNodes[this.currentResourceSelection];
-				var trigger = new MapTriggerBlock(cursorPosition, new Point(1, 1), textureNode);
+				var textureNode = flagNodes[this.currentResourceSelection];
+				var flag = new MapFlagBlock(cursorPosition, new Point(1, 1), textureNode);
 
-				trigger.AddToWorld(this.PhysicsWorld);
-				this.Map.AddTrigger(trigger);
+				flag.AddToWorld(this.PhysicsWorld);
+				this.Map.AddMapFlag(flag);
 			}
 			this.pressedMLB = (mouseState.LeftButton == ButtonState.Pressed);
 
 			if (this.mouseOverBlock != null && mouseState.RightButton == ButtonState.Pressed)
 			{
 				this.PhysicsWorld.RemoveBody(this.mouseOverBlock.CollisionHull);
-				this.Map.RemoveTrigger((MapTriggerBlock)this.mouseOverBlock);
+				this.Map.RemoveFlag((MapFlagBlock)this.mouseOverBlock);
 				this.mouseOverBlock = null;
 			}
 		}
@@ -423,7 +452,7 @@ namespace MonogameTestProject.Editor
 				if (mouseState.LeftButton == ButtonState.Released)
 				{
 					var textureNode = platformNodes[this.currentResourceSelection];
-					var platform = new MapPlatform(this.startPosition, this.endPosition, new Point(1, 1) /*textureNode.Texture.Bounds.Size*/, textureNode);
+					var platform = new MapPlatform(this.startPosition, this.endPosition, textureNode);
 
 					platform.AddToWorld(this.PhysicsWorld);
 					this.Map.AddPlatform(platform);
@@ -433,8 +462,102 @@ namespace MonogameTestProject.Editor
 			this.pressedMLB = (mouseState.LeftButton == ButtonState.Pressed);
 		}
 
-		private void AddMonster(ref MouseState mouseState, Vector2 monsterPosition)
+		private void AddImportantPoints(ref MouseState mouseState, Vector2 cursorPosition)
 		{
+			var importantPointsNodes = this.resources[(int)this.editorMode];
+			var textureNode = importantPointsNodes[this.currentResourceSelection];
+
+			switch (this.currentResourceSelection)
+			{
+				case 0:
+					var endOfLevel = this.Map.EndOfLevel;
+					if (endOfLevel != null)
+					{
+						var pos = ConvertUnits.ToSimUnits(endOfLevel.TextureNode.SourceRectangle.Width, endOfLevel.TextureNode.SourceRectangle.Height);
+						if (endOfLevel.Position.X < cursorPosition.X
+							&& endOfLevel.Position.X + pos.X > cursorPosition.X
+							&& endOfLevel.Position.Y < cursorPosition.Y
+							&& endOfLevel.Position.Y + pos.Y > cursorPosition.Y)
+						{
+							this.mouseOverBlock = endOfLevel;
+						}
+						else
+						{
+							this.mouseOverBlock = null;
+						}
+					}
+
+					if (mouseState.LeftButton == ButtonState.Pressed && !pressedMLB)
+					{
+						var eol = new MapEndOfLevel(cursorPosition, textureNode);
+
+						eol.AddToWorld(this.PhysicsWorld);
+						this.Map.EndOfLevel = eol;
+					}
+					this.pressedMLB = (mouseState.LeftButton == ButtonState.Pressed);
+
+					if (this.mouseOverBlock != null && mouseState.RightButton == ButtonState.Pressed)
+					{
+						this.PhysicsWorld.RemoveBody(this.mouseOverBlock.CollisionHull);
+						this.Map.EndOfLevel = null;
+						this.mouseOverBlock = null;
+					}
+					break;
+				case 1:
+					this.mouseOverBlock = this.Map.CheckPoints.Find(p =>
+					{
+						var position = ConvertUnits.ToSimUnits(p.TextureNode.SourceRectangle.Width, p.TextureNode.SourceRectangle.Height);
+						return p.Position.X < cursorPosition.X
+							&& p.Position.X + position.X > cursorPosition.X
+							&& p.Position.Y < cursorPosition.Y
+							&& p.Position.Y + position.Y > cursorPosition.Y;
+					});
+
+
+					if (mouseState.LeftButton == ButtonState.Pressed && !pressedMLB)
+					{
+						var checkPoint = new MapCheckPoint(cursorPosition, textureNode);
+
+						checkPoint.AddToWorld(this.PhysicsWorld);
+						this.Map.AddCheckPoint(checkPoint);
+					}
+					this.pressedMLB = (mouseState.LeftButton == ButtonState.Pressed);
+
+					if (this.mouseOverBlock != null && mouseState.RightButton == ButtonState.Pressed)
+					{
+						this.PhysicsWorld.RemoveBody(this.mouseOverBlock.CollisionHull);
+						this.Map.RemoveCheckPoint((MapCheckPoint)this.mouseOverBlock);
+						this.mouseOverBlock = null;
+					}
+					break;
+				case 2:
+					this.mouseOverBlock = this.Map.SpawnPoints.Find(p =>
+					{
+						var position = ConvertUnits.ToSimUnits(p.TextureNode.SourceRectangle.Width, p.TextureNode.SourceRectangle.Height);
+						return p.Position.X < cursorPosition.X
+							&& p.Position.X + position.X > cursorPosition.X
+							&& p.Position.Y < cursorPosition.Y
+							&& p.Position.Y + position.Y > cursorPosition.Y;
+					});
+
+
+					if (mouseState.LeftButton == ButtonState.Pressed && !pressedMLB)
+					{
+						var spawnPoint = new MapSpawnPoint(cursorPosition, textureNode);
+
+						spawnPoint.AddToWorld(this.PhysicsWorld);
+						this.Map.AddSpawnPoint(spawnPoint);
+					}
+					this.pressedMLB = (mouseState.LeftButton == ButtonState.Pressed);
+
+					if (this.mouseOverBlock != null && mouseState.RightButton == ButtonState.Pressed)
+					{
+						this.PhysicsWorld.RemoveBody(this.mouseOverBlock.CollisionHull);
+						this.Map.RemoveSpawnPoint((MapSpawnPoint)this.mouseOverBlock);
+						this.mouseOverBlock = null;
+					}
+					break;
+			}
 		}
 
 		private void ChangeBackgroundMode(ref MouseState mouseState)
@@ -466,15 +589,23 @@ namespace MonogameTestProject.Editor
 			}
 
 
-			if (this.Map.Triggers.Count > 0)
+			if (this.Map.Flags.Count > 0 || this.Map.SpawnPoints.Count > 0)
 			{
 				this.SpriteBatch.Begin(SpriteSortMode.FrontToBack, BlendState.AlphaBlend, null, null, null, null, this.scaleMatrix);
 
-				for (int i = 0; i < this.Map.Triggers.Count; ++i)
+				for (int i = 0; i < this.Map.Flags.Count; ++i)
 				{
-					if (this.Map.Triggers[i] != this.mouseOverBlock)
+					if (this.Map.Flags[i] != this.mouseOverBlock)
 					{
-						DrawManager.Draw(this.SpriteBatch, this.Map.Triggers[i], this.cameraPosition);
+						DrawManager.Draw(this.SpriteBatch, this.Map.Flags[i], this.cameraPosition);
+					}
+				}
+
+				for (int i = 0; i < this.Map.SpawnPoints.Count; ++i)
+				{
+					if (this.Map.SpawnPoints[i] != this.mouseOverBlock)
+					{
+						DrawManager.Draw(this.SpriteBatch, this.Map.SpawnPoints[i], this.cameraPosition);
 					}
 				}
 
@@ -493,16 +624,16 @@ namespace MonogameTestProject.Editor
 			this.SpriteBatch.Draw(mouseCursor.Texture, this.mousePosition, mouseCursor.SourceRectangle, Color.White, 0.0f, Vector2.Zero, 1.0f, SpriteEffects.None, 0.9f);
 
 			float scale = 1.0f;
+			var resource = this.resources[(int)this.editorMode][this.currentResourceSelection];
+
 			switch (this.editorMode)
 			{
-				case EditorModes.AddMonsters:
-					this.SpriteBatch.End();
-					return;
+				case EditorModes.AddImportanPoints:
+					break;
 				case EditorModes.AddBackground:
 					scale = 0.2f;
 					break;
 			}
-			var resource = this.resources[(int)this.editorMode][this.currentResourceSelection];
 			this.SpriteBatch.Draw(resource.Texture, this.mousePosition, resource.SourceRectangle, Color.White, 0.0f, Vector2.Zero, scale, SpriteEffects.None, 0.8f);
 
 			if (this.tempBlock != null)

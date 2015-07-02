@@ -149,3 +149,14 @@
 /processorParam:TextureFormat=Color
 /build:Characters/warrior.png
 
+#begin Textures/Blocks/ImportantPoints.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:TextureFormat=Color
+/build:Textures/Blocks/ImportantPoints.png
+

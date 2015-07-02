@@ -18,6 +18,8 @@ namespace Teamwork_OOP.Engine
 	using Map;
 	using BaseClasses;
 	using Factories;
+	using Characters;
+	using Characters.CharacterClasses;
 
 	// TODO: RENAME WITH SOMETHING MORE PROPER !!!
 	public class SceneManager
@@ -30,7 +32,7 @@ namespace Teamwork_OOP.Engine
 		private World physicsWorld;
 
 		private Vector2 cameraPosition;
-
+		private Vector2 mouseInSimUnitsPosition;
 		private bool jumped;
 		// here or in MapManager class ????
 		//private List<Items> items;
@@ -49,6 +51,8 @@ namespace Teamwork_OOP.Engine
 		{
 			Init(textureManager, spriteBatch);
 		}
+
+		public bool LevelFinished { get; set; }
 
 		public Entity CameraAttachedTo { get; set; }
 
@@ -84,6 +88,15 @@ namespace Teamwork_OOP.Engine
 		{
 			this.mapManager = MapFactory.MapLoad(this.TextureManager, filePath);
 			this.mapManager.InitPhysics(this.PhysicsWorld);
+
+			if (this.mapManager.CheckPoints.Count > 0)
+			{
+				var hero = new Warrior();
+				EntityFactory.LoadCharacterAnimations(hero, this.TextureManager, "Characters");
+				hero.AddToWorld(this.PhysicsWorld);
+				hero.CollisionHull.Position = this.mapManager.CheckPoints[0].Position;
+				this.CameraAttachedTo = hero;
+			}
 		}
 
 		public void ResizeWindow(Vector2 newSize)
@@ -101,21 +114,37 @@ namespace Teamwork_OOP.Engine
 				{
 					entity.Move(new Vector2(-10.0f, 0.0f));
 				}
+
 				if (keyboardState.IsKeyDown(Keys.D))
 				{
 					entity.Move(new Vector2(10.0f, 0.0f));
 				}
+
 				if (keyboardState.IsKeyDown(Keys.Space) && !jumped)
 				{
 					entity.Jump(new Vector2(0.0f, -250.0f));
 				}
 				jumped = keyboardState.IsKeyDown(Keys.Space);
+
+				if (mouseState.LeftButton == ButtonState.Pressed)
+				{
+				}
 			}
 
+			this.mouseInSimUnitsPosition = ConvertUnits.ToSimUnits(new Vector2(mouseState.X, mouseState.Y) - this.windowHalfSize) + this.cameraPosition;
 		}
-
+		
 		public void Update(float deltaTime)
 		{
+			if (this.MapManager.EndOfLevel != null)
+			{
+				this.LevelFinished = this.MapManager.EndOfLevel.LevelFinished;
+
+				if (this.LevelFinished)
+				{
+					// TODO: show victory screen or go to next level
+				}
+			}
 			// update and draw only things that are in certain radius
 			if (this.CameraAttachedTo != null)
 			{
@@ -128,7 +157,29 @@ namespace Teamwork_OOP.Engine
 			{
 				if (body.UserData is Entity)
 				{
-					((Entity)body.UserData).Update(deltaTime);
+					var entity = ((Entity)body.UserData);
+
+					if (entity.IsAlive)
+					{
+						entity.Update(deltaTime);
+					}
+					else
+					{
+						if (!entity.ToDestroy)
+						{
+							entity.PlayDeathAnimation(deltaTime);
+						}
+						else
+						{
+							if (entity.IsControlledByHuman)
+							{
+								// TODO: show defeat screen
+							}
+
+							this.MapManager.RemoveEntity(entity);
+							this.PhysicsWorld.RemoveBody(entity.CollisionHull);
+						}
+					}
 				}
 			}
 

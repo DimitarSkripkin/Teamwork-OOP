@@ -17,17 +17,23 @@ namespace Teamwork_OOP.Engine.Map
 	public class MapManager
 	{
 		private List<MapBlock> blocks;
-		private List<MapTriggerBlock> triggers;
+		private List<MapSpawnPoint> spawnPoints;
+		private List<MapCheckPoint> checkPoints;
+		private List<MapFlagBlock> flags;
 		private List<MapPlatform> platforms;
 		private List<Entity> entities;
 
 		public MapManager()
 		{
 			this.blocks = new List<MapBlock>();
-			this.triggers = new List<MapTriggerBlock>();
+			this.spawnPoints = new List<MapSpawnPoint>();
+			this.checkPoints = new List<MapCheckPoint>();
+			this.flags = new List<MapFlagBlock>();
 			this.platforms = new List<MapPlatform>();
 			this.entities = new List<Entity>();
 		}
+
+		public MapEndOfLevel EndOfLevel { get; set; }
 
 		public Texture2D Background { get; set; }
 
@@ -39,12 +45,28 @@ namespace Teamwork_OOP.Engine.Map
 			}
 		}
 
-		// only for editor ?
-		public List<MapTriggerBlock> Triggers
+		public List<MapCheckPoint> CheckPoints
 		{
 			get
 			{
-				return this.triggers;
+				return this.checkPoints;
+			}
+		}
+
+		public List<MapSpawnPoint> SpawnPoints
+		{
+			get
+			{
+				return this.spawnPoints;
+			}
+		}
+		
+		// only for editor ?
+		public List<MapFlagBlock> Flags
+		{
+			get
+			{
+				return this.flags;
 			}
 		}
 
@@ -71,9 +93,9 @@ namespace Teamwork_OOP.Engine.Map
 				block.AddToWorld(physicsWorld);
 			}
 
-			foreach (var trigger in this.triggers)
+			foreach (var flag in this.flags)
 			{
-				trigger.AddToWorld(physicsWorld);
+				flag.AddToWorld(physicsWorld);
 			}
 
 			foreach (var platform in this.platforms)
@@ -85,6 +107,21 @@ namespace Teamwork_OOP.Engine.Map
 			{
 				entity.AddToWorld(physicsWorld);
 			}
+
+			foreach (var spawnPoint in this.spawnPoints)
+			{
+				spawnPoint.AddToWorld(physicsWorld);
+			}
+
+			foreach (var checkPoint in this.checkPoints)
+			{
+				checkPoint.AddToWorld(physicsWorld);
+			}
+
+			if (this.EndOfLevel != null)
+			{
+				this.EndOfLevel.AddToWorld(physicsWorld);
+			}
 		}
 
 		public void AddBlock(MapBlock block)
@@ -92,9 +129,19 @@ namespace Teamwork_OOP.Engine.Map
 			this.blocks.Add(block);
 		}
 
-		public void AddTrigger(MapTriggerBlock triggerBlock)
+		public void AddCheckPoint(MapCheckPoint checkPoint)
 		{
-			this.triggers.Add(triggerBlock);
+			this.checkPoints.Add(checkPoint);
+		}
+
+		public void AddSpawnPoint(MapSpawnPoint spawnPoint)
+		{
+			this.spawnPoints.Add(spawnPoint);
+		}
+
+		public void AddMapFlag(MapFlagBlock flagBlock)
+		{
+			this.flags.Add(flagBlock);
 		}
 
 		public void AddPlatform(MapPlatform platform)
@@ -112,9 +159,19 @@ namespace Teamwork_OOP.Engine.Map
 			this.blocks.Remove(block);
 		}
 
-		public void RemoveTrigger(MapTriggerBlock triggerBlock)
+		public void RemoveCheckPoint(MapCheckPoint checkPoint)
 		{
-			this.triggers.Remove(triggerBlock);
+			this.checkPoints.Remove(checkPoint);
+		}
+
+		public void RemoveSpawnPoint(MapSpawnPoint spawnPoint)
+		{
+			this.spawnPoints.Remove(spawnPoint);
+		}
+
+		public void RemoveFlag(MapFlagBlock triggerBlock)
+		{
+			this.flags.Remove(triggerBlock);
 		}
 
 		public void RemoveEntity(Entity entity)

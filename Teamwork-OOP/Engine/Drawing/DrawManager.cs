@@ -14,7 +14,7 @@ namespace Teamwork_OOP.Engine.Drawing
 {
 	using Map;
 	using BaseClasses;
-	using Teamwork_OOP.Engine.Characters.CharacterClasses;
+	using Characters.CharacterClasses;
 
 	public static class DrawManager
 	{
@@ -24,12 +24,23 @@ namespace Teamwork_OOP.Engine.Drawing
 			{
 				Draw(spriteBatch, (MapPlatform)body.UserData, positionOffset, Color.White, depthLayer);
 			}
-			else if (body.UserData is MapTriggerBlock)
+			else if (body.UserData is MapFlagBlock)
 			{
 			}
 			else if (body.UserData is MapBlock)
 			{
 				Draw(spriteBatch, (MapBlock)body.UserData, positionOffset, Color.White, depthLayer);
+			}
+			else if (body.UserData is MapSpawnPoint)
+			{
+			}
+			else if (body.UserData is MapCheckPoint)
+			{
+				Draw(spriteBatch, (MapCheckPoint)body.UserData, positionOffset, Color.White, depthLayer);
+			}
+			else if (body.UserData is MapEndOfLevel)
+			{
+				Draw(spriteBatch, (MapEndOfLevel)body.UserData, positionOffset, Color.White, depthLayer);
 			}
 			else if (body.UserData is Entity)
 			{
@@ -103,7 +114,7 @@ namespace Teamwork_OOP.Engine.Drawing
 				depthLayer);
 		}
 
-		public static void Draw(SpriteBatch spriteBatch, MapTriggerBlock triggerBlock, Vector2 positionOffset)
+		public static void Draw(SpriteBatch spriteBatch, MapFlagBlock triggerBlock, Vector2 positionOffset)
 		{
 			var textureNode = triggerBlock.TextureNode;
 			var origin = new Vector2(textureNode.SourceRectangle.Size.X / 2.0f, textureNode.SourceRectangle.Size.Y / 2.0f);
@@ -117,6 +128,43 @@ namespace Teamwork_OOP.Engine.Drawing
 				1.0f,
 				SpriteEffects.None,
 				0.0f);
+		}
+
+		public static void Draw(SpriteBatch spriteBatch, MapItem mapItem, Vector2 positionOffset, Color color, float depthLayer)
+		{
+			if (mapItem is MapBlock)
+			{
+				Draw(spriteBatch, (MapBlock)mapItem, positionOffset, color, depthLayer);
+				return;
+			}
+			var textureNode = mapItem.TextureNode;
+			var origin = new Vector2(textureNode.SourceRectangle.Size.X / 2.0f, textureNode.SourceRectangle.Size.Y / 2.0f);
+
+			spriteBatch.Draw(textureNode.Texture,
+				ConvertUnits.ToDisplayUnits(mapItem.CollisionHull.Position) - positionOffset,
+				textureNode.SourceRectangle,
+				color,
+				0.0f,
+				origin,
+				1.0f,
+				SpriteEffects.None,
+				depthLayer);
+		}
+
+		public static void Draw(SpriteBatch spriteBatch, MapSpawnPoint mapSpawnPoint, Vector2 positionOffset, float depthLayer = 0.0f)
+		{
+			var textureNode = mapSpawnPoint.TextureNode;
+			var origin = new Vector2(textureNode.SourceRectangle.Size.X / 2.0f, textureNode.SourceRectangle.Size.Y / 2.0f);
+
+			spriteBatch.Draw(textureNode.Texture,
+				ConvertUnits.ToDisplayUnits(mapSpawnPoint.CollisionHull.Position) - positionOffset,
+				textureNode.SourceRectangle,
+				Color.White,
+				0.0f,
+				origin,
+				1.0f,
+				SpriteEffects.None,
+				depthLayer);
 		}
 	}
 }

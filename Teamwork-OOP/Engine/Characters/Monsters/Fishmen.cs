@@ -2,16 +2,26 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using Teamwork_OOP.Engine.Physics;
+
+using Microsoft.Xna.Framework;
+
+using FarseerPhysics;
+using FarseerPhysics.Factories;
+using FarseerPhysics.Dynamics;
 
 namespace Teamwork_OOP.Engine.Characters.Enemies
 {
-	 public class Fishmen : NonPlayerCharacter
+	using Drawing;
+	using BaseClasses;
+
+	public class Fishmen : NonPlayerCharacter
 	{
-		 private const int StrengthBase = 15;
-		 private const int DexterityBase = 10;
-		 private const int IntelligenceBase = 10;
-		 private const int VitalityBase = 5;
+		private const float BodyDensity = 10.0f;
+
+		private const int StrengthBase = 15;
+		private const int DexterityBase = 10;
+		private const int IntelligenceBase = 10;
+		private const int VitalityBase = 5;
 		private const float AttackSpeedBase = 1.0f;
 		private const float SpellCastingSpeedBase = 1.0f;
 		private const float MovementSpeedBase = 1.0f;
@@ -22,9 +32,16 @@ namespace Teamwork_OOP.Engine.Characters.Enemies
 			int intelligence = IntelligenceBase,
 			int vitality = VitalityBase)
 			: base(strength, dexterity, intelligence, vitality, 0, 0, 0, 0,
-			AttackSpeedBase,SpellCastingSpeedBase,MovementSpeedBase,0,0,
-			0, 0, 0)	
+			AttackSpeedBase, SpellCastingSpeedBase, MovementSpeedBase, 0, 0,
+			0, 0, 0)
 		{
+		}
+
+		public override void AddToWorld(World physicsWorld)
+		{
+			this.CollisionHull = BodyFactory.CreateCapsule(physicsWorld, 0.8f, 0.5f, BodyDensity, this);
+
+			base.AddToWorld(physicsWorld);
 		}
 	}
 }
