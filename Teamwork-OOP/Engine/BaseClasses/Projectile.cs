@@ -1,12 +1,14 @@
-﻿using Microsoft.Xna.Framework;
+﻿using System.Collections.Generic;
+using Microsoft.Xna.Framework;
+using Teamwork_OOP.Engine.Drawing;
 
 namespace Teamwork_OOP.Engine.BaseClasses
 {
 	using Physics;
-
-	// TODO: implement or remove this class
 	public class Projectile : CollidableObject
 	{
+		private AnimationSprite _animationSpriteSprite;
+
 		protected Projectile(Vector2 position, Vector2 velocity, bool isBullet = true)
 			: base()
 		{
@@ -18,6 +20,14 @@ namespace Teamwork_OOP.Engine.BaseClasses
 		public override void AddToWorld(FarseerPhysics.Dynamics.World physicsWorld)
 		{
 			throw new System.NotImplementedException();
+		}
+		public AnimationSprite AnimationSprite
+		{
+			get
+			{
+				return this._animationSpriteSprite;
+			}
+			set { this._animationSpriteSprite = value; }
 		}
 	}
 }
