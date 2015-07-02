@@ -315,13 +315,9 @@ namespace Teamwork_OOP.Engine.BaseClasses
 			}
 		}
 
-		public virtual bool TryToAttack(Entity attackTarget)
+		public virtual void AttackTarget(Entity attackTarget)
 		{
-			if (true)
-			{
-
-			}
-			return false;
+			SetAnimation("ATTACK");
 		}
 
 		public virtual void UpdateCooldowns()
@@ -362,9 +358,18 @@ namespace Teamwork_OOP.Engine.BaseClasses
 
 			this.inTheAir = this.CollisionHull.ContactList == null;
 
-			this.Attack.Update(deltaTime);
-			this.SpecialSkill_0.Update(deltaTime);
-			this.SpecialSkill_1.Update(deltaTime);
+			if (this.Attack != null)
+			{
+				this.Attack.Update(deltaTime);
+			}
+			if (this.SpecialSkill_0 != null)
+			{
+				this.SpecialSkill_0.Update(deltaTime);
+			}
+			if (this.SpecialSkill_1 != null)
+			{
+				this.SpecialSkill_1.Update(deltaTime);
+			}
 		}
 
 		public void Move(Vector2 impulse)

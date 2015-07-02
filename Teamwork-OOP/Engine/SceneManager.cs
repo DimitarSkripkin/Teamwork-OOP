@@ -20,6 +20,7 @@ namespace Teamwork_OOP.Engine
 	using Factories;
 	using Characters;
 	using Characters.CharacterClasses;
+	using Characters.Enemies;
 
 	public enum GameState
 	{
@@ -102,7 +103,7 @@ namespace Teamwork_OOP.Engine
 			if (this.mapManager.CheckPoints.Count > 0)
 			{
 				var hero = new Warrior();
-				EntityFactory.LoadEntity(hero, this.TextureManager, "Characters" , "warrior");
+				EntityFactory.LoadEntity(hero, this.TextureManager, "Characters/Heroes/Warrior" , "warrior");
 				hero.AddToWorld(this.PhysicsWorld);
 				hero.CollisionHull.Position = this.mapManager.CheckPoints[0].Position;
 				this.CameraAttachedTo = hero;
@@ -197,6 +198,17 @@ namespace Teamwork_OOP.Engine
 							this.PhysicsWorld.RemoveBody(entity.CollisionHull);
 						}
 					}
+
+					if (this.CameraAttachedTo != null)
+					{
+						if (entity is NonPlayerCharacter)
+						{
+							if ((entity.CollisionHull.Position - this.CameraAttachedTo.CollisionHull.Position).Length() < entity.AttackRange)
+							{
+								entity.AttackTarget(this.CameraAttachedTo);
+							}
+						}
+					}
 				}
 				else if (body.UserData is Projectile && ((Projectile)body.UserData).ToDestroy)
 				{
@@ -214,6 +226,12 @@ namespace Teamwork_OOP.Engine
 				{
 					// spawn and add monster
 					//spawn.Monsters.Add();
+
+					var monster = new Minotaur();
+					EntityFactory.LoadEntity(monster, this.TextureManager, "Characters/Monsters/Minotaur", "Minotaur");
+					monster.AddToWorld(this.PhysicsWorld);
+					this.mapManager.Entities.Add(monster);
+					monster.CollisionHull.Position = spawn.Position;
 				}
 			}
 

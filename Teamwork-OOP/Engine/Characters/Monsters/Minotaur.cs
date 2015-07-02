@@ -39,7 +39,7 @@ namespace Teamwork_OOP.Engine.Characters.Enemies
 
 		public override void AddToWorld(World physicsWorld)
 		{
-			this.CollisionHull = BodyFactory.CreateCapsule(physicsWorld, 0.8f, 0.5f, BodyDensity, this);
+			this.CollisionHull = BodyFactory.CreateCapsule(physicsWorld, 1.8f, 0.5f, BodyDensity, this);
 
 			base.AddToWorld(physicsWorld);
 		}

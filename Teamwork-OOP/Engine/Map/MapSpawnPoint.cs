@@ -16,7 +16,7 @@ namespace Teamwork_OOP.Engine.Map
 	public class MapSpawnPoint : MapItem
 	{
 		private int MaxSpawnedMonstersCount = 1;
-		private float SpawnMonsterTime = 30.0f;
+		private float SpawnMonsterTime = 5.0f;
 
 		private List<NonPlayerCharacter> monsters;
 
