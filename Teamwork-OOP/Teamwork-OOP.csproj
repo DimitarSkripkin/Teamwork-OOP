@@ -60,6 +60,7 @@
     <Compile Include="Engine\Drawing\Frame.cs" />
     <Compile Include="Engine\Drawing\TextureManager.cs" />
     <Compile Include="Engine\Drawing\TextureNode.cs" />
+    <Compile Include="Engine\Exceptions\ResourceNotFound.cs" />
     <Compile Include="Engine\Factories\AnimationFactory.cs" />
     <Compile Include="Engine\Factories\ItemFactory.cs" />
     <Compile Include="Engine\Factories\EntityFactory.cs" />
@@ -141,9 +142,7 @@
   <ItemGroup>
     <MonoGameContentReference Include="Content\Content.mgcb" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Engine\Exceptions\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <ProjectReference Include="..\Farseer Physics Engine 3.5\Farseer Physics MonoGame.csproj">
       <Project>{0aad36e3-51a5-4a07-ab60-5c8a66bd38b7}</Project>
