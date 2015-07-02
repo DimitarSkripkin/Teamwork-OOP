@@ -190,5 +190,17 @@ namespace Teamwork_OOP.Engine.Map
 		//public void AddItem()
 		//{
 		//}
+
+		internal void Clear()
+		{
+			this.EndOfLevel = null;
+			this.Background = null;
+			this.Blocks.Clear();
+			this.CheckPoints.Clear();
+			this.Entities.Clear();
+			this.Flags.Clear();
+			this.Platforms.Clear();
+			this.SpawnPoints.Clear();
+		}
 	}
 }

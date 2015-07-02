@@ -115,6 +115,7 @@
     <Compile Include="Engine\UI\Button.cs" />
     <Compile Include="Engine\UI\UIItem.cs" />
     <Compile Include="Engine\UI\UIManager.cs" />
+    <Compile Include="Engine\UI\UIMenu.cs" />
     <Compile Include="Game1.cs" />
     <Compile Include="MainEntry.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
