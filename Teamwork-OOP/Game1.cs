@@ -98,11 +98,11 @@ namespace Teamwork_OOP
 		public void VictoryMenu()
 		{
 			// when the game is over
-			this.isInGame = false;
+			//this.isInGame = false;
 
 			// remove from here ?
-			this.mainMenu.IsVisible = true;
-			this.sceneManager.Clear();
+			//this.mainMenu.IsVisible = true;
+			//this.sceneManager.Clear();
 		}
 
 		/// <summary>
