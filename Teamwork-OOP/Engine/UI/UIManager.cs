@@ -43,7 +43,17 @@ namespace Teamwork_OOP.Engine.UI
 			this.Items.Add(new Button(texture, position, new Vector2(texture.SourceRectangle.Width, texture.SourceRectangle.Height), buttonName));
 		}
 
-
+		public void RegisterClickEvent(string itemName, OnClickEventHandler clickFunction)
+		{
+			for (int i = 0; i < this.items.Count; ++i)
+			{
+				if (this.items[i].Name == itemName)
+				{
+					this.items[i].OnClick += clickFunction;
+					break;
+				}
+			}
+		}
 		// TODO: implement ui manager that uses physics engine to test if button is clicked
 
 		public void ProcessInput(MouseState mouseState)
@@ -96,13 +106,12 @@ namespace Teamwork_OOP.Engine.UI
 			//Menu Background
 			this.MenuBackground = texture.GetOrLoadTexture(backgroundPath);
 		}
+
 		public void Draw(SpriteBatch spriteBatch)
 		{
 			if (this.MenuBackground != null)
 			{
 				spriteBatch.Begin();
-
-
 
 				spriteBatch.Draw(this.MenuBackground, Vector2.Zero, Color.White);
 
@@ -114,7 +123,14 @@ namespace Teamwork_OOP.Engine.UI
 
 			foreach (var item in this.items)
 			{
-				spriteBatch.Draw(item.TextureNode.Texture, item.Position, item.TextureNode.SourceRectangle, Color.White);
+				if (item.IsMouseOver)
+				{
+					spriteBatch.Draw(item.TextureNode.Texture, item.Position, item.TextureNode.SourceRectangle, Color.White);
+				}
+				else
+				{
+					spriteBatch.Draw(item.TextureNode.Texture, item.Position, item.TextureNode.SourceRectangle, Color.LightGray);
+				}
 			}
 
 			// END DRAW

@@ -14,9 +14,9 @@ namespace Teamwork_OOP.Engine.Map
 {
 	using Drawing;
 
-	public class MapTriggerBlock : MapBlock
+	public class MapFlagBlock : MapBlock
 	{
-		public MapTriggerBlock(Vector2 position, Point size, TextureNode textureNode)
+		public MapFlagBlock(Vector2 position, Point size, TextureNode textureNode)
 			: base(position, size, textureNode)
 		{
 		}

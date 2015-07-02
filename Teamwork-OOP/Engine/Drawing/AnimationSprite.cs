@@ -48,6 +48,8 @@ namespace Teamwork_OOP.Engine.Drawing
 			this.Sprite = other.Sprite;
 		}
 
+		public bool Ended { get; set; }
+
 		public Texture2D Sprite { get; set; }
 
 		public Frame CurrentFrame
@@ -81,6 +83,8 @@ namespace Teamwork_OOP.Engine.Drawing
 			if (this.currentFrame >= frameList.Count)
 			{
 				this.currentFrame = 0;
+
+				this.Ended = true;
 			}
 		}
 
@@ -89,6 +93,8 @@ namespace Teamwork_OOP.Engine.Drawing
 			this.Effects = SpriteEffects.None;
 			this.currentFrameTime = 0.0f;
 			this.currentFrame = 0;
+
+			this.Ended = false;
 		}
 
 		public AnimationSprite Clone()

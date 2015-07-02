@@ -3,17 +3,13 @@ using FarseerPhysics.Dynamics.Contacts;
 
 namespace Teamwork_OOP.Engine.BaseClasses
 {
-	using Physics;
-
 	public abstract class CollidableObject
 	{
 		//private Body collisionHull;
 
-		public CollidableObject()
-		{
-		}
-
 		public abstract void AddToWorld(World physicsWorld);
+
+		public bool ToDestroy { get; set; }
 
 		public Body CollisionHull { get; set; }
 

@@ -77,7 +77,11 @@
     <Compile Include="Engine\Items\MeleeWeapons\MeleeWeapon.cs" />
     <Compile Include="Engine\Items\MeleeWeapons\Sword.cs" />
     <Compile Include="Engine\Items\MeleeWeapons\TigerClaws.cs" />
-    <Compile Include="Engine\Map\MapTriggerBlock.cs" />
+    <Compile Include="Engine\Map\MapCheckPoint.cs" />
+    <Compile Include="Engine\Map\MapEndOfLevel.cs" />
+    <Compile Include="Engine\Map\MapItem.cs" />
+    <Compile Include="Engine\Map\MapFlagBlock.cs" />
+    <Compile Include="Engine\Map\MapSpawnPoint.cs" />
     <Compile Include="Engine\SceneManager.cs" />
     <Compile Include="Engine\Items\Item.cs" />
     <Compile Include="Engine\Skills\CharacterAttacks\Attack.cs" />

@@ -12,10 +12,10 @@ namespace Teamwork_OOP.Engine.Map
 	//using BaseClasses;
 	using Drawing;
 
-	public class MapPlatform : MapBlock//:GameObject
+	public class MapPlatform : MapItem
 	{
-		public MapPlatform(Vector2 position, Vector2 endPosition, Point dimentions, TextureNode textureNode)
-			: base(position, dimentions, textureNode)
+		public MapPlatform(Vector2 position, Vector2 endPosition, TextureNode textureNode)
+			: base(position, textureNode)
 		{
 			this.EndPoint = endPosition;
 		}

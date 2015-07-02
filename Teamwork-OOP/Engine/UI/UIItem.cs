@@ -17,6 +17,9 @@ namespace Teamwork_OOP.Engine.UI
 		public UIItem(TextureNode texture, Vector2 position, Vector2 size, string name)
 		{
 			this.collisionBox = new AABB(position, size, CollisionObjectFlags.Kinematic);
+
+			this.TextureNode = texture;
+			this.Name = name;
 		}
 
 		public AABB CollisionBox
@@ -33,6 +36,8 @@ namespace Teamwork_OOP.Engine.UI
 		public TextureNode TextureNode { get; set; }
 
 		public bool IsMouseOver { get; set; }
+
+		public string Name { get; set; }
 
 		public event OnClickEventHandler OnClick;
 
