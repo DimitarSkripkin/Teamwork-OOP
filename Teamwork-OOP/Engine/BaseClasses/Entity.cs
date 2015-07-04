@@ -19,7 +19,7 @@ namespace Teamwork_OOP.Engine.BaseClasses
 	using Map;
 	using Drawing;
 
-	public abstract class Entity : CollidableObject, IBaseStats, ISecondaryStats//IMoveable
+	public abstract class Entity : CollidableObject, IBaseStats, ISecondaryStats, ITimeUpdateable//, IMoveable
 	{
 		private const int MaxJumps = 2;
 
@@ -51,7 +51,8 @@ namespace Teamwork_OOP.Engine.BaseClasses
 		private Frame lastFrame;
 
 		//private bool isAlive;
-		#region
+		private bool isAttacking;
+
 		protected Entity(int strength, int dexterity, int intelligence, int vitality,
 			int attackDamage, int spellDamage,
 			int armor, int magicResistance,
@@ -82,6 +83,8 @@ namespace Teamwork_OOP.Engine.BaseClasses
 			this.animations = new Dictionary<string, AnimationSprite>();
 			//this.animations = new Dictionary<string, AnimationSprite>();
 			//this.CollisionHull.CollisionHandler += CollisionCallBack;
+
+			this.CurrentHealthPoints = this.HealthPoints;
 		}
 
 		public int Strength
@@ -232,7 +235,7 @@ namespace Teamwork_OOP.Engine.BaseClasses
 		{
 			get
 			{
-				return this.CurrentHealthPoints <= 0;
+				return this.CurrentHealthPoints > 0;
 			}
 		}
 
@@ -253,12 +256,11 @@ namespace Teamwork_OOP.Engine.BaseClasses
 				return this.animations;
 			}
 		}
-		#endregion
 
 
 		public MapCheckPoint CheckPoint { get; set; }
 
-		public Skill Attack { get; set; }
+		public Skill BasicAttack { get; set; }
 
 		public Skill SpecialSkill_0 { get; set; }
 
@@ -290,17 +292,23 @@ namespace Teamwork_OOP.Engine.BaseClasses
 			{
 				return false;
 			}
-			else if (fixtureB.UserData is MapSpawnPoint)
-			{
-				return false;
-			}
-			else if (fixtureB.UserData is Skill)
-			{
-			}
-
-			if (fixtureB.UserData is MapCheckPoint)
+			//else if (fixtureB.UserData is Skill)
+			//{
+			//}
+			else if (fixtureB.UserData is MapCheckPoint)
 			{
 				this.CheckPoint = (MapCheckPoint)fixtureB.UserData;
+			}
+			else if (fixtureB.UserData is Projectile)
+			{
+				var projectile = (Projectile)fixtureB.UserData;
+
+				if (projectile.UsedFrom == this)
+				{
+					return false;
+				}
+
+			  ((ProjectileSkill)projectile.UserData).ApplySkillEffect(this);
 			}
 			// apply skill effects
 			return true;
@@ -317,7 +325,38 @@ namespace Teamwork_OOP.Engine.BaseClasses
 
 		public virtual void AttackTarget(Entity attackTarget)
 		{
-			SetAnimation("ATTACK");
+			// TODO: use skill instead of 
+			if (this.BasicAttack != null && this.BasicAttack.Activate())
+			{
+				this.BasicAttack.ApplySkillEffect(attackTarget);
+
+				SetAnimation("ATTACK");
+				this.isAttacking = true;
+			}
+			else
+			{
+				if (this.currentAnimation.Ended)
+				{
+					SetAnimation("IDLE");
+					this.isAttacking = false;
+				}
+				else
+				{
+					if (attackTarget.CollisionHull.Position.X < this.CollisionHull.Position.X)
+					{
+						this.currentAnimation.Effects = SpriteEffects.FlipHorizontally;
+					}
+					else
+					{
+						this.currentAnimation.Effects = SpriteEffects.None;
+					}
+				}
+			}
+		}
+
+		public virtual void StopAttack()
+		{
+			this.isAttacking = false;
 		}
 
 		public virtual void UpdateCooldowns()
@@ -327,40 +366,55 @@ namespace Teamwork_OOP.Engine.BaseClasses
 
 		bool inTheAir;
 
-		public virtual void Update(float deltaTime)
+		public void Update(float deltaTime)
 		{
 			this.currentAnimation.UpdateAnimation(deltaTime);
 
-			if (this.inTheAir)
+			if (this.IsAlive)
 			{
-				SetAnimation("JUMP");
-			}
-			else
-			{
-				if (this.CollisionHull.LinearVelocity.Length() > 0.1f)
+				if (this.inTheAir)
 				{
-					SetAnimation("RUN");
+					SetAnimation("JUMP");
 				}
 				else
 				{
-					SetAnimation("IDLE");
+					if (!this.isAttacking)
+					{
+						if (this.CollisionHull.LinearVelocity.Length() > 0.1f)
+						{
+							SetAnimation("RUN");
+						}
+						else
+						{
+							SetAnimation("IDLE");
+						}
+					}
 				}
-			}
 
-			if (this.CollisionHull.LinearVelocity.X < 0)
-			{
-				this.currentAnimation.Effects = SpriteEffects.FlipHorizontally;
+				if (this.CollisionHull.LinearVelocity.X < 0)
+				{
+					this.currentAnimation.Effects = SpriteEffects.FlipHorizontally;
+				}
+				else
+				{
+					this.currentAnimation.Effects = SpriteEffects.None;
+				}
+
+				this.inTheAir = this.CollisionHull.ContactList == null;
 			}
 			else
 			{
-				this.currentAnimation.Effects = SpriteEffects.None;
+				SetAnimation("DEATH");
+
+				if (this.currentAnimation.Ended)
+				{
+					this.ToDestroy = true;
+				}
 			}
 
-			this.inTheAir = this.CollisionHull.ContactList == null;
-
-			if (this.Attack != null)
+			if (this.BasicAttack != null)
 			{
-				this.Attack.Update(deltaTime);
+				this.BasicAttack.Update(deltaTime);
 			}
 			if (this.SpecialSkill_0 != null)
 			{
@@ -391,18 +445,6 @@ namespace Teamwork_OOP.Engine.BaseClasses
 				++this.jump;
 
 				this.inTheAir = true;
-			}
-		}
-
-		public void PlayDeathAnimation(float deltaTime)
-		{
-			SetAnimation("DEATH");
-
-			this.currentAnimation.UpdateAnimation(deltaTime);
-
-			if (this.currentAnimation.Ended)
-			{
-				this.ToDestroy = true;
 			}
 		}
 	}

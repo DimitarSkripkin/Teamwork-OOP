@@ -19,7 +19,7 @@ namespace Teamwork_OOP.Engine.Factories
 		{
 			var animationSprite2 = new AnimationSprite();
 			animationSprite2.Sprite = texture;
-			AnimationFactory.LoadFromFile(ref animationSprite2, 0.1f, "Content/" + filePath + "/" + animationName + ".txt");
+			AnimationFactory.LoadFromFile(ref animationSprite2, 0.1f, "Content/" + filePath + "/" + animationName + ".txt", true);
 			projectile.AnimationSprite = animationSprite2.Clone();
 
 		}

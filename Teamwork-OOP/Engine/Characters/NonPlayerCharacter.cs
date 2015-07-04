@@ -12,6 +12,7 @@ using FarseerPhysics.Dynamics;
 namespace Teamwork_OOP.Engine.Characters
 {
 	using BaseClasses;
+	using Map;
 
 	public abstract class NonPlayerCharacter : Entity
 	{
@@ -26,5 +27,7 @@ namespace Teamwork_OOP.Engine.Characters
 		}
 
 		public int ItemDropChance { get; set; }
+
+		public MapSpawnPoint FromSpawnPoint { get; set; }
 	}
 }

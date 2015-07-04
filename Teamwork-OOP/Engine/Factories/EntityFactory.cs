@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.IO;
 
 using Microsoft.Xna.Framework;
 
@@ -28,18 +29,22 @@ namespace Teamwork_OOP.Engine.Factories
 			GetAnimation(entity, filePath, texture, "JUMP");
 
 			GetAnimation(entity, filePath, texture, "ATTACK");
+
+			GetAnimation(entity, filePath, texture, "DEATH");
 		}
-		
-		private static void GetAnimation(Entity entity, string filePath, Texture2D texture , string animationName)
+
+		private static void GetAnimation(Entity entity, string filePath, Texture2D texture, string animationName)
 		{
-				var animationSprite2 = new AnimationSprite();
-				animationSprite2.Sprite = texture;
-				AnimationFactory.LoadFromFile(ref animationSprite2, 0.1f, "Content/" + filePath + "/" + animationName + ".txt");
+			var animationSprite2 = new AnimationSprite();
+			animationSprite2.Sprite = texture;
+			try
+			{
+				AnimationFactory.LoadFromFile(ref animationSprite2, 0.1f, "Content/" + filePath + "/" + animationName + ".txt", true);
 				entity.Animations[animationName] = animationSprite2.Clone();
+			}
+			catch (FileNotFoundException)
+			{
+			}
 		}
-
-
-
-		
 	}
 }

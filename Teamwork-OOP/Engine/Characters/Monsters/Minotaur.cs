@@ -13,6 +13,7 @@ namespace Teamwork_OOP.Engine.Characters.Enemies
 {
 	using Drawing;
 	using BaseClasses;
+	using Skills;
 
 	public class Minotaur : NonPlayerCharacter
 	{
@@ -33,13 +34,15 @@ namespace Teamwork_OOP.Engine.Characters.Enemies
 			int vitality = VitalityBase)
 			: base(strength, dexterity, intelligence, vitality, 0, 0, 0, 0,
 			AttackSpeedBase, SpellCastingSpeedBase, MovementSpeedBase, 0, 0,
-			0, 0, 0)
+			2.0f, 0, 0)
 		{
+
+			this.BasicAttack = new Slash(this);
 		}
 
 		public override void AddToWorld(World physicsWorld)
 		{
-			this.CollisionHull = BodyFactory.CreateCapsule(physicsWorld, 1.8f, 0.5f, BodyDensity, this);
+			this.CollisionHull = BodyFactory.CreateCapsule(physicsWorld, 1.1f, 0.8f, BodyDensity, this);
 
 			base.AddToWorld(physicsWorld);
 		}

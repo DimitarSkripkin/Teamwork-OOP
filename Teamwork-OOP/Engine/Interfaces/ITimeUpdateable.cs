@@ -5,8 +5,8 @@ using System.Text;
 
 namespace Teamwork_OOP.Engine.Interfaces
 {
-	public interface IDestructable
+	interface ITimeUpdateable
 	{
-		bool ToDestroy { get; }
+		void Update(float deltaTime);
 	}
 }

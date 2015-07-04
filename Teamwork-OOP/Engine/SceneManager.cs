@@ -21,6 +21,9 @@ namespace Teamwork_OOP.Engine
 	using Characters;
 	using Characters.CharacterClasses;
 	using Characters.Enemies;
+	using Skills;
+	using Skills.CharacterAttacks;
+	using Interfaces;
 
 	public enum GameState
 	{
@@ -106,6 +109,8 @@ namespace Teamwork_OOP.Engine
 				EntityFactory.LoadEntity(hero, this.TextureManager, "Characters/Heroes/Warrior" , "warrior");
 				hero.AddToWorld(this.PhysicsWorld);
 				hero.CollisionHull.Position = this.mapManager.CheckPoints[0].Position;
+				hero.IsControlledByHuman = true;
+
 				this.CameraAttachedTo = hero;
 			}
 		}
@@ -139,9 +144,13 @@ namespace Teamwork_OOP.Engine
 
 				if (mouseState.LeftButton == ButtonState.Pressed)
 				{
-					if (entity.Attack.Activate())
+					if (entity.BasicAttack.Activate())
 					{
-						if (entity.Attack is Projectile)
+						if (entity.BasicAttack is ProjectileSkill)
+						{
+							((ProjectileSkill)entity.BasicAttack).ActivateInDirection(this.PhysicsWorld, this.mouseInSimUnitsPosition - entity.CollisionHull.Position);
+						}
+						else if (entity.BasicAttack is TargetSkill)
 						{
 						}
 					}
@@ -173,30 +182,26 @@ namespace Teamwork_OOP.Engine
 			{
 				var body = inDrawRange[i];
 
+				if (body.UserData is ITimeUpdateable)
+				{
+					((ITimeUpdateable)body.UserData).Update(deltaTime);
+				}
+
 				if (body.UserData is Entity)
 				{
 					var entity = ((Entity)body.UserData);
 
-					if (entity.IsAlive)
+					if (entity.ToDestroy)
 					{
-						entity.Update(deltaTime);
-					}
-					else
-					{
-						if (!entity.ToDestroy)
+						if (entity.IsControlledByHuman)
 						{
-							entity.PlayDeathAnimation(deltaTime);
+							// TODO: show defeat screen
+							this.GameState = GameState.FinishedDefeat;
+							this.CameraAttachedTo = null;
 						}
-						else
-						{
-							if (entity.IsControlledByHuman)
-							{
-								// TODO: show defeat screen
-							}
 
-							this.MapManager.RemoveEntity(entity);
-							this.PhysicsWorld.RemoveBody(entity.CollisionHull);
-						}
+						//this.MapManager.RemoveEntity(entity);
+						//this.PhysicsWorld.RemoveBody(entity.CollisionHull);
 					}
 
 					if (this.CameraAttachedTo != null)
@@ -207,10 +212,19 @@ namespace Teamwork_OOP.Engine
 							{
 								entity.AttackTarget(this.CameraAttachedTo);
 							}
+							else
+							{
+								entity.StopAttack();
+							}
 						}
 					}
+					else
+					{
+						entity.StopAttack();
+					}
 				}
-				else if (body.UserData is Projectile && ((Projectile)body.UserData).ToDestroy)
+
+				if (body.UserData is IDestructable && ((IDestructable)body.UserData).ToDestroy)
 				{
 					this.PhysicsWorld.RemoveBody(body);
 				}
@@ -224,14 +238,15 @@ namespace Teamwork_OOP.Engine
 
 				if (spawn.Spawn)
 				{
-					// spawn and add monster
-					//spawn.Monsters.Add();
-
 					var monster = new Minotaur();
 					EntityFactory.LoadEntity(monster, this.TextureManager, "Characters/Monsters/Minotaur", "Minotaur");
 					monster.AddToWorld(this.PhysicsWorld);
-					this.mapManager.Entities.Add(monster);
 					monster.CollisionHull.Position = spawn.Position;
+
+					//this.MapManager.Entities.Add(monster);
+					monster.FromSpawnPoint = spawn;
+
+					spawn.Monsters.Add(monster);
 				}
 			}
 
@@ -273,6 +288,10 @@ namespace Teamwork_OOP.Engine
 
 			this.PhysicsWorld.Clear();
 			this.MapManager.Clear();
+
+			//this.physicsWorld = new World(DefaultGravityDirection);
+			//this.MapManager = new MapManager();
+			//this.MapManager.InitPhysics(this.PhysicsWorld);
 		}
 	}
 }

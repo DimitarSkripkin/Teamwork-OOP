@@ -12,9 +12,5 @@ namespace Teamwork_OOP.Engine.Skills
 			: base(usedFrom, cooldownTime, maxActiveTime)
 		{
 		}
-
-		public override void ApplySkillEffect(Entity target)
-		{
-		}
 	}
 }

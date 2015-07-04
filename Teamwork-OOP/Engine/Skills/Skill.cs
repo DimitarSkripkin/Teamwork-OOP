@@ -105,7 +105,7 @@ namespace Teamwork_OOP.Engine.Skills
 
 		public virtual bool Activate()
 		{
-			if (this.CooldownTime <= 0.0f)
+			if (this.CurrentCooldownTime <= 0.0f)
 			{
 				this.CurrentCooldownTime = this.CooldownTime;
 				this.CurrentActiveTime = this.MaxActiveTime;

@@ -41,7 +41,7 @@ namespace Teamwork_OOP.Engine.Factories
 			}
 		}
 
-		public static void LoadFromFile(ref AnimationSprite animation, float timePerFrame, string filePath)
+		public static void LoadFromFile(ref AnimationSprite animation, float timePerFrame, string filePath, bool dontHandleExeptions)
 		{
 			try
 			{
@@ -67,6 +67,10 @@ namespace Teamwork_OOP.Engine.Factories
 			}
 			catch (FileNotFoundException)
 			{
+				if (dontHandleExeptions)
+				{
+					throw;
+				}
 			}
 		}
 	}

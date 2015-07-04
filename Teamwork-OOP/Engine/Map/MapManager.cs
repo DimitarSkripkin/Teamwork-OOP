@@ -21,7 +21,7 @@ namespace Teamwork_OOP.Engine.Map
 		private List<MapCheckPoint> checkPoints;
 		private List<MapFlagBlock> flags;
 		private List<MapPlatform> platforms;
-		private List<Entity> entities;
+		//private List<Entity> entities;
 
 		public MapManager()
 		{
@@ -30,7 +30,7 @@ namespace Teamwork_OOP.Engine.Map
 			this.checkPoints = new List<MapCheckPoint>();
 			this.flags = new List<MapFlagBlock>();
 			this.platforms = new List<MapPlatform>();
-			this.entities = new List<Entity>();
+			//this.entities = new List<Entity>();
 		}
 
 		public MapEndOfLevel EndOfLevel { get; set; }
@@ -78,13 +78,13 @@ namespace Teamwork_OOP.Engine.Map
 			}
 		}
 
-		public List<Entity> Entities
-		{
-			get
-			{
-				return this.entities;
-			}
-		}
+		//public List<Entity> Entities
+		//{
+		//	get
+		//	{
+		//		return this.entities;
+		//	}
+		//}
 
 		public void InitPhysics(World physicsWorld)
 		{
@@ -103,10 +103,10 @@ namespace Teamwork_OOP.Engine.Map
 				platform.AddToWorld(physicsWorld);
 			}
 
-			foreach (var entity in this.entities)
-			{
-				entity.AddToWorld(physicsWorld);
-			}
+			//foreach (var entity in this.entities)
+			//{
+			//	entity.AddToWorld(physicsWorld);
+			//}
 
 			foreach (var spawnPoint in this.spawnPoints)
 			{
@@ -149,10 +149,10 @@ namespace Teamwork_OOP.Engine.Map
 			this.platforms.Add(platform);
 		}
 
-		public void AddEntity(Entity entity)
-		{
-			this.entities.Add(entity);
-		}
+		//public void AddEntity(Entity entity)
+		//{
+		//	this.entities.Add(entity);
+		//}
 
 		public void RemoveBlock(MapBlock block)
 		{
@@ -174,10 +174,10 @@ namespace Teamwork_OOP.Engine.Map
 			this.flags.Remove(triggerBlock);
 		}
 
-		public void RemoveEntity(Entity entity)
-		{
-			this.entities.Remove(entity);
-		}
+		//public void RemoveEntity(Entity entity)
+		//{
+		//	this.entities.Remove(entity);
+		//}
 
 		public void Update()
 		{
@@ -197,7 +197,7 @@ namespace Teamwork_OOP.Engine.Map
 			this.Background = null;
 			this.Blocks.Clear();
 			this.CheckPoints.Clear();
-			this.Entities.Clear();
+			//this.Entities.Clear();
 			this.Flags.Clear();
 			this.Platforms.Clear();
 			this.SpawnPoints.Clear();

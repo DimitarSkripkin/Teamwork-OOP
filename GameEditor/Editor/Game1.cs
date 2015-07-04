@@ -55,6 +55,8 @@ namespace MonogameTestProject.Editor
 		{
 			// TODO: Add your initialization logic here
 
+			this.IsMouseVisible = true;
+
 			base.Initialize();
 		}
 
@@ -184,13 +186,15 @@ namespace MonogameTestProject.Editor
 			this.spriteBatch.Begin();
 			if (this.sceneManager.CameraAttachedTo != null)
 			{
-				this.spriteBatch.DrawString(this.spriteFont, string.Format("Blocks: {0}\nCharacter position: {1}", this.editor.PhysicsWorld.BodyList.Count, this.sceneManager.CameraAttachedTo.CollisionHull.Position), Vector2.Zero, Color.WhiteSmoke, 0.0f, Vector2.Zero, 1.0f, SpriteEffects.None, 0.2f);
-			}
+				this.WriteText(string.Format("Blocks: {0}\nCharacter position: {1}", this.editor.PhysicsWorld.BodyList.Count, this.sceneManager.CameraAttachedTo.CollisionHull.Position), Vector2.Zero);
+				this.WriteText(string.Format("Helth: {0}", this.sceneManager.CameraAttachedTo.CurrentHealthPoints), new Vector2(0, 60));
+            }
 			else
 			{
-				this.spriteBatch.DrawString(this.spriteFont, string.Format("Blocks: {0}", this.editor.PhysicsWorld.BodyList.Count), Vector2.Zero, Color.WhiteSmoke, 0.0f, Vector2.Zero, 1.0f, SpriteEffects.None, 0.2f);
+				this.WriteText(string.Format("Blocks: {0}", this.editor.PhysicsWorld.BodyList.Count), Vector2.Zero);
 			}
-			this.spriteBatch.DrawString(this.spriteFont, string.Format("Level ended: {0}", this.sceneManager.GameState), new Vector2(0,50), Color.WhiteSmoke, 0.0f, Vector2.Zero, 1.0f, SpriteEffects.None, 0.2f);
+			this.WriteText(string.Format("Level ended: {0}", this.sceneManager.GameState), new Vector2(0, 90));
+
 			this.spriteBatch.End();
 
 			base.Draw(gameTime);
@@ -226,6 +230,11 @@ namespace MonogameTestProject.Editor
 			}
 
 			debugDraw.EndCustomDraw();
+		}
+
+		private void WriteText(string text, Vector2 position)
+		{
+			this.spriteBatch.DrawString(this.spriteFont, text, position, Color.WhiteSmoke, 0.0f, Vector2.Zero, 1.0f, SpriteEffects.None, 0.2f);
 		}
 	}
 }

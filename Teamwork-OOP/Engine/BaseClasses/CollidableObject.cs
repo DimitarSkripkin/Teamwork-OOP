@@ -3,7 +3,9 @@ using FarseerPhysics.Dynamics.Contacts;
 
 namespace Teamwork_OOP.Engine.BaseClasses
 {
-	public abstract class CollidableObject
+	using Interfaces;
+
+	public abstract class CollidableObject : IDestructable
 	{
 		//private Body collisionHull;
 
@@ -18,6 +20,5 @@ namespace Teamwork_OOP.Engine.BaseClasses
 		{
 			return true;
 		}
-
 	}
 }

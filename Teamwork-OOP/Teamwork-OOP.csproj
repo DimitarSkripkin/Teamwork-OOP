@@ -60,13 +60,13 @@
     <Compile Include="Engine\Drawing\Frame.cs" />
     <Compile Include="Engine\Drawing\TextureManager.cs" />
     <Compile Include="Engine\Drawing\TextureNode.cs" />
-    <Compile Include="Engine\Exceptions\ResourceNotFound.cs" />
     <Compile Include="Engine\Factories\AnimationFactory.cs" />
     <Compile Include="Engine\Factories\ItemFactory.cs" />
     <Compile Include="Engine\Factories\EntityFactory.cs" />
     <Compile Include="Engine\Factories\MapFactory.cs" />
     <Compile Include="Engine\Interfaces\IDestructable.cs" />
     <Compile Include="Engine\Factories\ProjectileFactory.cs" />
+    <Compile Include="Engine\Interfaces\ITimeUpdateable.cs" />
     <Compile Include="Engine\Items\DefenseItems\Boots.cs" />
     <Compile Include="Engine\Items\DefenseItems\Chest.cs" />
     <Compile Include="Engine\Items\DefenseItems\DefenseItem.cs" />
@@ -98,6 +98,7 @@
     <Compile Include="Engine\Skills\ProjectileSkill.cs" />
     <Compile Include="Engine\Skills\Skill.cs" />
     <Compile Include="Engine\BaseClasses\Projectile.cs" />
+    <Compile Include="Engine\Skills\Slash.cs" />
     <Compile Include="Engine\Skills\TargetSkill.cs" />
     <Compile Include="Engine\Interfaces\IBaseStats.cs" />
     <Compile Include="Engine\Interfaces\IMoveable.cs" />
@@ -142,12 +143,17 @@
   <ItemGroup>
     <MonoGameContentReference Include="Content\Content.mgcb" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Engine\Exceptions\" />
+  </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Farseer Physics Engine 3.5\Farseer Physics MonoGame.csproj">
       <Project>{0aad36e3-51a5-4a07-ab60-5c8a66bd38b7}</Project>
       <Name>Farseer Physics MonoGame</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="ClassDiagram1.cd" />
   </ItemGroup>
   <!-- Specify the search path explicitly so the ResolveAssemblyReferences task picks the right ones -->
   <Target Name="BeforeResolveReferences">

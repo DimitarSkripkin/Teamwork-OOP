@@ -1,0 +1,630 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="Teamwork_OOP.Engine.AI.AIpattern" Collapsed="true">
+    <Position X="66.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Engine\AI\AIpattern.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Teamwork_OOP.Engine.BaseClasses.CollidableObject" Collapsed="true">
+    <Position X="33.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAQAAAAAAAAEAAAAAAAIAAAAAAAAAI=</HashCode>
+      <FileName>Engine\BaseClasses\CollidableObject.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Teamwork_OOP.Engine.BaseClasses.Entity">
+    <Position X="39.5" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>DQWCKgiCQsCAgmAYIAAkEAAQAghAEAIgdEAAMBAhgDI=</HashCode>
+      <FileName>Engine\BaseClasses\Entity.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Teamwork_OOP.Engine.BaseClasses.Inventory" Collapsed="true">
+    <Position X="73.75" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>BACAAAAABgAAAAIAAAAAAAAAABQAAAIAAAAAACAEAAg=</HashCode>
+      <FileName>Engine\BaseClasses\Inventory.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Teamwork_OOP.Engine.BaseClasses.Projectile" Collapsed="true">
+    <Position X="64.25" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAUAgAAAAAAAAiAAAAAAAAAAAEBAAAAAIAAAgAACEAI=</HashCode>
+      <FileName>Engine\BaseClasses\Projectile.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Teamwork_OOP.Engine.Characters.CharacterClasses.Thief" Collapsed="true">
+    <Position X="46.25" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAEAAAIAAAAAAIAAAAAIAAAAQAAMAI=</HashCode>
+      <FileName>Engine\Characters\HeroClasses\Thief.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Teamwork_OOP.Engine.Characters.CharacterClasses.Warrior" Collapsed="true">
+    <Position X="48.5" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAEAAAIAAAAAAIAAAAAIAAAAQAAMAI=</HashCode>
+      <FileName>Engine\Characters\HeroClasses\Warrior.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Teamwork_OOP.Engine.Characters.CharacterClasses.Wizard" Collapsed="true">
+    <Position X="50.75" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAEAAAIAAAAAAIAAAAAIAAAAQAAMAI=</HashCode>
+      <FileName>Engine\Characters\HeroClasses\Wizard.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Teamwork_OOP.Engine.Characters.Enemies.Fishmen" Collapsed="true">
+    <Position X="41.75" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAEAAAIAAAAAAIAAAAAIAAAAQAAMAI=</HashCode>
+      <FileName>Engine\Characters\Monsters\Fishmen.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Teamwork_OOP.Engine.Characters.Enemies.Gnoll" Collapsed="true">
+    <Position X="44" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAEAAAIAAAAAAIAAAAAIAAAAQAAMAI=</HashCode>
+      <FileName>Engine\Characters\Monsters\Gnoll.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Teamwork_OOP.Engine.Characters.Enemies.Goblin" Collapsed="true">
+    <Position X="28.25" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAEAAAIAAAAAAIAAAAAIAAAAQAAMAI=</HashCode>
+      <FileName>Engine\Characters\Monsters\Goblin.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Teamwork_OOP.Engine.Characters.Enemies.Kobold" Collapsed="true">
+    <Position X="30.5" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAEAAAIAAAAAAIAAAAAIAAAAQAAMAI=</HashCode>
+      <FileName>Engine\Characters\Monsters\Kobold.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Teamwork_OOP.Engine.Characters.Enemies.Minotaur" Collapsed="true">
+    <Position X="32.75" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAEAAAIAAAAAAIAAAAAIAAAAQAAMAI=</HashCode>
+      <FileName>Engine\Characters\Monsters\Minotaur.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Teamwork_OOP.Engine.Characters.Enemies.Ogre" Collapsed="true">
+    <Position X="35" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAEAAAIAAAAAAIAAAAAIAAAAQAAMAI=</HashCode>
+      <FileName>Engine\Characters\Monsters\Ogre.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Teamwork_OOP.Engine.Characters.Enemies.Owlbear" Collapsed="true">
+    <Position X="37.25" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAEAAAIAAAAAAIAAAAAIAAAAQAAMAI=</HashCode>
+      <FileName>Engine\Characters\Monsters\Owlbear.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Teamwork_OOP.Engine.Characters.Enemies.Skeleton" Collapsed="true">
+    <Position X="39.5" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAEAAAIAAAAAAIAAAAAIAAAAQAAMAI=</HashCode>
+      <FileName>Engine\Characters\Monsters\Skeleton.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Teamwork_OOP.Engine.Characters.NonPlayerCharacter" Collapsed="true">
+    <Position X="36" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAA=</HashCode>
+      <FileName>Engine\Characters\NonPlayerCharacter.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Teamwork_OOP.Engine.Characters.PlayerCharacter" Collapsed="true">
+    <Position X="48.5" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAA=</HashCode>
+      <FileName>Engine\Characters\PlayerCharacter.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Teamwork_OOP.Engine.Drawing.AnimationSprite" Collapsed="true">
+    <Position X="70.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AACAAAAAgAAIBAEAAAYAAAACAAIAEAAQABAAAAAAABA=</HashCode>
+      <FileName>Engine\Drawing\AnimationSprite.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Teamwork_OOP.Engine.Drawing.DrawManager" Collapsed="true">
+    <Position X="68.5" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Engine\Drawing\DrawManager.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Teamwork_OOP.Engine.Drawing.TextureManager" Collapsed="true">
+    <Position X="70.25" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAEAAAAAGAgAABAAABAAgAAAACAEABAAAQCBAAAAAQ=</HashCode>
+      <FileName>Engine\Drawing\TextureManager.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Teamwork_OOP.Engine.Factories.AnimationFactory" Collapsed="true">
+    <Position X="68.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEgA=</HashCode>
+      <FileName>Engine\Factories\AnimationFactory.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Teamwork_OOP.Engine.Factories.EntityFactory" Collapsed="true">
+    <Position X="70.25" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAgQAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Engine\Factories\EntityFactory.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Teamwork_OOP.Engine.Factories.ItemFactory" Collapsed="true">
+    <Position X="66.75" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AgAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAQAAAIAAAA=</HashCode>
+      <FileName>Engine\Factories\ItemFactory.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Teamwork_OOP.Engine.Factories.MapFactory" Collapsed="true">
+    <Position X="70.25" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AACAAAAAkAQAAAAAABAAAAgAAAAQAAgAQAEAAAAAhAA=</HashCode>
+      <FileName>Engine\Factories\MapFactory.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Teamwork_OOP.Engine.Factories.ProjectileFactory" Collapsed="true">
+    <Position X="66.75" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAEAAAAAAA=</HashCode>
+      <FileName>Engine\Factories\ProjectileFactory.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Teamwork_OOP.Engine.Items.Boots" Collapsed="true">
+    <Position X="19.25" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AIQAAAAAAAIAAAAAIAAAAAAAAEAAQAAAAAQAAAAAIAA=</HashCode>
+      <FileName>Engine\Items\DefenseItems\Boots.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Teamwork_OOP.Engine.Items.Chest" Collapsed="true">
+    <Position X="21.5" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAgBABAAAEAAAAAAAAAACAAAAAIAAAAAIAAAAAAEAA=</HashCode>
+      <FileName>Engine\Items\DefenseItems\Chest.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Teamwork_OOP.Engine.Items.DefenseItem" Collapsed="true">
+    <Position X="21.5" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Engine\Items\DefenseItems\DefenseItem.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Teamwork_OOP.Engine.Items.Gloves" Collapsed="true">
+    <Position X="23.75" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAEABgAAAABAAAAEABAAAAAAAAAKAAIAAAAgA=</HashCode>
+      <FileName>Engine\Items\DefenseItems\Gloves.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Teamwork_OOP.Engine.Items.Helm" Collapsed="true">
+    <Position X="26" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAACAACAAAABQAAEAAAAAJAAAAAACAAAAAAAAAAA=</HashCode>
+      <FileName>Engine\Items\DefenseItems\Helm.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Teamwork_OOP.Engine.Items.Pants" Collapsed="true">
+    <Position X="17" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>BAAAAAAAAiAAAFAAAQAAAAAAAAAAAAAAAAAAABAAAIA=</HashCode>
+      <FileName>Engine\Items\DefenseItems\Pants.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Teamwork_OOP.Engine.Items.Item" Collapsed="true">
+    <Position X="14.75" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAGACAiAQAAAACAAAAAAAAAAEghAEAIAFAAAEAAAACI=</HashCode>
+      <FileName>Engine\Items\Item.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Teamwork_OOP.Engine.Items.Axe" Collapsed="true">
+    <Position X="3.5" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAACAAAQAAAIAAAQAAAAAAAAAAAAAAAAAggAAAE=</HashCode>
+      <FileName>Engine\Items\MeleeWeapons\Axe.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Teamwork_OOP.Engine.Items.BigAxe" Collapsed="true">
+    <Position X="5.75" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ACAAAAACAAAQAAAAAAAQAAAAAAAAAAAAAAAAAggAAAE=</HashCode>
+      <FileName>Engine\Items\MeleeWeapons\BigAxe.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Teamwork_OOP.Engine.Items.Club" Collapsed="true">
+    <Position X="8" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAAAAQAAAACAAAAAAAAAAAIAAAAAAAAgAAAAA=</HashCode>
+      <FileName>Engine\Items\MeleeWeapons\Club.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Teamwork_OOP.Engine.Items.DoubleAxe" Collapsed="true">
+    <Position X="10.25" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAACAAAQAAAAAAAQAAACAAAAAAAAAAAAAggAAAE=</HashCode>
+      <FileName>Engine\Items\MeleeWeapons\DoubleAxe.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Teamwork_OOP.Engine.Items.MeleeWeapon" Collapsed="true">
+    <Position X="9" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Engine\Items\MeleeWeapons\MeleeWeapon.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Teamwork_OOP.Engine.Items.Sword" Collapsed="true">
+    <Position X="12.5" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAgAAAAAAQAQAAAAAAAAAAAAAAAIAAAAEAAgAAAIA=</HashCode>
+      <FileName>Engine\Items\MeleeWeapons\Sword.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Teamwork_OOP.Engine.Items.TigerClaws" Collapsed="true">
+    <Position X="14.75" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAABIAAAAQAAAAAAAAIAAAAAAAAEAAAAEAAAAAAAAAA=</HashCode>
+      <FileName>Engine\Items\MeleeWeapons\TigerClaws.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Teamwork_OOP.Engine.Map.MapBlock" Collapsed="true">
+    <Position X="62" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAgAAAAIAAAAAAAAAAAAAAAAAAAAAAAAI=</HashCode>
+      <FileName>Engine\Map\MapBlock.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Teamwork_OOP.Engine.Map.MapCheckPoint" Collapsed="true">
+    <Position X="53" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Engine\Map\MapCheckPoint.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Teamwork_OOP.Engine.Map.MapEndOfLevel" Collapsed="true">
+    <Position X="55.25" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAIAAAAAAAAAI=</HashCode>
+      <FileName>Engine\Map\MapEndOfLevel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Teamwork_OOP.Engine.Map.MapFlagBlock" Collapsed="true">
+    <Position X="62" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAI=</HashCode>
+      <FileName>Engine\Map\MapFlagBlock.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Teamwork_OOP.Engine.Map.MapItem" Collapsed="true">
+    <Position X="57.5" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAgAAAAAAAAAAAAAAAAAAAABAAAAAI=</HashCode>
+      <FileName>Engine\Map\MapItem.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Teamwork_OOP.Engine.Map.MapManager" Collapsed="true">
+    <Position X="72" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQGDAgAQQAAAEAAADABAAAAAAASQYAACoFgAAhAhAQ=</HashCode>
+      <FileName>Engine\Map\MapManager.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Teamwork_OOP.Engine.Map.MapPlatform" Collapsed="true">
+    <Position X="57.5" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAIABQAAAAAAAAAAAAAAAAAAAAAAIIAAAAAI=</HashCode>
+      <FileName>Engine\Map\MapPlatform.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Teamwork_OOP.Engine.Map.MapSpawnPoint" Collapsed="true">
+    <Position X="59.75" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AARQAAAAQAAAAAAAAIEAAAABAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Engine\Map\MapSpawnPoint.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Teamwork_OOP.Engine.Physics.AABB" Collapsed="true">
+    <Position X="0.5" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAEAAAABAQAAAAEAAAAAAAAAAEAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Engine\Physics\AABB.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Teamwork_OOP.Engine.Physics.Circle" Collapsed="true">
+    <Position X="2.75" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAIAAAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Engine\Physics\Circle.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Teamwork_OOP.Engine.Physics.CollisionChecker" Collapsed="true">
+    <Position X="72" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAIAAAAAAAAAAAAhABAAAAAAEAAAAAAgA=</HashCode>
+      <FileName>Engine\Physics\CollisionChecker.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Teamwork_OOP.Engine.Physics.CollisionEventArgs" Collapsed="true">
+    <Position X="73.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Engine\Physics\CollisionEvent.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Teamwork_OOP.Engine.Physics.CollisionShape" Collapsed="true">
+    <Position X="1.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>BAAAAAAIAAAAAAAgAAAAIEAAAAAAAAAgAAQAAAAEAAA=</HashCode>
+      <FileName>Engine\Physics\CollisionShape.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Teamwork_OOP.Engine.Physics.DistanceChecker" Collapsed="true">
+    <Position X="66.75" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAEBAAAAAIAAAAAAAAAAAAIAAAAIAAAAAAAAAABABAA=</HashCode>
+      <FileName>Engine\Physics\DistanceChecker.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Teamwork_OOP.Engine.Physics.PhysicsEngine" Collapsed="true">
+    <Position X="73.75" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAgAAAAIAAAAAAAAAAAAgAAAAAAEBAAAAABAAAA=</HashCode>
+      <FileName>Engine\Physics\PhysicsEngine.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Teamwork_OOP.Engine.SceneManager" Collapsed="true">
+    <Position X="68.5" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAAACBAgAABYACQAQEABQkAAABQCACAABAICA=</HashCode>
+      <FileName>Engine\SceneManager.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Teamwork_OOP.Engine.Skills.Block" Collapsed="true">
+    <Position X="21.75" Y="9.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AACAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAgAAAAAAA=</HashCode>
+      <FileName>Engine\Skills\Block.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Teamwork_OOP.Engine.Skills.Attack" Collapsed="true">
+    <Position X="12.75" Y="9.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAEAAAQAAAAAAAAAAAAAAAABEAAAAAA=</HashCode>
+      <FileName>Engine\Skills\CharacterAttacks\Attack.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Teamwork_OOP.Engine.Skills.WarriorAttack" Collapsed="true">
+    <Position X="10.5" Y="10.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Engine\Skills\CharacterAttacks\WarriorAttack.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Teamwork_OOP.Engine.Skills.Dash" Collapsed="true">
+    <Position X="17.25" Y="9.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAACAAAAQAAAAAAAAAAAAACAAAAAAAAAA=</HashCode>
+      <FileName>Engine\Skills\Dash.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Teamwork_OOP.Engine.Skills.Fireball" Collapsed="true">
+    <Position X="1.5" Y="9.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAgAQgAAAAAgAAAAAAgAAAAAAAAAA=</HashCode>
+      <FileName>Engine\Skills\Fireball.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Teamwork_OOP.Engine.Skills.Kick" Collapsed="true">
+    <Position X="19.5" Y="9.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAQAAAAAAAAAAAQAAAAAAAAAAAACAAAAEAAAAAA=</HashCode>
+      <FileName>Engine\Skills\Kick.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Teamwork_OOP.Engine.Skills.KnifeThrow" Collapsed="true">
+    <Position X="3.75" Y="9.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAIAAAQAAAQAAAAAAAAAAAAACAAAAAAAAAA=</HashCode>
+      <FileName>Engine\Skills\KnifeThrow.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Teamwork_OOP.Engine.Skills.Nova" Collapsed="true">
+    <Position X="6" Y="9.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAEAAAAAAAAAAAAAAQAEAAAAgAQAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Engine\Skills\Nova.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Teamwork_OOP.Engine.Skills.ProjectileSkill" Collapsed="true">
+    <Position X="8.25" Y="7.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAABAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Engine\Skills\ProjectileSkill.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Teamwork_OOP.Engine.Skills.Skill" Collapsed="true">
+    <Position X="11.5" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAUQAAAAIAAAAiBAEAQAAAAAAAAAAAABIAAAAAACEAA=</HashCode>
+      <FileName>Engine\Skills\Skill.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Teamwork_OOP.Engine.Skills.Slash" Collapsed="true">
+    <Position X="8.25" Y="9.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAIAAAQAAAAAAEAAAAAAAAAAEAAAAAA=</HashCode>
+      <FileName>Engine\Skills\Slash.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Teamwork_OOP.Engine.Skills.TargetSkill" Collapsed="true">
+    <Position X="19.5" Y="7.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Engine\Skills\TargetSkill.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Teamwork_OOP.Engine.Skills.CharacterAttacks.ThiefAttack" Collapsed="true">
+    <Position X="12.75" Y="10.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Engine\Skills\CharacterAttacks\ThiefAttack.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Teamwork_OOP.Engine.Skills.CharacterAttacks.WizardAttack" Collapsed="true">
+    <Position X="15" Y="10.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Engine\Skills\CharacterAttacks\WizardAttack.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Teamwork_OOP.Engine.UI.Button" Collapsed="true">
+    <Position X="0.5" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Engine\UI\Button.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Teamwork_OOP.Engine.UI.UIItem" Collapsed="true">
+    <Position X="0.5" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAIAAAAAAEAEgAAAAAAQCAAAAAAAAAAAABAAAIQA=</HashCode>
+      <FileName>Engine\UI\UIItem.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Teamwork_OOP.Engine.UI.UIManager" Collapsed="true">
+    <Position X="72" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAABAAAwEQAAAAAAAAAAAkAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Engine\UI\UIManager.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Teamwork_OOP.Engine.UI.UIMenu" Collapsed="true">
+    <Position X="73.75" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAGwAAAAgAAAAAAAAAAAAgAAAAAIAAAAA=</HashCode>
+      <FileName>Engine\UI\UIMenu.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Teamwork_OOP.Game1" Collapsed="true">
+    <Position X="72" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAkEAAAAAmA4AAAAAAAgAgAQAAEAgAAAAABAAAAAQ=</HashCode>
+      <FileName>Game1.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Teamwork_OOP.MainEntry" Collapsed="true">
+    <Position X="68.5" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAA=</HashCode>
+      <FileName>MainEntry.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Struct Name="Teamwork_OOP.Engine.Drawing.Frame" Collapsed="true">
+    <Position X="66.75" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAAAEAAAAg=</HashCode>
+      <FileName>Engine\Drawing\Frame.cs</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="Teamwork_OOP.Engine.Drawing.TextureNode" Collapsed="true">
+    <Position X="68.5" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAIAAAQCAAAABAAAAAIAAAAAAAA=</HashCode>
+      <FileName>Engine\Drawing\TextureNode.cs</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Interface Name="Teamwork_OOP.Engine.Interfaces.IBaseStats" Collapsed="true">
+    <Position X="66.75" Y="6" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAiAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAACA=</HashCode>
+      <FileName>Engine\Interfaces\IBaseStats.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Teamwork_OOP.Engine.Interfaces.IDestructable" Collapsed="true">
+    <Position X="68.5" Y="6" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Engine\Interfaces\IDestructable.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Teamwork_OOP.Engine.Interfaces.IMoveable" Collapsed="true">
+    <Position X="70.25" Y="6" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAoAAAAAgAAAAAAAAAAAAAAAAAAAAAAgAAAA=</HashCode>
+      <FileName>Engine\Interfaces\IMoveable.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Teamwork_OOP.Engine.Interfaces.ISecondaryStats" Collapsed="true">
+    <Position X="72" Y="6" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAGACAAAQAAAACAAAAAAAAAAAggAEAIAFAAAEAAAAAA=</HashCode>
+      <FileName>Engine\Interfaces\ISecondaryStats.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Teamwork_OOP.Engine.Interfaces.ISkillEffects" Collapsed="true">
+    <Position X="73.75" Y="6" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Engine\Interfaces\ISkillEffects.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Teamwork_OOP.Engine.Interfaces.ITimeUpdateable" Collapsed="true">
+    <Position X="66.75" Y="6.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Engine\Interfaces\ITimeUpdateable.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Enum Name="Teamwork_OOP.Engine.Drawing.AnimationType" Collapsed="true">
+    <Position X="66.75" Y="7.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAABAAoAAAAAAAAAAAAAAAIAAAAAgAAAAAAAAAAI=</HashCode>
+      <FileName>Engine\Drawing\AnimationSprite.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="Teamwork_OOP.Engine.Physics.CollisionObjectFlags" Collapsed="true">
+    <Position X="68.5" Y="7.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAIAAAAAAAAABAAAAAAAAAAAAAAAEAAAAAAAAAAA=</HashCode>
+      <FileName>Engine\Physics\CollisionShape.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="Teamwork_OOP.Engine.GameState" Collapsed="true">
+    <Position X="70.25" Y="7.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAACAAAQAAAAAAAAAAAAAAAAAACAAAAAAAAQAAAAA=</HashCode>
+      <FileName>Engine\SceneManager.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Delegate Name="Teamwork_OOP.Engine.Physics.CollisionEventHandler" Collapsed="true">
+    <Position X="66.75" Y="8.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAA=</HashCode>
+      <FileName>Engine\Physics\CollisionEvent.cs</FileName>
+    </TypeIdentifier>
+  </Delegate>
+  <Delegate Name="Teamwork_OOP.Engine.UI.OnClickEventHandler" Collapsed="true">
+    <Position X="68.5" Y="8.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Engine\UI\UIItem.cs</FileName>
+    </TypeIdentifier>
+  </Delegate>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

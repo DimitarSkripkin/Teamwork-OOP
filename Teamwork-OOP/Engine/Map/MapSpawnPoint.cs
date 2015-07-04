@@ -15,7 +15,7 @@ namespace Teamwork_OOP.Engine.Map
 
 	public class MapSpawnPoint : MapItem
 	{
-		private int MaxSpawnedMonstersCount = 1;
+		private int MaxSpawnedMonstersCount = 2;
 		private float SpawnMonsterTime = 5.0f;
 
 		private List<NonPlayerCharacter> monsters;
@@ -38,6 +38,13 @@ namespace Teamwork_OOP.Engine.Map
 
 		public bool Spawn { get; private set; }
 
+		public override void AddToWorld(World physicsWorld)
+		{
+			base.AddToWorld(physicsWorld);
+
+			base.CollisionHull.Enabled = false;
+		}
+
 		public void Update(float deltaTime)
 		{
 			this.Spawn = false;
@@ -54,6 +61,15 @@ namespace Teamwork_OOP.Engine.Map
 				}
 
 				this.TimeToNextSpawn = 0.0f;
+			}
+
+			for (int i = 0; i < this.monsters.Count; ++i)
+			{
+				if (this.monsters[i].ToDestroy)
+				{
+					this.monsters.Remove(this.monsters[i]);
+					--i;
+				}
 			}
 		}
 	}

@@ -1,7 +1,7 @@
-﻿using Teamwork_OOP.Engine.BaseClasses;
-
-namespace Teamwork_OOP.Engine.Skills
+﻿namespace Teamwork_OOP.Engine.Skills
 {
+	using BaseClasses;
+
     public class Kick : TargetSkill
     {
         private const float KickCoolown = 4.0f;

@@ -105,6 +105,12 @@ namespace Teamwork_OOP
 			//this.sceneManager.Clear();
 		}
 
+		public void DefeatMenu()
+		{
+			this.isInGame = false;
+			this.mainMenu.IsVisible = true;
+		}
+
 		/// <summary>
 		/// UnloadContent will be called once per game and is the place to unload
 		/// game-specific content.
@@ -131,6 +137,8 @@ namespace Teamwork_OOP
 			TimeSpan timeSpan = gameTime.ElapsedGameTime;
 			float deltaTime = (float)(timeSpan.TotalMilliseconds / 1000.0f);
 
+			//this.isInGame = (this.sceneManager.GameState == GameState.InGame && this.sceneManager.GameState != GameState.NotInGame);
+
 			if (this.IsActive)
 			{
 				KeyboardState keyboardState = Keyboard.GetState();
@@ -153,6 +161,10 @@ namespace Teamwork_OOP
 			if (this.sceneManager.GameState == GameState.FinishedVictory)
 			{
 				VictoryMenu();
+			}
+			else if (this.sceneManager.GameState == GameState.FinishedDefeat)
+			{
+				DefeatMenu();
 			}
 
 			base.Update(gameTime);

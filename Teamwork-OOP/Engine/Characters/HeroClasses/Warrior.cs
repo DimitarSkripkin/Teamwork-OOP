@@ -35,7 +35,7 @@ namespace Teamwork_OOP.Engine.Characters.CharacterClasses
 			AttackSpeedBase, SpellCastingSpeedBase, MovementSpeedBase, 0, 0,
 			0, 0, 0)
 		{
-			this.Attack = new WarriorAttack(this);
+			this.BasicAttack = new WarriorAttack(this);
 			this.SpecialSkill_0 = new Fireball(this);
 			this.SpecialSkill_1 = new KnifeThrow(this);
 		}

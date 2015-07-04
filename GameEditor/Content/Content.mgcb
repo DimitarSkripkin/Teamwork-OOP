@@ -13,7 +13,7 @@
 
 #---------------------------------- Content ---------------------------------#
 
-#begin Textures/Blocks/Blocks.png
+#begin Textures\Blocks\Blocks.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -22,9 +22,9 @@
 /processorParam:PremultiplyAlpha=True
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:TextureFormat=Color
-/build:Textures/Blocks/Blocks.png
+/build:Textures\Blocks\Blocks.png
 
-#begin Textures/MouseCursors/mouseCursors.png
+#begin Textures\Blocks\Platforms.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -33,13 +33,40 @@
 /processorParam:PremultiplyAlpha=True
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:TextureFormat=Color
-/build:Textures/MouseCursors/mouseCursors.png
+/build:Textures\Blocks\Platforms.png
 
-#begin Font/Font.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:TextureFormat=Compressed
-/build:Font/Font.spritefont
+#begin Textures\Blocks\Triggers.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:TextureFormat=Color
+/build:Textures\Blocks\Triggers.png
+
+#begin Textures\MouseCursors\mouseCursors.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:TextureFormat=Color
+/build:Textures\MouseCursors\mouseCursors.png
+
+#begin Backgrounds\0a.jpg
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:TextureFormat=Color
+/build:Backgrounds\0a.jpg
 
 #begin Backgrounds\1a.jpg
 /importer:TextureImporter
@@ -96,7 +123,7 @@
 /processorParam:TextureFormat=Color
 /build:Backgrounds\5a.png
 
-#begin Backgrounds\0a.jpg
+#begin Textures/MenuItems/Buttons1.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -105,9 +132,9 @@
 /processorParam:PremultiplyAlpha=True
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:TextureFormat=Color
-/build:Backgrounds\0a.jpg
+/build:Textures/MenuItems/Buttons1.png
 
-#begin Textures/Blocks/Platforms.png
+#begin Textures/MenuItems/MenuBackground0.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -116,38 +143,7 @@
 /processorParam:PremultiplyAlpha=True
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:TextureFormat=Color
-/build:Textures/Blocks/Platforms.png
-
-#begin Textures/Blocks/Triggers.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:TextureFormat=Color
-/build:Textures/Blocks/Triggers.png
-
-#begin Characters/IDLE.txt
-/copy:Characters/IDLE.txt
-
-#begin Characters/JUMP.txt
-/copy:Characters/JUMP.txt
-
-#begin Characters/RUN.txt
-/copy:Characters/RUN.txt
-
-#begin Characters/warrior.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:TextureFormat=Color
-/build:Characters/warrior.png
+/build:Textures/MenuItems/MenuBackground0.png
 
 #begin Textures/Blocks/ImportantPoints.png
 /importer:TextureImporter
@@ -159,4 +155,166 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:TextureFormat=Color
 /build:Textures/Blocks/ImportantPoints.png
+
+#begin Characters/Heroes/Warrior/ATTACK.txt
+/copy:Characters/Heroes/Warrior/ATTACK.txt
+
+#begin Characters/Heroes/Warrior/BLOCK.txt
+/copy:Characters/Heroes/Warrior/BLOCK.txt
+
+#begin Characters/Heroes/Warrior/DEATH.txt
+/copy:Characters/Heroes/Warrior/DEATH.txt
+
+#begin Characters/Heroes/Warrior/IDLE.txt
+/copy:Characters/Heroes/Warrior/IDLE.txt
+
+#begin Characters/Heroes/Warrior/JUMP.txt
+/copy:Characters/Heroes/Warrior/JUMP.txt
+
+#begin Characters/Heroes/Warrior/RUN.txt
+/copy:Characters/Heroes/Warrior/RUN.txt
+
+#begin Characters/Heroes/Warrior/SPECIAL_SKILL_0.txt
+/copy:Characters/Heroes/Warrior/SPECIAL_SKILL_0.txt
+
+#begin Characters/Heroes/Warrior/SPECIAL_SKILL_1.txt
+/copy:Characters/Heroes/Warrior/SPECIAL_SKILL_1.txt
+
+#begin Characters/Heroes/Warrior/warrior.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:TextureFormat=Color
+/build:Characters/Heroes/Warrior/warrior.png
+
+#begin Characters/Monsters/Kobold/ATTACK.txt
+/copy:Characters/Monsters/Kobold/ATTACK.txt
+
+#begin Characters/Monsters/Kobold/IDLE.txt
+/copy:Characters/Monsters/Kobold/IDLE.txt
+
+#begin Characters/Monsters/Kobold/JUMP.txt
+/copy:Characters/Monsters/Kobold/JUMP.txt
+
+#begin Characters/Monsters/Kobold/RUN.txt
+/copy:Characters/Monsters/Kobold/RUN.txt
+
+#begin Characters/Monsters/Minotaur/ATTACK.txt
+/copy:Characters/Monsters/Minotaur/ATTACK.txt
+
+#begin Characters/Monsters/Minotaur/IDLE.txt
+/copy:Characters/Monsters/Minotaur/IDLE.txt
+
+#begin Characters/Monsters/Minotaur/JUMP.txt
+/copy:Characters/Monsters/Minotaur/JUMP.txt
+
+#begin Characters/Monsters/Minotaur/RUN.txt
+/copy:Characters/Monsters/Minotaur/RUN.txt
+
+#begin Skills/Projectiles/fireball.jpg
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:TextureFormat=Color
+/build:Skills/Projectiles/fireball.jpg
+
+#begin Skills/Projectiles/FIREBALL.txt
+/copy:Skills/Projectiles/FIREBALL.txt
+
+#begin Characters/Heroes/Warrior/all animations.txt
+/copy:Characters/Heroes/Warrior/all animations.txt
+
+#begin Characters/Monsters/Kobold/Kobold.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:TextureFormat=Color
+/build:Characters/Monsters/Kobold/Kobold.png
+
+#begin Characters/Monsters/Minotaur/Minotaur.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:TextureFormat=Color
+/build:Characters/Monsters/Minotaur/Minotaur.png
+
+#begin Textures\Blocks\ImportantPoints.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:TextureFormat=Color
+/build:Textures\Blocks\ImportantPoints.png
+
+#begin Textures\Blocks\sdadada.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:TextureFormat=Color
+/build:Textures\Blocks\sdadada.png
+
+#begin Textures\Blocks\Triggers - Копие.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:TextureFormat=Color
+/build:Textures\Blocks\Triggers - Копие.png
+
+#begin Textures\MenuItems\Buttons1.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:TextureFormat=Color
+/build:Textures\MenuItems\Buttons1.png
+
+#begin Textures\MenuItems\MenuBackground0.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:TextureFormat=Color
+/build:Textures\MenuItems\MenuBackground0.png
+
+#begin Font/Font.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:TextureFormat=Compressed
+/build:Font/Font.spritefont
+
+#begin Characters/Monsters/Minotaur/DEATH.txt
+/copy:Characters/Monsters/Minotaur/DEATH.txt
 

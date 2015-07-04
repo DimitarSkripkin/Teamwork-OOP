@@ -15,7 +15,9 @@ namespace Teamwork_OOP.Engine.Skills
 
 		public override void ApplySkillEffect(Entity target)
 		{
-			base.ApplySkillEffect(target);
+			//base.ApplySkillEffect(target);
+
+			target.CurrentHealthPoints -= target.Armor - this.UsedFrom.AttackDamage;
 		}
 	}
 }
