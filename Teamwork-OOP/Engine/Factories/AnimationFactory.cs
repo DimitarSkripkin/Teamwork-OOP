@@ -41,7 +41,7 @@ namespace Teamwork_OOP.Engine.Factories
 			}
 		}
 
-		public static void LoadFromFile(ref AnimationSprite animation, float timePerFrame, string filePath, bool dontHandleExeptions)
+		public static void LoadFromFile(ref AnimationSprite animation, float timePerFrame, string filePath, bool handleExeptions)
 		{
 			try
 			{
@@ -51,7 +51,7 @@ namespace Teamwork_OOP.Engine.Factories
 
 					string input = sr.ReadLine();
 
-					while (!String.IsNullOrEmpty(input))
+					while (!string.IsNullOrEmpty(input))
 					{
 						var inputArray = input.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
 						animation.FrameList.Add(new Frame(
@@ -67,7 +67,7 @@ namespace Teamwork_OOP.Engine.Factories
 			}
 			catch (FileNotFoundException)
 			{
-				if (dontHandleExeptions)
+				if (handleExeptions)
 				{
 					throw;
 				}

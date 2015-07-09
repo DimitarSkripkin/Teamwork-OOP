@@ -52,6 +52,7 @@ namespace Teamwork_OOP.Engine.BaseClasses
 
 		//private bool isAlive;
 		private bool isAttacking;
+		private bool inTheAir;
 
 		protected Entity(int strength, int dexterity, int intelligence, int vitality,
 			int attackDamage, int spellDamage,
@@ -81,8 +82,6 @@ namespace Teamwork_OOP.Engine.BaseClasses
 			this.CriticalDamage = criticalDamage;
 
 			this.animations = new Dictionary<string, AnimationSprite>();
-			//this.animations = new Dictionary<string, AnimationSprite>();
-			//this.CollisionHull.CollisionHandler += CollisionCallBack;
 
 			this.CurrentHealthPoints = this.HealthPoints;
 		}
@@ -359,12 +358,21 @@ namespace Teamwork_OOP.Engine.BaseClasses
 			this.isAttacking = false;
 		}
 
-		public virtual void UpdateCooldowns()
+		public virtual void UpdateCooldowns(float deltaTime)
 		{
-			//todo
+			if (this.BasicAttack != null)
+			{
+				this.BasicAttack.Update(deltaTime);
+			}
+			if (this.SpecialSkill_0 != null)
+			{
+				this.SpecialSkill_0.Update(deltaTime);
+			}
+			if (this.SpecialSkill_1 != null)
+			{
+				this.SpecialSkill_1.Update(deltaTime);
+			}
 		}
-
-		bool inTheAir;
 
 		public void Update(float deltaTime)
 		{
@@ -412,18 +420,7 @@ namespace Teamwork_OOP.Engine.BaseClasses
 				}
 			}
 
-			if (this.BasicAttack != null)
-			{
-				this.BasicAttack.Update(deltaTime);
-			}
-			if (this.SpecialSkill_0 != null)
-			{
-				this.SpecialSkill_0.Update(deltaTime);
-			}
-			if (this.SpecialSkill_1 != null)
-			{
-				this.SpecialSkill_1.Update(deltaTime);
-			}
+			UpdateCooldowns(deltaTime);
 		}
 
 		public void Move(Vector2 impulse)

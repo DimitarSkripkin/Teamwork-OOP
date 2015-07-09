@@ -39,7 +39,7 @@ namespace Teamwork_OOP.Engine.Factories
 			animationSprite2.Sprite = texture;
 			try
 			{
-				AnimationFactory.LoadFromFile(ref animationSprite2, 0.1f, "Content/" + filePath + "/" + animationName + ".txt", true);
+				AnimationFactory.LoadFromFile(ref animationSprite2, 0.1f, "Content/" + filePath + "/" + animationName + ".txt", false);
 				entity.Animations[animationName] = animationSprite2.Clone();
 			}
 			catch (FileNotFoundException)
